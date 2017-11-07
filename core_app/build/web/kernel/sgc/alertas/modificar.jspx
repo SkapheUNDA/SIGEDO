@@ -1,0 +1,212 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{alertas.cargarDatosModificar}" />
+		</f:metadata>
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.administrarAlertasTitulo} - Modificar"></h:outputText>
+				</f:facet>
+				
+				<h:inputHidden value="#{alertas.idAlerta}" />
+				<h:inputHidden value="#{alertas.alertaSeleccionada.altCodigo}" />
+				
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="3">
+
+						<f:facet name="header"></f:facet>
+
+						<h:outputLabel value="#{msg.administrarAlertasDescripcion}"
+							for="descripcion" style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{alertas.alertaSeleccionada.altDescripcion}"
+							required="true" id="descripcion" />
+
+						<h:outputLabel for="listaFormatosOrigen" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnFormatoOrigen}" />
+						<h:outputText value="*" style="color : red" />
+						<h:selectOneMenu id="listaFormatosOrigen" required="true"
+							valueChangeListener="#{alertas.cargarDependientesOrigen}"
+							value="#{alertas.formatoOrigenSeleccionado}">
+							<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{alertas.listaFormatosAdicionarOrigen}" />
+							<a4j:ajax event="valueChange"
+								render="segundoO, terceroO, cuartoO" execute="@this" />
+						</h:selectOneMenu>
+
+
+						<h:outputLabel for="listaCorteOrigen" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnCorteInicial}" />
+						<h:outputText value="*" style="color : red" />
+						<a4j:outputPanel id="segundoO" layout="block">
+							<h:selectOneMenu id="listaCorteOrigen" required="true"
+								value="#{alertas.fechaCorteInicialSeleccionada}">
+								<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+								<f:selectItems value="#{alertas.listaCortesOrigen}"></f:selectItems>
+							</h:selectOneMenu>
+						</a4j:outputPanel>
+
+
+						<h:outputLabel for="posicionOrigen" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnPosicionCampoFiltroOrigen}" />
+						<h:outputText value="*" style="color : red" />
+						<a4j:outputPanel id="terceroO" layout="block">
+							<h:selectOneMenu id="posicionOrigen" required="true"
+								value="#{alertas.posicionCampoFiltroOrigen}">
+								<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+								<f:selectItems value="#{alertas.listaPosicionCampoFiltroOrigen}"></f:selectItems>
+							</h:selectOneMenu>
+						</a4j:outputPanel>
+
+
+						<h:outputLabel for="campoValorOrigen" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnCampoValorOrigen}" />
+						<h:outputText value="*" style="color : red" />
+						<a4j:outputPanel id="cuartoO" layout="block">
+							<h:selectOneMenu id="campoValorOrigen" required="true"
+								value="#{alertas.campoValorOrigen}">
+								<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+								<f:selectItems value="#{alertas.listaCampoValorOrigen}"></f:selectItems>
+							</h:selectOneMenu>
+						</a4j:outputPanel>
+
+						<h:outputLabel for="valorFiltroOrigen" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnValorFiltroOrigen}" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{alertas.alertaSeleccionada.altFiltroO}"
+							id="valorFiltroOrigen" required="true">
+							<f:convertNumber maxIntegerDigits="4" />
+						</h:inputText>
+
+
+						<h:outputLabel for="operadorSeleccionado" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnOperador}" />
+						<h:outputText value="*" style="color : red" />
+						<h:selectOneMenu id="operadorSeleccionado" required="true"
+							value="#{alertas.operadorSeleccionado}">
+							<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+							<f:selectItems value="#{alertas.listaOperadores}"></f:selectItems>
+						</h:selectOneMenu>
+
+						<h:outputLabel value="#{msg.administrarAlertasValorConstante}"
+							for="valorConstante" style="text-align:right" />
+						<h:outputText value="" />
+						<h:inputText
+							value="#{alertas.alertaSeleccionada.altValorConstante}"
+							id="valorConstante"
+							valueChangeListener="#{alertas.validarCampoConstante}">
+							<a4j:ajax event="valueChange"
+								render="primeroD, segundoD, terceroD, cuartoD, quintoD"
+								execute="@this" />
+						</h:inputText>
+
+						<h:outputLabel for="listaFormatosDestino" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnFormatoDestino}" />
+						<h:outputText value="" />
+						<a4j:outputPanel id="primeroD" layout="block">
+							<h:selectOneMenu id="listaFormatosDestino"
+								disabled="#{alertas.valorConstanteAsignado}"
+								value="#{alertas.alertaSeleccionada.forCodigoD}"
+								valueChangeListener="#{alertas.cargarDependientesDestino}">
+								<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+								<f:selectItems value="#{alertas.listaFormatosAdicionarDestino}"></f:selectItems>
+								<a4j:ajax event="valueChange"
+									render="segundoD, terceroD, cuartoD" execute="@this" />
+							</h:selectOneMenu>
+						</a4j:outputPanel>
+
+						<h:outputLabel for="listaCorteDestino" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnCorteDestino}" />
+						<h:outputText value="" />
+						<a4j:outputPanel id="segundoD" layout="block">
+							<h:selectOneMenu id="listaCorteDestino"
+								disabled="#{alertas.valorConstanteAsignado}"
+								value="#{alertas.alertaSeleccionada.fcrCodigoD}">
+								<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+								<f:selectItems value="#{alertas.listaCortesDestino}"></f:selectItems>
+							</h:selectOneMenu>
+						</a4j:outputPanel>
+
+
+						<h:outputLabel for="posicionDestino" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnPosicionCampoFiltroDestino}" />
+						<h:outputText value="" />
+						<a4j:outputPanel id="terceroD" layout="block">
+							<h:selectOneMenu id="posicionDestino"
+								disabled="#{alertas.valorConstanteAsignado}"
+								value="#{alertas.alertaSeleccionada.detCodigoD}">
+								<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+								<f:selectItems
+									value="#{alertas.listaPosicionCampoFiltroDestino}"></f:selectItems>
+							</h:selectOneMenu>
+						</a4j:outputPanel>
+
+						<h:outputLabel for="campoValorDestino" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnCampoValorDestino}" />
+						<h:outputText value="" />
+						<a4j:outputPanel id="cuartoD" layout="block">
+							<h:selectOneMenu id="campoValorDestino"
+								disabled="#{alertas.valorConstanteAsignado}"
+								value="#{alertas.alertaSeleccionada.detCodigoValorD}">
+								<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+								<f:selectItems value="#{alertas.listaCampoValorDestino}"></f:selectItems>
+							</h:selectOneMenu>
+						</a4j:outputPanel>
+
+						<h:outputLabel for="valorFiltroDestino" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnValorFiltroDestino}" />
+						<h:outputText value="" />
+						<a4j:outputPanel id="quintoD" layout="block">
+							<h:inputText value="#{alertas.alertaSeleccionada.altFiltroD}"
+								disabled="#{alertas.valorConstanteAsignado}"
+								id="valorFiltroDestino">
+								<f:convertNumber maxIntegerDigits="4" />
+							</h:inputText>
+						</a4j:outputPanel>
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" width="50%" style="text-align: center;">
+						<h:commandButton value="#{msg.administrarAlertasButtonActualizar}"
+							action="#{alertas.actualizar}"
+							onclick="if (!confirm('#{msg.confirmacionActualizarRegistro}')) return false">
+						</h:commandButton>
+
+						<h:commandButton value="#{msg.administrarAlertasButtonCancelar}"
+							action="#{alertas.cancelar}" immediate="true">
+						</h:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:panel>
+
+			<t:saveState value="#{alertas.alertaSeleccionada}"></t:saveState>
+			<t:saveState value="#{alertas.descripcionAlerta}"></t:saveState>
+			<t:saveState value="#{alertas.valorConstanteAsignado}"></t:saveState>
+			<t:saveState value="#{alertas.valorConstante}"></t:saveState>
+			<t:saveState value="#{alertas.fechaCorteInicialSeleccionada}"></t:saveState>
+			<t:saveState value="#{alertas.formatoOrigenAdicionarSeleccionado}"></t:saveState>
+			<t:saveState value="#{alertas.posicionCampoFiltroOrigen}"></t:saveState>
+			<t:saveState value="#{alertas.valorFiltroOrigen}"></t:saveState>
+			<t:saveState value="#{alertas.campoValorOrigen}"></t:saveState>
+			<t:saveState value="#{alertas.operadorSeleccionado}"></t:saveState>
+			<t:saveState value="#{alertas.fechaCorteDestinoSeleccionada}"></t:saveState>
+			<t:saveState value="#{alertas.formatoDestinoSeleccionado}"></t:saveState>
+			<t:saveState value="#{alertas.posicionCampoFiltroDestino}"></t:saveState>
+			<t:saveState value="#{alertas.valorFiltroDestino}"></t:saveState>
+			<t:saveState value="#{alertas.campoValorDestino}"></t:saveState>
+		</h:form>
+	</ui:define>
+</ui:composition>

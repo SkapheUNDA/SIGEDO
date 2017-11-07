@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formAgregar"
+			enctype="multipart/form-data">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelIndiceObrasIngresadas}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%">
+					<h:outputText value="#{msg.corresFechIngresoI}"></h:outputText>
+					<h:outputText value="#{msg.corresFechIngresoF}"></h:outputText>
+
+					<rich:calendar value="#{indiceObrasIngresadasBean.fechaDesde}"
+						direction="topRight" datePattern="dd/MM/yyyy"></rich:calendar>
+					<rich:calendar value="#{indiceObrasIngresadasBean.fechaHasta}"
+						direction="topRight" datePattern="dd/MM/yyyy"></rich:calendar>
+				</h:panelGrid>
+
+				<div align="center">
+					<h:panelGrid columns="3">
+						<h:outputText value=" "></h:outputText>
+						<h:commandButton value="#{msg.labelBtnBuscar}"
+							action="#{indiceObrasIngresadasBean.buscar}"
+							update="dataTableIndiceObrasIngresadas"></h:commandButton>
+						<h:outputText value=" "></h:outputText>
+					</h:panelGrid>
+				</div>
+
+				<div class="spacer15"></div>
+
+				<h:panelGroup>
+					<div align="right">
+						<h:panelGrid columns="2">
+							<h:commandLink>
+								<p:graphicImage library="images" name="descargaExcel.png" />
+								<p:dataExporter type="xls"
+									target="dataTableIndiceObrasIngresadas"
+									fileName="ObrasIngresadas" />
+							</h:commandLink>
+						</h:panelGrid>
+					</div>
+				</h:panelGroup>
+
+				<p:dataTable id="dataTableIndiceObrasIngresadas" var="reporte"
+					paginator="true" rows="15" paginatorPosition="bottom"
+					value="#{indiceObrasIngresadasBean.listIndiceObrasIngresadas}"
+					lazy="true">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelClasificacion}" />
+						</f:facet>
+						<h:outputText value="#{reporte.clasificacion}" />
+
+						<f:facet name="footer">
+							<h:outputText value="#{msg.labelTotalIngresos}"></h:outputText>
+						</f:facet>
+
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelCantidadIngresos}" />
+						</f:facet>
+						<h:outputText value="#{reporte.cantidad}" />
+
+						<f:facet name="footer">
+							<h:outputText value="#{indiceObrasIngresadasBean.total}">
+								<f:convertNumber />
+							</h:outputText>
+						</f:facet>
+					</p:column>
+
+				</p:dataTable>
+
+			</rich:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

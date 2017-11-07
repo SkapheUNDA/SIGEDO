@@ -1,0 +1,130 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{alertas.cargarDatosModificar}" />
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formListado">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.administrarAlertasTitulo} - Listado"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%">
+					<h:outputLabel value="#{msg.administrarAlertasLabelFormatos}"
+						for="listaFormatos" />
+					<h:selectOneMenu id="listaFormatos" required="true"
+						value="#{alertas.formatoSeleccionado}">
+						<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+						<f:selectItems value="#{alertas.listaFormatos}"></f:selectItems>
+					</h:selectOneMenu>
+				</h:panelGrid>
+
+				<h:panelGrid columns="1">
+					<h:commandButton value="#{msg.administrarAlertasButtonBuscar}"
+						actionListener="#{alertas.buscar}">
+					</h:commandButton>
+				</h:panelGrid>
+
+				<h:panelGrid columns="1">
+					<rich:dataTable value="#{alertas.alertasFormatoModel}" var="item"
+						id="tablaAlertas" rows="30" style="width: 100%;"
+						iterationStatusVar="it">
+						<rich:column>
+							<f:facet name="header">#{msg.administrarAlertasTableColumnCorteInicial}</f:facet>
+							<h:outputText value="#{item.corteOrigen}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.administrarAlertasTableColumnFormatoOrigen}</f:facet>
+							<h:outputText value="#{item.formatoOrigen}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.administrarAlertasTableColumnPosicionCampoFiltroOrigen}</f:facet>
+							<h:outputText value="#{item.posicionCampoOrigen}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.administrarAlertasTableColumnCampoValorOrigen}</f:facet>
+							<h:outputText value="#{item.campoValorOrigen}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.administrarAlertasTableColumnValorFiltroOrigen}</f:facet>
+							<h:outputText value="#{item.valorFiltroOrigen}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.administrarAlertasTableColumnOperador}</f:facet>
+							<h:outputText value="#{item.operador}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.administrarAlertasTableColumnValorConstante}</f:facet>
+							<h:outputText value="#{item.valorConstate}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.administrarAlertasTableColumnCorteDestino}</f:facet>
+							<h:outputText value="#{item.corteDesitno}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.administrarAlertasTableColumnFormatoDestino}</f:facet>
+							<h:outputText value="#{item.formatoDesitno}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.administrarAlertasTableColumnPosicionCampoFiltroDestino}</f:facet>
+							<h:outputText value="#{item.posicionDesitno}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.administrarAlertasTableColumnCampoValorDestino}</f:facet>
+							<h:outputText value="#{item.campoValorDesitno}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.administrarAlertasTableColumnValorFiltroDestino}</f:facet>
+							<h:outputText value="#{item.valorFiltroDesitno}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">Opciones</f:facet>
+							<h:panelGroup style="text-align:center">
+								<h:commandLink styleClass="no-decor"
+									action="#{alertas.navModificar()}">
+									<h:graphicImage value="/img/icons/actualizar.png"
+										alt="Modificar" title="Modificar" width="25" height="25" />
+									<f:param name="idAlerta" value="#{item.codigoAlerta}" />
+								</h:commandLink>
+								<h:commandLink styleClass="no-decor"
+										action="#{alertas.navVerDetalle()}">
+									<h:graphicImage value="/img/icons/detail.png"
+										alt="Ver detalles" title="ver detalles" width="25" height="25" />
+									<f:param name="idAlerta" value="#{item.codigoAlerta}" />
+								</h:commandLink>
+								<h:commandLink styleClass="no-decor"
+									onclick="if (!confirm('Desea UD. Eliminar la alerta seleccionada?')) return false"
+									action="#{alertas.eliminar()}">
+									<h:graphicImage value="/img/icons/eliminar.png" alt="Eliminar"
+										title="Eliminar" width="25" height="25" />
+									<f:setPropertyActionListener
+										target="#{alertas.idAlerta}" value="#{item.codigoAlerta}" />
+									<f:param name="idAlerta" value="#{item.codigoAlerta}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</rich:column>
+						<f:facet name="footer">
+							<rich:dataScroller id="ds" maxPages="5" ajaxSingle="false"
+								for="tablaAlertas"></rich:dataScroller>
+						</f:facet>
+					</rich:dataTable>
+				</h:panelGrid>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

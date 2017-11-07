@@ -1,0 +1,193 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{generarEtiquetaBean.cargarEtiquetaSalida}"></f:event>
+		</f:metadata>
+		<h:form style="padding-bottom: 3px;" id="formListado">
+
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelListado}"></h:outputText>
+				</f:facet>
+
+
+				<h:panelGrid columns="6" width="100%">
+
+					<h:outputText value="#{msg.corresNoRadicacion}"></h:outputText>
+					<h:outputText value="#{msg.corresFechaHora}"></h:outputText>
+					<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+					<h:outputText value="#{msg.corresPersonaNatural}"></h:outputText>
+					<h:outputText value="#{msg.corresPersonaJuridica}"></h:outputText>
+					<h:outputText value="#{msg.corresFiltroEntregada}"></h:outputText>
+
+					<h:inputText value="#{buscadorSalidasBean.noRadicacion}"></h:inputText>
+					<rich:calendar value="#{buscadorSalidasBean.fechaRadicacion}" inputSize="16" direction="topRight" datePattern="dd/MM/yyyy" />
+
+					<h:inputText value="#{buscadorSalidasBean.asunto}"></h:inputText>
+					<h:inputText value="#{buscadorSalidasBean.nomPersonaNatural}"></h:inputText>
+					<h:inputText value="#{buscadorSalidasBean.nomPersonaJuridica}"></h:inputText>
+
+					<h:selectOneMenu value="#{buscadorSalidasBean.filtroEntregada}" label="#{msg.corresFiltroEntregada}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="#{null}" />
+						<f:selectItem itemLabel="#{msg.corresSinDespachar}" itemValue="#{false}" />
+						<f:selectItem itemLabel="#{msg.corresDespachar}" itemValue="#{true}" />
+					</h:selectOneMenu>
+
+				</h:panelGrid>
+				<h:panelGrid columns="1" width="100%">
+
+					<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+					<h:selectOneMenu value="#{buscadorSalidasBean.idDependenciaSeleccionada}" label="#{msg.corresDependencia}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{buscadorSalidasBean.dependenciasItems}" />
+						<f:ajax render="calisificacionSalida" limitRender="true" execute="@this" event="valueChange"></f:ajax>
+					</h:selectOneMenu>
+
+					<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+					<h:selectOneMenu id="calisificacionSalida" value="#{buscadorSalidasBean.idClasificacionSeleccionada}" label="#{msg.corresClasificacion}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{buscadorSalidasBean.clasificacionItems}" />
+					</h:selectOneMenu>
+
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="1" width="100%" rendered="#{buscadorSalidasBean.adminCorrespondencia}">
+
+					<h:outputText value="#{msg.corresUsuario}"></h:outputText>
+					<h:selectOneMenu value="#{buscadorSalidasBean.idUsuarioSeleccionado}" label="#{msg.corresUsuario}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{buscadorSalidasBean.usuariosItems}" />
+					</h:selectOneMenu>
+
+				</h:panelGrid>
+
+
+				<div align="center">
+					<h:panelGrid columns="3">
+
+						<a4j:commandButton value="#{msg.labelBuscar}" action="#{buscadorSalidasBean.cargaListaDataModel}" render="panelresultados" execute="@form"></a4j:commandButton>
+						<h:commandButton value="#{msg.labelLimpiar}" action="salidacorrespondencia"></h:commandButton>
+						<h:outputText value=" "></h:outputText>
+
+					</h:panelGrid>
+				</div>
+			</rich:panel>
+
+			<rich:panel id="panelresultados">
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelResultadosEncontrados}"></h:outputText>
+				</f:facet>
+				<div align="right">
+					<h:commandLink value="#{msg.labelExportarExcel}">
+						<p:dataExporter type="xls" target="tablasalidas" fileName="salidas" />
+					</h:commandLink>
+				</div>
+
+				<p:dataTable var="salida" paginator="true" id="tablasalidas" rows="15" paginatorPosition="bottom" value="#{buscadorSalidasBean.listDatamodel}" lazy="true">
+					<p:column exportable="false">
+						<h:panelGroup>
+
+							<p:commandButton id="opcButton" value="#{msg.labelOpciones}" type="button" />
+							<p:tieredMenu overlay="true" trigger="opcButton" my="left top" at="left bottom">
+								<p:menuitem value="#{msg.corresEtiqueta}" ajax="true" update=":formListado:dialogEtiquetaSalida" process="@this" oncomplete="modalEtiquetaSalida.show();" action="#{generarEtiquetaBean.generarEtiquetaSalida(salida)}" icon="ui-icon-extlink"></p:menuitem>
+								<p:menuitem value="#{msg.corresGenerarEtiquetaDestinatario}" ajax="true" update=":formListado:dialogEtiquetaSalida" process="@this" oncomplete="modalEtiquetaSalida.show();"
+									action="#{generarEtiquetaBean.generarEtiquetaSalidaDestinatario(salida)}" icon="ui-icon-extlink"></p:menuitem>
+
+								<p:menuitem value="#{msg.labelActualizar}" action="#{buscadorSalidasBean.actualizarNavigation}" ajax="false" icon="ui-icon-disk">
+									<f:param name="idRegSeleccionado" value="#{salida.salId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.labelDetalle}" action="#{buscadorSalidasBean.detalleNavigation}" ajax="false" icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{salida.salId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.labelDuplicar}" action="#{buscadorSalidasBean.duplicarNavigation}" ajax="false" icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{salida.salId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.labelHistorial}" action="#{buscadorSalidasBean.historialNavigation}" ajax="false" icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{salida.salId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.labelAdjuntaArchivos}" action="#{buscadorSalidasBean.archivosAdjuntosNavigation}" ajax="false" icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{salida.salId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.labelcambiaEtapa}" action="#{buscadorSalidasBean.cambioEtapaNavigation}" ajax="false" icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{salida.salId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.corresCambiarFecha}" ajax="false" action="#{buscadorSalidasBean.cambiarFechaNavigation}" icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{salida.salId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.corresDespacharSalida}" ajax="false" action="#{buscadorSalidasBean.entregaCorrespondenciaNavigation}" icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{salida.salId}" />
+								</p:menuitem>
+							</p:tieredMenu>
+						</h:panelGroup>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresNoRadicacion}" />
+						</f:facet>
+						<h:outputText value="#{salida.salNsa}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresFechaHora}" />
+						</f:facet>
+						<h:outputText value="#{salida.salFsa}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresAsunto}" />
+						</f:facet>
+						<h:outputText value="#{salida.salAsu}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresDes}" />
+						</f:facet>
+						<h:selectBooleanCheckbox value="#{salida.salLent}" disabled="true" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresDestinatario}" />
+						</f:facet>
+						<h:outputText value="#{salida.salNom} #{salida.salPap} #{salida.salSap}"></h:outputText>
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresEtapa}" />
+						</f:facet>
+						<h:outputText value="#{salida.estado.estNom}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresDependencia}" />
+						</f:facet>
+						<h:outputText value="#{salida.depend.depNom}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresClasificacion}" />
+						</f:facet>
+						<h:outputText value="#{salida.clasificacion.claNom}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelResponsable}" />
+						</f:facet>
+						<h:outputText value="#{salida.usuarioBySalUsr.usrLog}"></h:outputText>
+					</p:column>
+				</p:dataTable>
+			</rich:panel>
+
+			<p:dialog id="dialogEtiquetaSalida" header="#{msg.corresEtiqueta}" widgetVar="modalEtiquetaSalida" visible="#{generarEtiquetaBean.modalVisible}" modal="true" dynamic="#{!generarEtiquetaBean.modalVisible}" width="850" height="300" resizable="false">
+				<p:media player="pdf" value="#{generarEtiquetaBean.enlaceEtiqueta}" width="100%" height="100%" id="etiqueta"></p:media>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+

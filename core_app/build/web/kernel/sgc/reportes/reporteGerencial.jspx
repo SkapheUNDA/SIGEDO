@@ -1,0 +1,91 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+	<ui:define name="body">
+		<script type="text/javascript">
+			function start() {
+			    statusDialog.show();
+			}
+			
+			function stop() {
+			    statusDialog.hide();
+			}
+        </script>
+		<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+			draggable="false" closable="false" resizable="false">
+			<p:graphicImage value="ajaxLoadingBar.gif" />
+		</p:dialog>
+		<h:form>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.sgcRepGerencialDC}"></h:outputText>
+				</f:facet>
+
+				<rich:panel>
+
+					<div align="center">
+						<h:panelGrid columns="2">
+							<h:commandButton id="btnDetallado"
+								action="#{reportesBean.ejecutarReporteGerencialDetallado}"
+								value="#{msg.sgcRepConsultarGD}" />
+
+							<h:commandButton id="btnConsolidado"
+								action="#{reportesBean.ejecutarReporteGerencialConsolidado}"
+								value="#{msg.sgcRepConsultarGC}" />
+						</h:panelGrid>
+					</div>
+
+					<rich:popupPanel autosized="true" style="z-index: 10000;"
+						modal="true"
+						onmaskclick="#{rich:component('mostrarDescarga')}.hide()"
+						id="mostrarDescarga" resizeable="false" moveable="true"
+						show="#{reportesBean.mostrarPopup}">
+						<f:facet name="header">
+							<h:outputText value="#{msg.sgcRepDownGerencial}" />
+						</f:facet>
+						<f:facet name="controls">
+							<h:panelGroup>
+								<h:graphicImage value="/img/icons/closemodal.png"
+									styleClass="hidelink"
+									id="hidelinkCloseDescargaReporteGerencial"
+									onclick="#{rich:component('mostrarDescarga')}.hide()"></h:graphicImage>
+							</h:panelGroup>
+						</f:facet>
+
+						<h:panelGrid width="100%">
+							<h:outputText value="#{reportesBean.nombreArchivo}" />
+						</h:panelGrid>
+
+						<h:panelGrid width="100%" columns="2">
+							<p:commandLink ajax="false"
+								actionListener="#{reportesBean.downloadAction}">
+								<span class="ui-icon icoFolderGo" style="padding-right: 1.5em;" />
+								<p:fileDownload value="#{reportesBean.file}" />
+							</p:commandLink>
+							<!--  <p:commandButton id="downloadLink" value="Descargar" ajax="false"
+								icon="ui-icon-arrowthichk-s" onclick="#{rich:component('mostrarDescarga')}.hide(); PrimeFaces.monitorDownload(start, stop)">
+								<p:fileDownload value="#{reportesBean.file}" />
+							</p:commandButton> -->
+							<p:commandButton
+								onclick="#{rich:component('mostrarDescarga')}.hide()"
+								value="#{msg.labelCancelar}" />
+						</h:panelGrid>
+					</rich:popupPanel>
+				</rich:panel>
+			</rich:panel>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+

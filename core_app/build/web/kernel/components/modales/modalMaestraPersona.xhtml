@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+
+	<p:dialog id="dialogMaestraPersona" header="#{msg.tmaesTituloPersonas}"
+		widgetVar="modalMaestraPersona" modal="true" dynamic="false"
+		width="400" height="400">
+
+		<h:form style="padding-bottom: 3px;" id="formModalMPersona">
+		
+			<h:panelGrid columns="2" width="100%">
+
+				<h:outputText value="#{msg.modalMPersonaTipIde}"></h:outputText>
+				<h:outputText value="#{expedienteBean.expedienteSeleccionado.persona.tiposdocumento.tdoNom}"></h:outputText>
+				
+				<h:outputText value="#{msg.modalMPersonaNoIde}"></h:outputText>
+				<h:outputText value="#{expedienteBean.expedienteSeleccionado.persona.perDoc}"></h:outputText>
+				
+				<h:outputText value="#{msg.modalMPersonaNombres}"></h:outputText>
+				<h:outputText value="#{expedienteBean.expedienteSeleccionado.persona.perNom}"></h:outputText>
+				
+				<h:outputText value="#{msg.modalMPersonaPap}"></h:outputText>
+				<h:outputText value="#{expedienteBean.expedienteSeleccionado.persona.perPap}"></h:outputText>
+				
+				<h:outputText value="#{msg.modalMPersonaSap}"></h:outputText>
+				<h:outputText value="#{expedienteBean.expedienteSeleccionado.persona.perSap}"></h:outputText>
+				
+				<h:outputText value="#{msg.modalMPersonaNac}"></h:outputText>
+				<h:outputText value="#{expedienteBean.expedienteSeleccionado.persona.paises.paiNac}"></h:outputText>
+				
+				<h:outputText value="#{msg.modalMPersonaDir}"></h:outputText>
+				<h:outputText value="#{expedienteBean.expedienteSeleccionado.persona.perDir}"></h:outputText>
+				
+				<h:outputText value="#{msg.modalMPersonaTel}"></h:outputText>
+				<h:outputText value="#{expedienteBean.expedienteSeleccionado.persona.perTl1}"></h:outputText>
+				
+				<h:outputText value="#{msg.modalMPersonaCE}"></h:outputText>
+				<h:outputText value="#{expedienteBean.expedienteSeleccionado.persona.perCe1}"></h:outputText>
+				
+			</h:panelGrid>
+
+		</h:form>
+	</p:dialog>
+
+</ui:composition>

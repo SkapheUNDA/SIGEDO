@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="internalTemplate.jspx">
+
+
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formEliminar">
+
+			<f:metadata>
+				<f:event type="preRenderView"
+					listener="#{personaJuridicaBean.cargarRegistro}" />
+			</f:metadata>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelEliminarPersona}"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="2" width="50%"
+					columnClasses="columnLabelsDetalleSolicitud,columnDatosDetalleSolicitud">
+					<h:outputText value="#{msg.labelNombre}" />
+					<h:outputText id="nombrePersonaJuridica"
+						value="#{personaJuridicaBean.juridicaSeleccionada.etdNom}"  styleClass="uppercase" />
+
+					<h:outputText value="#{msg.modalPersonasIdentificacion}" />
+					<h:outputText id="identificacionPerJuridica"
+						value="#{personaJuridicaBean.juridicaSeleccionada.etdIde}" />
+
+					<h:outputText value="#{msg.corresDireccion}" />
+					<h:outputText id="dirPersonaJuridica"
+						value="#{personaJuridicaBean.juridicaSeleccionada.etdDir}" />
+
+					<h:outputText value="#{msg.corresTelefono}" />
+					<h:outputText id="telPersonaJuridica"
+						value="#{personaJuridicaBean.juridicaSeleccionada.etdTl1}" />
+
+					<h:outputText value="#{msg.corresFax}" />
+					<h:outputText id="faxPersonaJuridica"
+						value="#{personaJuridicaBean.juridicaSeleccionada.etdFax}" />
+
+					<h:outputText value="#{msg.corresCorreoElectronico}" />
+					<h:outputText id="correoPersonaJuridica"
+						value="#{personaJuridicaBean.juridicaSeleccionada.etdCel}" />
+
+					<h:outputText value="#{msg.corresWeb}" />
+					<h:outputText id="webPersonaJuridica"
+						value="#{personaJuridicaBean.juridicaSeleccionada.etdWeb}" />
+
+				</h:panelGrid>
+
+				<div align="center">
+					<h:commandButton action="#{personaJuridicaBean.eliminarJuridica}"
+						value="#{msg.labelEliminar}"
+						onclick="if (!confirm('#{msg.confirmacionEliminarPersonaJuridica}')) return false">
+
+					</h:commandButton>
+
+				</div>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

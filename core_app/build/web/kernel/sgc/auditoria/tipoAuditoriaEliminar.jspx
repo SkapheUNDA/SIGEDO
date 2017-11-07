@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="internalTemplate.jspx">
+
+
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formEliminar">
+
+			<f:metadata>
+				<f:event type="preRenderView"
+					listener="#{tipoAuditoriaBean.cargarRegistro}" />
+			</f:metadata>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelEliminarTipodeAuditoria}"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="1">
+
+					<h:panelGrid columns="2" width="100%"
+						columnClasses="columnLabelsDetalleSolicitud,columnDatosDetalleSolicitud">
+						<h:outputText value="#{msg.conaudCodigoTipodeAuditoria}:" />
+						<h:outputText id="codigoTipoAuditoria"
+							value="#{tipoAuditoriaBean.tipoAuditoriaSeleccionada.tauCodigo}"
+							styleClass="uppercase" />
+
+						<h:outputText value="#{msg.conaudNombreTipodeAuditoria}:" />
+						<h:outputText id="nombreTipoAuditoria"
+							value="#{tipoAuditoriaBean.tipoAuditoriaSeleccionada.tauNombre}" />
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" width="100%">
+						<h:commandButton
+							action="#{tipoAuditoriaBean.eliminarTipoAuditoria}"
+							value="#{msg.labelEliminar}"
+							onclick="if (!confirm('#{msg.confirmacionEliminarTipoAuditoria}')) return false">
+
+						</h:commandButton>
+
+						<h:commandButton value="#{msg.conaudCancelar}" immediate="true"
+							action="#{tipoAuditoriaBean.navListado}">
+						</h:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

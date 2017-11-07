@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+	<navigation-rule>
+		<from-view-id>/kernel/correspondencia/*</from-view-id>
+		<navigation-case>
+			<from-outcome>entradacorrespondencia</from-outcome>
+			<to-view-id>/kernel/correspondencia/entradas/listado.jspx</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>salidacorrespondencia</from-outcome>
+			<to-view-id>/kernel/correspondencia/salidas/listado.jspx</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CON_CORR_OI</from-outcome>
+			<to-view-id>/kernel/correspondencia/consultas/indiceObrasIngresadas.jspx</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CON_CORR_DE</from-outcome>
+			<to-view-id>/kernel/correspondencia/consultas/consultaDevoluciones.jspx</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/kernel/correspondencia/entradas/*</from-view-id>
+		<navigation-case>
+			<from-outcome>agregar</from-outcome>
+			<to-view-id>/kernel/correspondencia/entradas/agregar.jspx</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>detalle</from-outcome>
+			<to-view-id>/kernel/correspondencia/entradas/detalle.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>transaccionExitosa</from-outcome>
+			<to-view-id>/kernel/correspondencia/entradas/listado.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/kernel/correspondencia/salidas/*</from-view-id>
+		<navigation-case>
+			<from-outcome>transaccionExitosa</from-outcome>
+			<to-view-id>/kernel/correspondencia/salidas/listado.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+</faces-config>

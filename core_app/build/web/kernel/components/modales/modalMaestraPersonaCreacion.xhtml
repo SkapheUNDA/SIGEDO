@@ -1,0 +1,120 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog id="dialogTitulos" header="#{msg.modalTitulo}"
+		widgetVar="modalCrearPersona" modal="true" width="650" dynamic="false"
+		height="260">
+
+		<h:panelGrid columns="3" width="100%" styleClass="panelBorder">
+
+			<h:outputLabel for="idTipoDocumentoSol"
+				value="#{msg.corresTipoDocumento}"></h:outputLabel>
+			<h:outputLabel for="entNdo" value="#{msg.corresNoIdentificacion}"></h:outputLabel>
+			<h:outputLabel for="nacionalidad" value="#{msg.corresNacionalidad}"></h:outputLabel>
+
+
+			<h:selectOneMenu id="idTipoDocumentoSol"
+				value="#{personaNaturalBean.idTipoDocumentoSol}" required="true">
+				<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+				<f:selectItems value="#{personaNaturalBean.tiposDocumentosItems}" />
+
+				<a4j:ajax render="entNdo" event="valueChange" execute="@this"
+					listener="#{personaNaturalBean.valueChangedTipoDoc}">
+				</a4j:ajax>
+			</h:selectOneMenu>
+
+			<h:inputText value="#{personaNaturalBean.persona.perDoc}" id="entNdo"
+				required="#{personaNaturalBean.muestrese}" />
+
+			<h:selectOneMenu id="nacionalidad" style="width: 150px;"
+				value="#{personaNaturalBean.idPaisSeleccionado}"
+				label="#{msg.corresNacionalidad}" required="true">
+				<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+				<f:selectItems value="#{personaNaturalBean.paisesItems}" />
+				<a4j:ajax event="valueChange" execute="@this"
+					listener="#{personaNaturalBean.valueChangedNacionalidad}">
+				</a4j:ajax>
+			</h:selectOneMenu>
+
+			<h:outputLabel for="entNom" value="#{msg.corresPersonasNombres}"></h:outputLabel>
+			<h:outputLabel for="entPap"
+				value="#{msg.corresPersonasPrimerApellido}"></h:outputLabel>
+			<h:outputLabel for="entSap"
+				value="#{msg.corresPersonasSegundoApellido}"></h:outputLabel>
+
+			<h:inputText value="#{personaNaturalBean.persona.perNom}" id="entNom"
+				required="true" styleClass="uppercase" />
+			<h:inputText value="#{personaNaturalBean.persona.perPap}" id="entPap"
+				styleClass="uppercase" />
+			<h:inputText value="#{personaNaturalBean.persona.perSap}" id="entSap"
+				styleClass="uppercase" />
+
+			<h:outputLabel for="entSeu" value="#{msg.modalPersonasSeudonimo}"></h:outputLabel>
+			<h:outputLabel value=""></h:outputLabel>
+			<h:outputLabel value=""></h:outputLabel>
+			<h:inputText
+				value="#{personaNaturalBean.persona.perSeunom}"
+				id="entSeu" styleClass="uppercase" />
+
+		</h:panelGrid>
+		<rich:panel header="#{msg.corresDomicilioCorrespondencia}">
+			<h:panelGrid columns="2"
+				columnClasses="columnLabelsForm,columnDatosForm" width="100%">
+				<h:outputLabel for="entDir" value="#{msg.corresDireccion}"></h:outputLabel>
+				<h:inputText value="#{personaNaturalBean.persona.perDir}"
+					id="entDir" required="true" styleClass="uppercase" />
+
+				<h:outputLabel for="lugar" value="#{msg.corresCiudad}"></h:outputLabel>
+				<h:selectOneMenu style="width: 150px;"
+					value="#{personaNaturalBean.idLugarSeleccionado}"
+					label="#{msg.corresCiudad}" id="lugar" required="true">
+					<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+					<f:selectItems value="#{personaNaturalBean.lugaresItems}" />
+					<a4j:ajax event="valueChange" execute="@this"
+						listener="#{personaNaturalBean.valueChangedLugar}">
+					</a4j:ajax>
+				</h:selectOneMenu>
+
+				<h:outputLabel for="entTel" value="#{msg.corresTelefono}"></h:outputLabel>
+				<h:inputText value="#{personaNaturalBean.persona.perTl1}"
+					id="entTel" />
+
+				<h:outputLabel for="entFax" value="#{msg.corresFax}"></h:outputLabel>
+				<h:inputText value="#{personaNaturalBean.persona.perFax}"
+					id="entFax" />
+
+				<h:outputLabel for="entCel" value="#{msg.corresCorreoElectronico}"></h:outputLabel>
+				<h:inputText value="#{personaNaturalBean.persona.perCe1}"
+					id="entCel" styleClass="uppercase" />
+			</h:panelGrid>
+		</rich:panel>
+		<h:panelGroup id="buttonGroup">
+			<div class="spacer15"></div>
+			<div align="center">
+
+				<h:commandButton action="#{personaNaturalBean.createOrReplace}"
+					value="#{msg.labelAgregar}"
+					onclick="if (!confirm('#{msg.confirmacionAcualizarUsuario}')) return false">
+					<f:setPropertyActionListener value="400" target="#{scroll}" />
+				</h:commandButton>
+
+			</div>
+
+		</h:panelGroup>
+		<div class="spacer15"></div>
+
+
+	</p:dialog>
+	<p:dialog id="dialogExito" header="Mensaje" widgetVar="modalMensaje"
+		visible="#{personaNaturalBean.mostrarModal}" modal="true"
+		dynamic="false" width="160" height="100">
+		<h:outputLabel for="messages" value="REGISTRO EXITOSO"></h:outputLabel>
+	</p:dialog>
+
+
+</ui:composition>

@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core" xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event listener="#{generarConsecutivoBean.cargarRegistro}" type="preRenderView"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+
+		<h:form style="padding-bottom: 3px;" id="formDevolucion">
+
+
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.expRegistroInformacionBasica}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm">
+					<h:outputText value="#{msg.expRegistroRadicacion}" />
+					<h:outputText value="#{generarConsecutivoBean.registroSeleccionado.expediente.expedientecorresponds.iterator().next().entrada.entNen}" />
+
+					<h:outputText value="#{msg.expRegistroTipoObra}" />
+					<h:outputText value="#{generarConsecutivoBean.registroSeleccionado.claseregistro.creNom}" />
+
+					<h:outputText value="#{msg.expRegistroTituloObra}" />
+					<h:outputText value="#{generarConsecutivoBean.registroSeleccionado.regTor}" />
+
+					<h:outputText value="#{msg.labelDocumento}" />
+					<h:outputText value="#{generarConsecutivoBean.registroSeleccionado.expediente.persona.perDoc}" />
+
+					<h:outputText value="#{msg.labelSolicitante}" />
+					<h:outputText value="#{generarConsecutivoBean.registroSeleccionado.expediente.persona.nombreCompleto}" />
+
+					<h:outputText value="#{msg.labelFecha}" />
+					<h:outputText value="#{generarConsecutivoBean.registroSeleccionado.expediente.expFso}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-05:00" />
+					</h:outputText>
+				</h:panelGrid>
+			</rich:panel>
+
+			<rich:panel>
+
+				<f:facet name="header">
+					<h:outputText value="#{msg.expRegistroIdentificacionregistro}"></h:outputText>
+				</f:facet>
+				<div align="center">
+					<h:panelGrid columns="4">
+					
+						<h:outputText value="#{msg.expRegistroLibro}" />
+						<h:outputText value="#{msg.expRegistroTomo}" />
+						<h:outputText value="#{msg.expRegistroPartida}" />
+						<h:outputText value="#{msg.expRegistroFechaRegistro}" />
+
+						<h:inputText value="#{generarConsecutivoBean.regNo1}" label="#{msg.expRegistroLibro}" required="true" disabled="true" style="color: #000; font-weight: bold;" >
+							<f:validateLongRange />
+						</h:inputText>
+						
+						<h:inputText value="#{generarConsecutivoBean.regNo2}" label="#{msg.expRegistroTomo}" required="true" >
+							<f:validateLongRange />
+						</h:inputText>
+						
+						<h:inputText value="#{generarConsecutivoBean.regNo3}" label="#{msg.expRegistroPartida}" required="true" >
+							<f:validateLongRange />
+						</h:inputText>
+						
+						<rich:calendar label="#{msg.expRegistroFechaRegistro}" inputSize="16"
+							value="#{generarConsecutivoBean.regFec}" required="true"  
+							direction="topRight" datePattern="dd/MM/yyyy hh:mm a" showApplyButton="true"/>
+							
+					</h:panelGrid>
+
+					<div class="spacer15"></div>
+				</div>
+				<div align="center">
+					<h:panelGrid columns="2">
+						<h:commandButton action="#{generarConsecutivoBean.generarConsecutivoManual}" value="#{msg.expRegistroCodigoManual}" onclick="if (!confirm('#{msg.confirmacionActualizarRegistro}')) return false"></h:commandButton>
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

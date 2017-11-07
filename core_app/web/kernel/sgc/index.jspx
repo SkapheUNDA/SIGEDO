@@ -1,0 +1,55 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="../layout/principalTemplate.xhtml">
+	<ui:define name="body">
+
+		<h:form>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Bandeja de Entrada"></h:outputText>
+				</f:facet>
+
+				<rich:panel>
+					<h:panelGrid columns="2" width="100%">
+						<rich:dataTable value="#{bandejaEntradaBean.listaBandejaEntrada}"
+							id="tablaSGCPpal" var="item" rows="30" style="width: 100%;">
+
+							<rich:column>
+								<f:facet name="header">Entidad</f:facet>
+								<h:outputText value="#{item.entidad}" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">Formato</f:facet>
+								<h:outputText value="#{item.formato}" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">Fecha de Corte</f:facet>
+								<h:outputText value="#{item.corte}" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">Estado</f:facet>
+								<h:outputText value="#{item.alDia ? 'AL DIA' : 'PENDIENTE'}" />
+							</rich:column>
+							<f:facet name="footer">
+								<rich:dataScroller id="ds" maxPages="5" for="tablaSGCPpal"></rich:dataScroller>
+							</f:facet>
+						</rich:dataTable>
+					</h:panelGrid>
+				</rich:panel>
+			</rich:panel>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+

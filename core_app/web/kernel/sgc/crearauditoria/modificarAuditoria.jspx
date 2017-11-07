@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+
+	<ui:define name="content">
+
+		<h:form style="padding-bottom: 3px;" id="formActualizar">
+
+			<f:metadata>
+				<f:event type="preRenderView"
+					listener="#{auditoriasBean.cargarRegistro}" />
+			</f:metadata>
+
+			<rich:panel>
+
+				<f:facet name="header">
+					<h:outputText value="#{msg.prograauProgramarAuditoria}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="3" width="100%">
+
+					<h:outputLabel value="#{msg.prograauSociedad}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.prograauTipodeAuditoria}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.prograauTipodeRevision}:"></h:outputLabel>
+
+					<h:selectOneMenu required="true" id="Sociedad"
+						value="#{auditoriasBean.idSociedad}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItems value="#{auditoriasBean.tiposSociedadesItems}" />
+						<a4j:ajax render="Tipo_Auditoria" immediate="true"
+							limitRender="true" execute="@this" event="valueChange"></a4j:ajax>
+					</h:selectOneMenu>
+
+					<h:selectOneMenu required="true" id="Tipo_Auditoria"
+						value="#{auditoriasBean.idTipoAuditoria}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItems value="#{auditoriasBean.tiposAuditoriaItems}" />
+						<a4j:ajax render="Tipo_Programacion" immediate="true"
+							limitRender="true" execute="@this" event="valueChange"></a4j:ajax>
+					</h:selectOneMenu>
+
+					<h:selectOneMenu required="true" id="Tipo_Programacion"
+						value="#{auditoriasBean.idTipoProgramacion}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItems value="#{auditoriasBean.tiposProgramacionItems}" />
+						<a4j:ajax render="Periodo" immediate="true" limitRender="true"
+							execute="@this" event="valueChange"></a4j:ajax>
+					</h:selectOneMenu>
+
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+
+					<h:outputLabel value="#{msg.prograauPeriodo}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.prograauFuncionarioAutoriza}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.prograauResponsablesdeAuditoria}:"></h:outputLabel>
+
+					<h:selectOneMenu required="true" id="Periodo"
+						value="#{auditoriasBean.idPeriodo}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItem itemLabel="#{msg.prograauPrimerSemestre}"
+							itemValue="Primer Semestre" />
+						<f:selectItem itemLabel="#{msg.prograauSegundoSemestre}"
+							itemValue="Segundo Semestre" />
+						<a4j:ajax render="Funcionario" immediate="true" limitRender="true"
+							execute="@this" event="valueChange"></a4j:ajax>
+					</h:selectOneMenu>
+
+					<h:selectOneMenu required="true" id="Funcionario"
+						value="#{auditoriasBean.idFuncionario}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItems value="#{auditoriasBean.funcionariosItems}" />
+						<a4j:ajax render="Responsable" immediate="true" limitRender="true"
+							execute="@this" event="valueChange"></a4j:ajax>
+					</h:selectOneMenu>
+
+					<h:selectOneMenu required="true" id="Responsable"
+						value="#{auditoriasBean.idAuditor}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItems value="#{auditoriasBean.auditoresItems}" />
+					</h:selectOneMenu>
+
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+
+					<h:outputLabel value="#{msg.prograauEnvioOficioRevista}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.prograauTrabajodeCampo}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.prograauFechaEntregaInforme}:"></h:outputLabel>
+
+					<rich:calendar required="true" id="Fecha_envio_oficio"
+						value="#{auditoriasBean.auditoriaSeleccionada.audFechaEnvioOficio}"
+						direction="topRight" datePattern="dd/MM/yyyy"
+						binding="#{fechaEnvioC}"></rich:calendar>
+
+					<rich:calendar required="true" id="Fecha_trabajo_campo"
+						value="#{auditoriasBean.auditoriaSeleccionada.audFechaTrabajoCampo}"
+						direction="topRight" datePattern="dd/MM/yyyy"
+						binding="#{fechaCampoC}"></rich:calendar>
+
+					<rich:calendar required="true" id="Fecha_entrega_informe"
+						value="#{auditoriasBean.auditoriaSeleccionada.audFechaInforme}"
+						direction="topRight" datePattern="dd/MM/yyyy">
+						<f:validator validatorId="auditoriasValidator" />
+						<f:attribute name="fechaEnvioC" value="#{fechaEnvioC}" />
+						<f:attribute name="fechaCampoC" value="#{fechaCampoC}" />
+					</rich:calendar>
+
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="1" width="100%">
+					<h:outputLabel value="#{msg.prograauAlcanceAuditoria}:"></h:outputLabel>
+					<h:inputTextarea id="Alcance" cols="160" rows="3"
+						value="#{auditoriasBean.auditoriaSeleccionada.audAlcance}" />
+				</h:panelGrid>
+
+				<div align="right">
+					<h:panelGrid columns="3">
+						<h:commandButton value="#{msg.prograauGrabar}"
+							action="#{auditoriasBean.actualizarTipoAuditoria}"
+							onclick="if (!confirm('#{msg.confirmacionAuditoria}')) return false">
+						</h:commandButton>
+					</h:panelGrid>
+				</div>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

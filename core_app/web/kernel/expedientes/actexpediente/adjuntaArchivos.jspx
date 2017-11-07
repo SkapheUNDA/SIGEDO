@@ -1,0 +1,94 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="detalleTemplate.jspx">
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{adjuntaArchivoExpBean.cargarExpedienteSel}"></f:event>
+		</f:metadata>
+
+		<!-- Seccion de herramienta -->
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msg.expproAdjArchivos}"></h:outputText>
+			</f:facet>
+			<div class="spacer15"></div>
+			<h:outputLabel value="#{msg.labelArchivos}"></h:outputLabel>
+
+			<h:form enctype="multipart/form-data" acceptcharset="UTF-8">
+				<p:fileUpload
+					fileUploadListener="#{adjuntaArchivoExpBean.uploadFile}"
+					mode="advanced"
+					update=":panelArchivosExpediente,:erroresValidacionPanel"
+					allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/"
+					uploadLabel="#{msg.labelGuardarArchivo}"
+					cancelLabel="#{msg.labelCancelarArchivo}"
+					label="#{msg.labelSeleccionarArchivo}" showButtons="true"
+					sizeLimit="#{AdjuntaArchivoExpBean.sizeLimit}" />
+
+			</h:form>
+
+		</rich:panel>
+
+		<div class="spacer15"></div>
+		<!-- Panel de archivos -->
+		<rich:panel id="panelArchivosExpediente">
+			<f:facet name="header">
+				<h:outputText value="#{msg.expproArchivosAdj}"></h:outputText>
+			</f:facet>
+			<h:form>
+				<rich:dataTable var="archivo"
+					value="#{adjuntaArchivoExpBean.listaArchivosExpediente}"
+					style="width:80%;">
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelArchivoNombre}" />
+						</f:facet>
+						<h:outputText value="#{archivo.nombre}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelArchivoSize}" />
+						</f:facet>
+						<h:outputText value="#{archivo.size}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelFechaRegistro}" />
+						</f:facet>
+						<h:outputText value="#{archivo.fechaRegistro}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a"
+								timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column width="10%">
+						<p:commandButton value="#{msg.labelDescargarArchivo}" ajax="false"
+							icon="ui-icon-arrowthick-1-s">
+							<p:fileDownload
+								value="#{adjuntaArchivoExpBean.descargar(archivo.id)}" />
+						</p:commandButton>
+					</rich:column>
+				</rich:dataTable>
+			</h:form>
+		</rich:panel>
+
+		<div class="spacer15"></div>
+		<div align="center">
+			<h:panelGrid columns="2">
+				<h:commandButton action="transaccionExitosa"
+					value="#{msg.labelGuardar}">
+				</h:commandButton>
+
+			</h:panelGrid>
+		</div>
+
+	</ui:define>
+</ui:composition>

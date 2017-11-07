@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+	<a4j:status onstart="#{rich:component(id.concat('Modal'))}.show()"
+		onstop="#{rich:component(id.concat('Modal'))}.hide()"></a4j:status>
+
+	<rich:popupPanel   id="#{id}Modal" resizeable="false" modal="true"	moveable="false" autosized="true" zindex="99999" >
+		<rich:progressBar id="#{id}ProgressBar" mode="client" value="99.9"  > 
+			  <h:outputText value="Cargando ..."/>		 
+		</rich:progressBar>
+	</rich:popupPanel >
+	
+	<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>
+			
+	<p:dialog modal="true" widgetVar="statusDialog"  draggable="false" closable="false" showHeader="false">
+		<rich:progressBar id="#{id}ProgressBarPrime" mode="client" value="99.9"  > 
+			  <h:outputText value="Cargando ..."/>		 
+		</rich:progressBar>
+	</p:dialog>
+	
+	
+
+	
+</ui:composition>

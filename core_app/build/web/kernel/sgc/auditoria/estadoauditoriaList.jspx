@@ -1,0 +1,75 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" template="internalTemplate.jspx"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:cnet="http://customcomponents/jsf">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formList">
+
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.conaudEstadoAuditoria}"></h:outputText>
+				</f:facet>
+				<div align="left">
+					<h:panelGrid columns="4">
+						<h:outputLabel value="#{msg.conaudDescripcion}" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:inputText value="#{estadoAuditoriaBean.descripcionEstadoAuditoria}"
+							id="descripcionEstado" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+					</h:panelGrid>
+					<div class="spacer15"></div>
+					<div align="center">
+						<h:panelGrid columns="3">
+
+							<p:commandButton value="#{msg.modalPersonasBuscar}"
+								update="dataTableEstados" action="#{estadoAuditoriaBean.buscar}"
+								execute="@form"></p:commandButton>
+
+							<h:commandButton value="#{msg.conconpucCrear}"
+								action="#{estadoAuditoriaBean.agregarNavigation}"></h:commandButton>
+
+						</h:panelGrid>
+					</div>
+				</div>
+			</rich:panel>
+			<h:panelGroup id="dataTableEstados">
+				<p:dataTable var="estado" paginator="true" rows="15"
+					paginatorPosition="bottom" value="#{estadoAuditoriaBean.listDatamodel}"
+					lazy="true">
+
+					<p:column style="width:200px" headerText="#{msg.conaudCodigoEstado}">
+						<h:outputText value="#{estado.codigoEstadoAuditoria}">
+							<f:convertNumber />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="#{msg.conaudDescripcion}">
+						<h:outputText value="#{estado.descripcionEstadoAuditoria}" />
+					</p:column>
+
+					<p:column style="width:150px">
+						<h:commandLink style="color: #FFFFFF;"
+							action="#{estadoAuditoriaBean.editarNavigation}">
+							<h:graphicImage width="16" height="16"
+								alt="#{msg.labelActualizar}" title="#{msg.labelActualizar}"
+								url="/img/icons/actualizar.png"></h:graphicImage>
+							<f:param name="idEstadoSeleccionado" value="#{estado.codigoEstadoAuditoria}" />
+						</h:commandLink>
+					</p:column>
+
+				</p:dataTable>
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+

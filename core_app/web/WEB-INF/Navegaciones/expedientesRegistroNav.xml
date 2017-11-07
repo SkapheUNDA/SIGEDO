@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+	<navigation-rule>
+		<from-view-id>/kernel/expedienteRegistro/*</from-view-id>
+                
+		<navigation-case>
+			<from-outcome>registroexpedientes</from-outcome>
+			<to-view-id>/kernel/expedienteRegistro/registro/listado.jspx</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>registrosimpresion</from-outcome>
+			<to-view-id>/kernel/expedienteRegistro/registro/listadoImpresion.jspx</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>registroSalidas</from-outcome>
+			<to-view-id>/kernel/expedienteRegistro/registro/registroSalidas.jspx</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>regConsCant</from-outcome>
+			<to-view-id>/kernel/expedienteRegistro/registro/consultaCantidadRegistros.jspx</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/kernel/expedienteRegistro/registro/*</from-view-id>
+		<navigation-case>
+			<from-outcome>transaccionExitosa</from-outcome>
+			<to-view-id>/kernel/expedienteRegistro/registro/listado.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cambiaEtapaReg</from-outcome>
+			<to-view-id>/kernel/expedienteRegistro/registro/cambiaEtapaReg.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>transaccionExitosaImpresion</from-outcome>
+			<to-view-id>/kernel/expedienteRegistro/registro/listadoImpresion.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>transaccionExitosaSalida</from-outcome>
+			<to-view-id>/kernel/expedienteRegistro/registro/registroSalidas.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/kernel/expedienteRegistro/registro/listado.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>infoexpediente</from-outcome>
+			<to-view-id>/kernel/expedientes/actexpediente/infoexpediente.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+</faces-config>

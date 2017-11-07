@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="documentoDevoluciones" pageWidth="612" pageHeight="1008" columnWidth="499" leftMargin="85" rightMargin="28" topMargin="42" bottomMargin="70">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="280"/>
+	<parameter name="PLOGO_ENTIDAD" class="java.lang.String"/>
+	<parameter name="SLOGO_ENTIDAD" class="java.lang.String"/>
+	<parameter name="FECHA_ACTUAL" class="java.lang.String"/>
+	<parameter name="ASUNTO_DEV" class="java.lang.String"/>
+	<parameter name="NO_RADICACION" class="java.lang.String"/>
+	<parameter name="NOM_SOLICITANTE" class="java.lang.String"/>
+	<parameter name="EMAIL_SOLICITANTE" class="java.lang.String"/>
+	<parameter name="NOM_FUNCIONARIO" class="java.lang.String"/>
+	<pageHeader>
+		<band height="106" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="212" height="72"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{PLOGO_ENTIDAD}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="292" y="0" width="207" height="72"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SLOGO_ENTIDAD}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="352" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="11" width="83" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Bogotá D.C. ,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="83" y="11" width="416" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{FECHA_ACTUAL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="73" width="499" height="16"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Señor(a):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="106" width="122" height="17"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Correo electrónico:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="89" width="499" height="17"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NOM_SOLICITANTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="122" y="106" width="377" height="17"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{EMAIL_SOLICITANTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="167" width="499" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Asunto: Devolución de Solicitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="193" width="499" height="69"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Respetado(a) señor(a):
+En atención a su solicitud radicada con el número que aparece al final de este oficio, y de conformidad con el Decreto  460 de 1995, norma que regula todo lo relacionado con el Registro Nacional de Derecho de Autor, me permito informarle que luego de hacer un análisis de la documentación aportada es devuelta a usted por lo siguiente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="272" width="499" height="16"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ASUNTO_DEV}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="299" width="499" height="48"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="DejaVu Sans"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[En caso de requerir mayor información, no dude en comunicarse con nosotros llamando al teléfono (571) 3418177, en el horario de atención al público de  8.30 a.m. a  5.00 p.m., o en nuestra página web www.derechodeautor.gov.co. El servicio que presta la entidad es completamente gratuito.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="14" width="100" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Atentamente,
+]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="177" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="31" width="499" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Oficina de Registro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="46" width="56" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Radicado No.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="56" y="46" width="156" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NO_RADICACION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="124" width="499" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Promovemos la creación!]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="135" width="499" height="41"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<text><![CDATA[Dirección: Calle 28 No.13A 15 Piso 17   Teléfono 341 81 77   Fax 286 08 13
+Página web: www.derechodeautor.gov.co   - Correo electrónico: info@derechodeautor.gov.co
+Línea de atención de quejas y reclamos:  01 8000 127878
+Bogotá, D.C. - Colombia - América del Sur]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="13" width="499" height="16"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NOM_FUNCIONARIO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

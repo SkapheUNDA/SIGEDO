@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+
+		<locale-config>
+			<default-locale>es_ES</default-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>la.netco.core.uilayer.bundle.Messages</base-name>
+			<var>msg</var>
+		</resource-bundle>
+		<resource-bundle>
+			<base-name>co.com.heinsohn.dnda.commons.msg.Messages</base-name>
+			<var>general</var>
+		</resource-bundle>
+		<system-event-listener>
+			<system-event-listener-class>la.netco.core.uilayer.phaseListeners.ControlAccesActionPreRenderViewEvent</system-event-listener-class>
+			<system-event-class>javax.faces.event.PreRenderViewEvent</system-event-class>
+		</system-event-listener>
+		<system-event-listener>
+			<system-event-listener-class>la.netco.core.uilayer.phaseListeners.LabelProvider</system-event-listener-class>
+			<system-event-class>javax.faces.event.PreValidateEvent</system-event-class>
+			<source-class>javax.faces.component.html.HtmlOutputLabel</source-class>
+		</system-event-listener>
+	</application>
+	<lifecycle>
+		<phase-listener>la.netco.core.uilayer.phaseListeners.LoginErrorPhaseListener</phase-listener>
+		<phase-listener>la.netco.core.uilayer.phaseListeners.SetFocusListener</phase-listener>
+		<phase-listener>la.netco.core.uilayer.phaseListeners.ViewScopePhaseListener</phase-listener>
+		<phase-listener>la.netco.commons.utils.LifeCycleListener</phase-listener>
+	</lifecycle>
+	
+
+</faces-config>

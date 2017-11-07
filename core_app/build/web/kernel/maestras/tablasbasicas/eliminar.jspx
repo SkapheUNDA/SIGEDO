@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{tMaestrasBean.cargaValores}"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+
+			<h:inputHidden value="#{exampleBean.idRegSeleccionado}"></h:inputHidden>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelEliminar}"></h:outputText>
+				</f:facet>
+
+
+				<h:panelGrid columns="2" width="100%"
+					columnClasses="columnLabelsDetalle,columnDatosDetalle">
+
+					<rich:dataTable value="#{tMaestrasBean.listaPropPersistida}"
+						var="propCons">
+						<rich:column>
+							<h:outputText value="#{propCons.prop_eti}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{formMaster[propCons.prop_cam]}"
+								rendered="#{propCons.prop_tipdat.equals('alfanumerico')}" />
+							<h:selectBooleanCheckbox label="#{propCons.prop_eti}"
+								value="#{propCons.prop_cam}"
+								rendered="#{propCons.prop_tipdat.equals('boleano')}" />
+						</rich:column>
+					</rich:dataTable>
+
+				</h:panelGrid>
+				<div class="spacer15"></div>
+				<div align="center">
+
+					<h:panelGrid columns="2">
+						<h:commandButton action="#{tMaestrasBean.eliminarRegistro}"
+							value="#{msg.labelEliminar}"
+							onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+						</h:commandButton>
+
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

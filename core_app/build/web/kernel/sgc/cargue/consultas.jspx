@@ -1,0 +1,73 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+	<ui:define name="body">		
+		<h:form id="consultasInformes">
+			
+				
+					
+						
+
+						
+					<rich:panel id="panelInformesPendientes">
+							<h:panelGrid width="100%">	
+							<f:facet name="header">
+								<h:outputText value="Informe Sociedades sin presentar informes" />
+							</f:facet>							
+								<h:outputText
+									value="Periodo Habilitado: #{consultasBean.periodoHabilitado}" />
+									
+								<rich:dataTable value="#{consultasBean.informesFaltantes}"
+									var="dato" rows="10" id="tablaInformesPendientes"
+									style="width:100%">
+
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="Sociedad" />
+										</f:facet>
+										<h:outputText value="#{dato.sociedad}" />
+									</rich:column>
+
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="Informe" />
+										</f:facet>
+										<h:outputText value="#{dato.formato}" />
+									</rich:column>
+									
+
+									<f:facet name="footer">
+										<rich:dataScroller id="dsErrores" for="tablaInformesPendientes"
+											maxPages="5" />
+									</f:facet>
+								</rich:dataTable>
+
+							</h:panelGrid>
+							</rich:panel>
+							
+							<div class="spacer15"></div>	
+					<h:commandButton id="excel" value="Exportar a Excel" immediate="true"
+							action="#{consultasBean.exportarExcel}">
+						</h:commandButton>
+						
+
+
+					
+			<t:saveState value="#{consultasBean.informesPorEntidad}"></t:saveState>			
+			<t:saveState value="#{consultasBean.idFechaCorteSeleccionada}"></t:saveState>			
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+

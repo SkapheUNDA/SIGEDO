@@ -1,0 +1,42 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="../layout/templateSimple.xhtml">
+	<ui:define name="body">
+
+	
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.exampleTitulo}"></h:outputText>
+				</f:facet>
+
+				<rich:panel>
+					<h:panelGrid columns="1" width="100%">
+						<h:form enctype="multipart/form-data">
+							<p:messages showDetail="true" />
+
+							<p:fileUpload
+								fileUploadListener="#{exampleBean.handleFileUpload}"
+								mode="advanced" sizeLimit="100000"
+								allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+						
+						</h:form>
+					</h:panelGrid>
+				</rich:panel>
+			</rich:panel>
+
+
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,192 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<p:dialog id="dialogDetalleExpediente" header="#{msg.modalVerExpedienteTitulo}" widgetVar="modalDetalleExpediente" modal="true" dynamic="false" visible="#{visible}"  width="800" height="600">
+
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msg.expproInfoExpediente}"></h:outputText>
+			</f:facet>
+
+			<h:panelGrid columns="2" columnClasses="columnLabelsForm,columnDatosForm" width="100%">
+				<h:outputText value="#{msg.expproNoExpediente}:" />
+				<h:outputText value="#{objetoDetalle.expCod}" />
+				<h:outputText value="#{msg.exppropFechaApertura}:" />
+				<h:outputText value="#{objetoDetalle.expFso}" />
+				<h:outputText value="#{msg.expproNomExpediente}:" />
+				<h:outputText value="#{objetoDetalle.expNom}" />
+				<h:outputText value="#{msg.labelSolicitante}:" />
+				<h:panelGrid columns="2" width="100%" columnClasses="columnDatosForm,columnDatosForm">
+					<h:outputText value="#{objetoDetalle.persona.perNom} #{objetoDetalle.persona.perPap} #{objetoDetalle.persona.perSap} " />
+				</h:panelGrid>
+			</h:panelGrid>
+
+			<div class="spacer15"></div>
+
+		</rich:panel>
+		<rich:tabPanel switchType="client">
+			<rich:tab header="#{msg.labelInfoBasica}">
+				<h:panelGrid columns="2" columnClasses="columnLeftTop,columnRigthTop" width="100%">
+					<h:panelGrid columns="1" width="100%" styleClass="panelBorder">
+						<h:outputText value="#{msg.labelDependenciaR}:" />
+						<h:outputText value="#{objetoDetalle.depend.depNom}" />
+						<h:outputText value="#{msg.labelTramite}:" />
+						<h:outputText value="#{objetoDetalle.tramite.trmNom}" />
+						<h:outputText value="#{msg.labelEnCalidadDe}:" />
+						<h:outputText value="#{objetoDetalle.calidadrepresentante.calNom}" />
+					</h:panelGrid>
+					<h:panelGrid columns="1" width="100%" styleClass="panelBorder">
+						<h:outputText value="#{msg.labelEtapaActual}:" />
+						<h:outputText value="#{objetoDetalle.estado.estNom}" />
+						<h:outputText value="#{msg.labelUsuarioR}:" />
+						<h:outputText value="#{objetoDetalle.usuarioTemp.usrNom} #{objetoDetalle.usuarioTemp.usrPap} #{objetoDetalle.usuarioTemp.usrSap}" />
+					</h:panelGrid>
+				</h:panelGrid>
+				<div class="spacer25"></div>
+				<h:outputText value="#{msg.labelHistorial}" />
+				<div class="spacer25"></div>
+				<rich:dataTable id="tablaSegExpediente" value="#{modalDetalleExpedienteBean.seguimientosExp(objetoDetalle)}" var="segExpediente" style="width: 100%;" rows="30">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value="#{msg.labelMovimiento}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelEtapa}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelFecha}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelDescripcion}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelUsuarioInicial}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelUsuarioFinal}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelObservaciones}"></h:outputText>
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<h:outputText value="#{segExpediente.sgeId}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{segExpediente.estadoBySgeEst.estNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{segExpediente.sgeFec}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{segExpediente.sgeDes}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{segExpediente.usuario.usrNom} #{segExpediente.usuario.usrPap} #{segExpediente.usuario.usrSap}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{segExpediente.sgeUsr.usrNom} #{segExpediente.sgeUsr.usrPap} #{segExpediente.sgeUsr.usrSap}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{segExpediente.sgeObs}"></h:outputText>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller id="foottablaSegExpediente" maxPages="5" for="tablaSegExpediente"></rich:dataScroller>
+					</f:facet>
+				</rich:dataTable>
+			</rich:tab>
+			<rich:tab header="#{msg.labelAnotaciones}">
+				<div class="spacer25"></div>
+				<h:outputText value="#{msg.labelAnotaciones}" />
+				<div class="spacer15"></div>
+				<rich:dataTable id="tablaAnotaciones" value="#{modalDetalleExpedienteBean.anotacionesExpediente(objetoDetalle)}" var="varAnotaciones" style="width: 100%;" rows="5">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value="#{msg.labelEtapa}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelFCreacion}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelFVencimiento}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.expproNombreAnotacion}"></h:outputText>
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<h:outputText value="#{varAnotaciones.estado.estNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{varAnotaciones.anoFcr}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{varAnotaciones.anoFve}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{varAnotaciones.anoNom}"></h:outputText>
+					</rich:column>					
+					<f:facet name="footer">
+						<rich:dataScroller id="foottablaAnotaciones" maxPages="5" for="tablaAnotaciones"></rich:dataScroller>
+					</f:facet>
+				</rich:dataTable>
+				<div class="spacer15"></div>
+			</rich:tab>
+			<rich:tab header="#{msg.labelAnexos}">
+				<div class="spacer25"></div>
+				<h:outputText value="#{msg.expproListaAnexos}" />
+				<rich:dataTable id="tablaAnexos" value="#{tablaAnexos}" var="varAnexos" style="width: 100%;" rows="5">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value=""></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.expproAnexo}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelFolios}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelOpciones}"></h:outputText>
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+				</rich:dataTable>
+			</rich:tab>
+			<rich:tab header="#{msg.labelOtros}">
+				<div class="spacer25"></div>
+				<h:outputText value="#{msg.labelOtrasPersonas}" />
+				<rich:dataTable id="tablaOtros" value="#{tablaOtros}" var="varOtros" style="width: 100%;" rows="5">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value=""></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelTipoPersona}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelPersona}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelOpciones}"></h:outputText>
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+				</rich:dataTable>
+			</rich:tab>
+		</rich:tabPanel>
+
+	</p:dialog>
+
+
+</ui:composition>

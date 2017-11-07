@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formListado">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.cortesTitulo} - Listado"></h:outputText>
+				</f:facet>
+
+				<h:inputHidden value="#{cortesFormatoBean.idCorte}" />
+
+				<h:panelGrid columns="2" width="100%">
+					<h:outputLabel value="#{msg.cortesLabelFormatos}"
+						for="listaFormatos" />
+					<h:selectOneMenu id="listaFormatos" required="true"
+						value="#{cortesFormatoBean.formatoSeleccionado}">
+						<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+						<f:selectItems value="#{cortesFormatoBean.listaFormatos}"></f:selectItems>
+					</h:selectOneMenu>
+				</h:panelGrid>
+
+				<h:panelGrid columns="1">
+					<h:commandButton value="#{msg.cortesButtonBuscar}"
+						actionListener="#{cortesFormatoBean.buscar}">
+					</h:commandButton>
+				</h:panelGrid>
+
+				<h:panelGrid columns="1" width="100%">
+					<rich:dataTable value="#{cortesFormatoBean.cortesFormato}"
+						var="item" id="tablaCortesFormato" rows="30" style="width: 100%;">
+						<rich:column>
+							<f:facet name="header">#{msg.cortesTablaFechaCorte}</f:facet>
+							<h:outputText value="#{item.fcrCorte}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.cortesTablaActivo}</f:facet>
+							<h:selectBooleanCheckbox value="#{item.fcrActivo}"
+								disabled="true" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{msg.cortesTablaVigente}</f:facet>
+							<h:selectBooleanCheckbox value="#{!item.fcrVencido}"
+								disabled="true" />
+						</rich:column>
+
+						<rich:column>
+							<f:facet name="header">Modificar</f:facet>
+							<h:commandLink styleClass="no-decor"
+								action="#{cortesFormatoBean.navModificar()}">
+								<h:graphicImage value="/img/icons/actualizar.png"
+									alt="Modificar" width="25" height="25" />
+								<f:setPropertyActionListener
+									target="#{cortesFormatoBean.cortesFormatoSeleccionado}"
+									value="#{item}" />
+								<f:param name="idCorte" value="#{item.fcrCodigo}" />
+							</h:commandLink>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">Eliminar</f:facet>
+							<h:commandLink
+								onclick="if (!confirm('#{msg.confirmacionFormsEliminar}')) return false"
+								action="#{cortesFormatoBean.accionEliminar}">
+								<h:graphicImage value="/img/icons/eliminar.png" alt="Modificar"
+									width="25" height="25" />
+								<f:setPropertyActionListener
+									target="#{cortesFormatoBean.cortesFormatoSeleccionado}"
+									value="#{item}" />
+								<f:param name="idCorte" value="#{item.fcrCodigo}" />
+							</h:commandLink>
+						</rich:column>
+						<f:facet name="footer">
+							<rich:dataScroller id="ds" maxPages="5" ajaxSingle="false"
+								for="tablaCortesFormato"></rich:dataScroller>
+						</f:facet>
+					</rich:dataTable>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

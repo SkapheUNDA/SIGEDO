@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:cnet="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{tMaestrasBean.cargaValores}"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText
+						value="Agregar registro en #{tMaestrasBean.idTablaSeleccionada}"></h:outputText>
+				</f:facet>
+
+				<cnet:formPpal listaPropCons="#{tMaestrasBean.listaPropPersistida}" />
+
+				<div class="spacer15"></div>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

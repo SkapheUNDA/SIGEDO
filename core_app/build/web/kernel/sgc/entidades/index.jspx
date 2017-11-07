@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<ui:define name="content">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{entidadesBean.cargarDatosModificar}" />
+		</f:metadata>
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formListado">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.entidadesTitulo} - Listado"></h:outputText>
+				</f:facet>
+
+				<rich:extendedDataTable value="#{entidadesBean.listaEntidades}"
+					styleClass="autoSizeRows" var="item" style="width:100%;"
+					selectionMode="none" id="tablaEntidades" rows="10">
+					<f:facet name="noData">
+						<h:outputText value="No se encontraron registros para mostrar" />
+					</f:facet>
+					<rich:column width="131px">
+						<f:facet name="header">#{msg.entidadesAnioCreacion}</f:facet>
+						<h:outputText value="#{item.entAcreacion}" />
+					</rich:column>
+					<rich:column width="421px">
+						<f:facet name="header">#{msg.entidadesPersoneriaJuridica}</f:facet>
+						<h:outputText value="#{item.entPjuridica}" />
+					</rich:column>
+					<rich:column filterValue="#{entidadesBean.filtroObjetoSocial}"
+						width="210px"
+						filterExpression="#{fn:containsIgnoreCase(item.entObjetoSocial, entidadesBean.objetoSocialFiltro)}">
+						<f:facet name="header">
+							<center>
+								<h:panelGroup>
+									<h:outputText value="#{msg.entidadesObjetoSocial}" />
+									<h:inputText value="#{entidadesBean.objetoSocialFiltro}"
+										label="Filtro Objeto Social">
+										<a4j:ajax event="blur" render="tablaEntidades" execute="@this" />
+									</h:inputText>
+								</h:panelGroup>
+							</center>
+						</f:facet>
+						<h:outputText value="#{item.entObjetoSocial}" />
+					</rich:column>
+					<rich:column width="155px">
+						<f:facet name="header">#{msg.entidadesNumeroSedes}</f:facet>
+						<h:outputText value="#{item.entNoSedes}" />
+					</rich:column>
+					<rich:column width="147px">
+						<f:facet name="header">#{msg.labelOpciones}</f:facet>
+						<center>
+							<h:panelGroup>
+								<h:commandLink styleClass="no-decor"
+									action="#{entidadesBean.navModificar}">
+									<h:graphicImage value="/img/icons/actualizar.png"
+										alt="Modificar" title="Modificar" width="25" height="25" />
+									<f:setPropertyActionListener target="#{entidadesBean.entidad}"
+										value="#{item}" />
+									<f:param name="idEntidad" value="#{item.entCodigo}" />
+								</h:commandLink>
+								<h:commandLink action="#{entidadesBean.accionEliminar}"
+									onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+									<h:graphicImage value="/img/icons/eliminar.png" alt="Eliminar"
+										title="Eliminar" width="25" height="25" />
+									<f:setPropertyActionListener target="#{entidadesBean.entidad}"
+										value="#{item}" />
+									<f:param name="idEntidad" value="#{item.entCodigo}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</center>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller id="ds" maxPages="5" ajaxSingle="false"
+							for="tablaEntidades"></rich:dataScroller>
+					</f:facet>
+
+
+				</rich:extendedDataTable>
+
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

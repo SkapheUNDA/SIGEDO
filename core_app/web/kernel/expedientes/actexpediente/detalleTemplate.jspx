@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="../../layout/principalTemplate.xhtml">
+
+	<ui:define name="body">
+
+		<f:metadata>
+			<f:event listener="#{expedienteBean.cargaParametros}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+
+		<ccom:tituloModulo titulo="#{msg.expproTituloSeccAct}" />
+		<h:form style="padding-bottom: 3px;" id="formToolBar">
+
+			<rich:toolbar height="34" itemSeparator="grid" id="toolBar"
+				separatorClass="separator">
+				<rich:toolbarGroup>
+					<h:panelGroup>
+						<h:commandLink value="#{msg.labelListado}" id="listado"
+							action="#{expedienteBean.listadoNavegacion}" />
+					</h:panelGroup>
+				</rich:toolbarGroup>
+				<rich:toolbarGroup>
+					<h:panelGroup>
+						<h:commandLink value="#{msg.expproLblNuevo}" id="agregar"
+							action="#{expedienteBean.agregarNavegacion}" />
+					</h:panelGroup>
+				</rich:toolbarGroup>
+			</rich:toolbar>
+
+			<!--  Panel de datos basicos -->
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.expproInfoExpediente}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2"
+					columnClasses="columnLabelsForm,columnDatosForm" width="100%">
+					<h:outputText value="#{msg.expproNoExpediente}:" />
+					<h:outputText
+						value="#{expedienteBean.expedienteSeleccionado.expCod}" />
+					<h:outputText value="#{msg.exppropFechaApertura}:" />
+					<h:outputText
+						value="#{expedienteBean.expedienteSeleccionado.expFso}" />
+					<h:outputText value="#{msg.expproNomExpediente}:" />
+					<h:outputText
+						value="#{expedienteBean.expedienteSeleccionado.expNom}" />
+					<h:outputText value="#{msg.labelSolicitante}:" />
+					<h:panelGrid columns="2" width="100%"
+						columnClasses="columnDatosForm,columnDatosForm">
+						<h:outputText
+							value="#{expedienteBean.expedienteSeleccionado.persona.perNom} #{expedienteBean.expedienteSeleccionado.persona.perPap} #{expedienteBean.expedienteSeleccionado.persona.perSap} " />
+						<h:outputLink onclick="modalMaestraPersona.show();" value="#">#{msg.labelMaestra}</h:outputLink>
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:panel>
+
+			<div class="spacer15"></div>
+		</h:form>
+
+		<ccom:modalMaestraPersona></ccom:modalMaestraPersona>
+		<ui:insert name="content" />
+	</ui:define>
+
+</ui:composition>

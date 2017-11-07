@@ -1,0 +1,22 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="kernel/layout/templateSimple.xhtml">
+
+	<ui:define name="body">
+			<h:form>
+					<h:outputText value="Acceso Denegado"></h:outputText>
+					<br/>
+					<h:commandLink action="home" value="Inicio" />
+			</h:form>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,81 @@
+<ui:composition 
+xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns:f="http://java.sun.com/jsf/core"  
+xmlns:p="http://primefaces.org/ui" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:a4j="http://richfaces.org/a4j" 
+xmlns:rich="http://richfaces.org/rich" 
+template="internalTemplate.jspx"
+xmlns:ccom="http://customcomponents/jsf"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:cnet="http://customcomponents/jsf">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formListado">
+
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.conaudAuditores}"></h:outputText>
+				</f:facet>
+				<div align="left">
+					<h:panelGrid columns="4">
+						<h:outputLabel value="#{msg.conaudNombreAuditor}" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:inputText value="#{auditorBean.nombreAuditores}"
+							id="nombreAuditor" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+					</h:panelGrid>
+					<div class="spacer15"></div>
+					<div align="center">
+						<h:panelGrid columns="3">
+
+							<p:commandButton value="#{msg.modalPersonasBuscar}"
+								update="dataTableAuditores"
+								action="#{auditorBean.buscar}" execute="@form"></p:commandButton>
+
+							<h:commandButton value="#{msg.conconpucCrear}"
+								action="#{auditorBean.agregarNavigation}"></h:commandButton>
+
+						</h:panelGrid>
+					</div>
+				</div>
+			</rich:panel>
+				<h:panelGroup id="dataTableAuditores">
+				<p:dataTable var="auditor" paginator="true" rows="15"
+					paginatorPosition="bottom"
+					value="#{auditorBean.listDatamodel}" lazy="true">
+
+					<p:column style="width:200px"
+						headerText="#{msg.conaudCodigoAuditor}">
+						<h:outputText value="#{auditor.codigoAuditores}">
+							<f:convertNumber />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="#{msg.conaudNombreAuditor}">
+						<h:outputText value="#{auditor.nombreAuditores}" />
+					</p:column>
+					<p:column headerText="#{msg.conaudEstado}">
+						<h:outputText value="#{auditor.estadoAuditores == '1' ? 'Activo' : 'Inactivo'} " /> 
+					</p:column>
+
+					<p:column style="width:150px">
+						<h:commandLink style="color: #FFFFFF;"
+							action="#{auditorBean.editarNavigation}">
+							<h:graphicImage width="16" height="16"
+								alt="#{msg.labelActualizar}" title="#{msg.labelActualizar}"
+								url="/img/icons/actualizar.png"></h:graphicImage>
+							<f:param name="idAutorSeleccionado"
+								value="#{auditor.codigoAuditores}" />
+						</h:commandLink>
+					</p:column>
+					
+				</p:dataTable>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

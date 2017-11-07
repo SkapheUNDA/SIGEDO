@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:aui-cc="http://liferay.com/faces/aui-cc"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+	
+	
+<f:metadata>
+  <f:event type="preRenderView" listener="#{perfilesBean.cargarObjetoSelecionado}"/>
+</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelActualizar}"></h:outputText>
+				</f:facet>
+
+			
+				<h:inputHidden value="#{perfilesBean.idRegSeleccionado}" />
+				<h:inputHidden value="#{perfilesBean.perfilSeleccionado.id}" />
+
+
+				<h:panelGrid columns="2" width="100%"
+					columnClasses="columnLabelsDetalle,columnDatosDetalle">
+
+					<h:outputLabel value="#{msg.labelNombre}" for="nombre"></h:outputLabel>
+					<h:inputText value="#{perfilesBean.perfilSeleccionado.nombre}" label="#{msg.labelNombre}" required="true"  id="nombre"></h:inputText>
+					
+					<h:outputLabel value="#{msg.labelEtiqueta}" for="nombreMostrar"></h:outputLabel>
+					<h:inputText value="#{perfilesBean.perfilSeleccionado.nombreMostrar}" label="#{msg.labelEtiqueta}" required="true"  id="nombreMostrar"></h:inputText>
+
+				</h:panelGrid>
+				<div class="spacer15"></div>
+				<div align="center">
+
+					<h:panelGrid columns="2">
+						<h:commandButton action="#{perfilesBean.actualizarRegistro}"
+							value="#{msg.labelActualizar}"
+							onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+						</h:commandButton>
+
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

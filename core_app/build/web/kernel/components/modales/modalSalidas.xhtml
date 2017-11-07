@@ -1,0 +1,122 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<p:dialog id="dialogSalida" header="#{msg.modalBuscarSalida}"
+		widgetVar="modalSalida" modal="true" dynamic="true" width="800" height="600" >
+		
+		<h:form style="padding-bottom: 3px;" id="formModalSalida">
+
+				<h:panelGrid columns="5" width="100%">
+
+					<h:outputText value="#{msg.modalSalidaNoRadicacion}"></h:outputText>
+					<h:outputText value="#{msg.modalSalidaFecha}"></h:outputText>
+					<h:outputText value="#{msg.modalSalidaAsunto}"></h:outputText>
+					<h:outputText value="#{msg.modalSalidaPersonaNatural}"></h:outputText>
+					<h:outputText value="#{msg.modalSalidaPersonaJuridica}"></h:outputText>
+					
+					<h:inputText value="#{modalSalidasBean.noRadicacion}"></h:inputText>					
+					<h:inputText value="#{modalSalidasBean.fechaRadicacion}"></h:inputText>								
+					<h:inputText value="#{modalSalidasBean.asunto}"></h:inputText>											
+					<h:inputText value="#{modalSalidasBean.nomPersonaNatural}"></h:inputText>
+					<h:inputText value="#{modalSalidasBean.nomPersonaJuridica}"></h:inputText>
+					
+				</h:panelGrid>
+				<h:panelGrid columns="1" width="100%">
+				
+					<h:outputText value="#{msg.modalSalidaDependencia}"></h:outputText>	
+					<h:selectOneMenu
+							value="#{modalSalidasBean.idDependenciaSeleccionada}"
+							label="#{msg.modalSalidaDependencia}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{modalSalidasBean.dependenciasItems}" />
+							<a4j:ajax render="calisificacionModalSalida" limitRender="true" execute="@this" event="valueChange" ></f:ajax>
+					</h:selectOneMenu>
+					
+					<h:outputText value="#{msg.modalSalidaClasificacion}"></h:outputText>												
+					<h:selectOneMenu id="calisificacionModalSalida"
+							value="#{modalSalidasBean.idClasificacionSeleccionada}"
+							label="#{msg.modalSalidaClasificacion}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{modalSalidasBean.clasificacionItems}" />
+					</h:selectOneMenu>		
+														
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="1" width="100%" rendered="#{modalSalidasBean.adminCorrespondencia}">
+				
+					<h:outputText value="#{msg.modalSalidaUsuario}"></h:outputText>										
+					<h:selectOneMenu 
+							value="#{modalSalidasBean.idUsuarioSeleccionado}"
+							label="#{msg.modalSalidaUsuario}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{modalSalidasBean.usuariosItems}" />
+					</h:selectOneMenu>										
+					
+				</h:panelGrid>
+				
+			<div align="center">
+				<h:panelGrid columns="3">
+					<p:commandButton value="#{msg.modalSalidaBuscar}"
+						update="dataTableModalSalida" action="#{modalSalidasBean.buscar}"
+						process="@form"></p:commandButton>
+				</h:panelGrid>
+			</div>
+		
+		<h:panelGroup id="dataTableModalSalida">
+			<p:dataTable var="salida" paginator="true" rows="15"
+				paginatorPosition="bottom"
+				value="#{modalSalidasBean.listDatamodel}" lazy="true">
+				<p:column>				
+					<p:commandLink style="color: #FFFFFF;" update="#{renderPanel}" process="@this,#{renderPanel}" oncomplete="modalSalida.hide();">
+						<h:graphicImage width="16" height="16"
+							alt="#{msg.labelSeleccionar}" title="#{msg.labelSeleccionar}"
+							url="/img/icons/ok.png"></h:graphicImage>
+							<f:setPropertyActionListener value="#{salida}" target="#{objetoSeleccionado}" />
+							<c:if test="#{!empty resetInput}">
+								<p:resetInput target="#{resetInput}" />  
+							</c:if>
+					</p:commandLink>				
+				</p:column>
+				<p:column headerText="#{msg.modalSalidaNoRadicacion}">
+					<h:outputText value="#{salida.salNsa}" />
+				</p:column>
+				<p:column headerText="#{msg.modalSalidaFecha}" width="80">
+					<h:outputText value="#{salida.salFsa}" >
+					<f:convertDateTime pattern="dd/MM/yyy HH:mm"/>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="#{msg.modalSalidaAsunto}">
+					<h:outputText value="#{salida.salAsu}" />
+				</p:column>
+				<p:column headerText="#{msg.modalSalidaNombres}">
+					<h:outputText value="#{salida.salNom}" />
+				</p:column>
+				<p:column headerText="#{msg.modalSalidaPrimerApellido}">
+					<h:outputText value="#{salida.salPap}" />
+				</p:column>
+				<p:column headerText="#{msg.modalSalidaSegundoApellido}">
+					<h:outputText value="#{salida.salSap}" />
+				</p:column>
+				<p:column headerText="#{msg.modalSalidaDependencia}">
+					<h:outputText value="#{salida.depend.depNom}" />
+				</p:column>
+				<p:column headerText="#{msg.modalSalidaClasificacion}">
+					<h:outputText value="#{salida.clasificacion.claNom}" />
+				</p:column>
+				
+				
+			</p:dataTable>
+		</h:panelGroup>
+		
+</h:form>	
+	</p:dialog>
+
+
+</ui:composition>

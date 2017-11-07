@@ -1,0 +1,121 @@
+
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory name="sessionFactory">
+
+
+		<mapping class="la.netco.core.persistencia.vo.Usuario" />
+		<mapping class="la.netco.core.persistencia.vo.Perfil" />
+		<mapping class="la.netco.core.persistencia.vo.PerfilUsuario" />
+		<mapping class="la.netco.core.persistencia.vo.EntidadAuditada" />
+		<mapping class="la.netco.core.persistencia.vo.Auditoria" />
+		<mapping class="la.netco.core.persistencia.vo.Grupo" />
+		<mapping class="la.netco.core.persistencia.vo.GrupoUsuario" />
+		<mapping class="la.netco.core.persistencia.vo.FirmaUsuario" />
+		<mapping class="la.netco.core.persistencia.vo.UsuarioEntidad" />
+		
+
+		<mapping class="la.netco.core.persistencia.vo.Modulo" />
+		<mapping class="la.netco.core.persistencia.vo.Recurso" />
+		<mapping class="la.netco.core.persistencia.vo.PerfilRecurso" />
+
+		<mapping class="la.netco.example.persistence.dto.Example" />
+		<mapping class="la.netco.maestras.persistence.dto.TablasMaestras" />
+		<mapping class="la.netco.maestras.persistence.dto.PropTablas" />
+
+
+		<mapping class="la.netco.persistencia.dto.commons.Entrada" />
+		<mapping class="la.netco.persistencia.dto.commons.Estado" />
+		<mapping class="la.netco.persistencia.dto.commons.Depend" />
+		<mapping class="la.netco.persistencia.dto.commons.Tramite" />
+		<mapping class="la.netco.persistencia.dto.commons.Expediente" />
+		<mapping class="la.netco.persistencia.dto.commons.Persona" />
+		<mapping class="la.netco.persistencia.dto.commons.Tipospersona" />
+		<mapping class="la.netco.persistencia.dto.commons.Tiposexpediente" />
+		<mapping class="la.netco.persistencia.dto.commons.Clasificacion" />
+		<mapping class="la.netco.persistencia.dto.commons.Calidadrepresentante" />
+		<mapping class="la.netco.persistencia.dto.commons.Salida" />
+		<mapping class="la.netco.persistencia.dto.commons.Expedientecorrespond" />
+		<mapping class="la.netco.persistencia.dto.commons.Entidad" />
+		<mapping class="la.netco.persistencia.dto.commons.Evento" />
+		<mapping class="la.netco.persistencia.dto.commons.Configuracion" />
+		<mapping class="la.netco.persistencia.dto.commons.Tiposevento" />
+		<mapping class="la.netco.persistencia.dto.commons.Transicion" />
+		<mapping class="la.netco.persistencia.dto.commons.TransicionId" />
+		<mapping class="la.netco.persistencia.dto.commons.Medioscorrespondencia" />
+		<mapping class="la.netco.persistencia.dto.commons.Tiposdocumento" />
+		<mapping class="la.netco.persistencia.dto.commons.Paises" />
+		<mapping class="la.netco.persistencia.dto.commons.Lugar" />
+		<mapping class="la.netco.persistencia.dto.commons.Asignaclasificacion" />
+		<mapping class="la.netco.persistencia.dto.commons.Anexo" />
+		<mapping class="la.netco.persistencia.dto.commons.Seguimientoexpediente" />
+		<mapping class="la.netco.persistencia.dto.commons.Devoluciones" />
+		<mapping class="la.netco.persistencia.dto.commons.Diasfestivos" />
+		<mapping class="la.netco.persistencia.dto.commons.Registro" />
+		<mapping class="la.netco.persistencia.dto.commons.Claseregistro" />
+		<mapping class="la.netco.persistencia.dto.commons.Ubicacion" />
+		<mapping class="la.netco.persistencia.dto.commons.Expedienteanexo" />
+		<mapping class="la.netco.persistencia.dto.commons.ExpedienteanexoId" />
+		<mapping class="la.netco.persistencia.dto.commons.Sector" />
+		<mapping class="la.netco.persistencia.dto.commons.Anexoentrada" />
+		<mapping class="la.netco.persistencia.dto.commons.AnexoentradaId" />
+		<mapping class="la.netco.persistencia.dto.commons.Enlace" />
+		<mapping class="la.netco.persistencia.dto.commons.Seguimientoentrada" />
+		<mapping class="la.netco.persistencia.dto.commons.Anotacionesexpedientes" />
+		<mapping class="la.netco.persistencia.dto.commons.Programacion" />
+		<mapping class="la.netco.persistencia.dto.commons.Detalleprogramacion" />
+		<mapping class="la.netco.persistencia.dto.commons.Expedientepersona" />
+		<mapping class="la.netco.persistencia.dto.commons.ArchivoEntrada" />
+		<mapping class="la.netco.persistencia.dto.commons.Anexosalida" />
+		<mapping class="la.netco.persistencia.dto.commons.Seguimientosalida" />
+		<mapping class="la.netco.persistencia.dto.commons.ArchivoSalida" />
+		<mapping class="la.netco.persistencia.dto.commons.ArchivoExpediente" />
+		<mapping class="la.netco.persistencia.dto.commons.ExpedienteEstado" />
+		<mapping class="la.netco.persistencia.dto.commons.Tiposcontrato" />
+		<mapping class="la.netco.persistencia.dto.commons.Elemento" />		
+		<mapping class="la.netco.persistencia.dto.commons.Propiedad" />
+		<mapping class="la.netco.persistencia.dto.commons.Elementoregistro" />		
+		<mapping class="la.netco.persistencia.dto.commons.Registropersona" />			
+		<mapping class="la.netco.persistencia.dto.commons.Tiporegistropersona" />	
+		<mapping class="la.netco.persistencia.dto.commons.Relacioncontrato" />	
+		<mapping class="la.netco.persistencia.dto.commons.Actividad" />	
+		<mapping class="la.netco.persistencia.dto.commons.Actividadclaseregistro" />		
+		<mapping class="la.netco.persistencia.dto.commons.Obras" />		
+		<mapping class="la.netco.persistencia.dto.commons.Titulos" />	
+		<mapping class="la.netco.persistencia.dto.commons.ArchivoRegistro" />
+		<mapping class="la.netco.persistencia.dto.commons.Documentos" />
+								
+		
+		<mapping class="la.netco.sgc.persistence.dto.Alertas" />
+		<mapping class="la.netco.sgc.persistence.dto.Autorizaciones" />
+		<mapping class="la.netco.sgc.persistence.dto.CortesFormato" />
+		<mapping class="la.netco.sgc.persistence.dto.DetallesFormato" />
+		<mapping class="la.netco.sgc.persistence.dto.Entidades" />
+		<mapping class="la.netco.sgc.persistence.dto.Formatos" />
+		<mapping class="la.netco.sgc.persistence.dto.FormatosTiposDato" />
+		<mapping class="la.netco.sgc.persistence.dto.Operadores" />
+		<mapping class="la.netco.sgc.persistence.dto.RegistroCargue" />
+		<mapping class="la.netco.sgc.persistence.dto.RegistroCargueHistorico" />
+		<mapping class="la.netco.sgc.persistence.dto.TiposDato" />
+		<mapping class="la.netco.sgc.persistence.dto.RegistroCargueFormato" />
+		<mapping class="la.netco.sgc.persistence.dto.ReporteTrimestral" />
+		<mapping class="la.netco.sgc.persistence.dto.ArchivoSGC" />
+		<mapping class="la.netco.sgc.persistence.dto.ParametrosSGC" />
+		<mapping class="la.netco.sgc.persistence.dto.ReporteGerencialDetallado" />
+		<mapping class="la.netco.sgc.persistence.dto.ReporteGerencialConsolidado" />
+		<mapping class="la.netco.sgc.persistence.dto.PUC" />
+		<mapping class="la.netco.sgc.persistence.dto.Auditores" />
+		<mapping class="la.netco.sgc.persistence.dto.Auditorias" />
+		<mapping class="la.netco.sgc.persistence.dto.ArchivoAuditorias" />
+		<mapping class="la.netco.sgc.persistence.dto.Hallazgos" />		
+		<mapping class="la.netco.sgc.persistence.dto.Area" />
+		<mapping class="la.netco.sgc.persistence.dto.EstadoAuditoria" />
+		<mapping class="la.netco.sgc.persistence.dto.TipoAuditoria" />
+		<mapping class="la.netco.sgc.persistence.dto.TipoProgramacion" />
+		<mapping class="la.netco.sgc.persistence.dto.InformeEntidad" />
+		<mapping class="la.netco.sgc.persistence.dto.RegistroRadicado" />
+		
+
+	</session-factory>
+</hibernate-configuration>

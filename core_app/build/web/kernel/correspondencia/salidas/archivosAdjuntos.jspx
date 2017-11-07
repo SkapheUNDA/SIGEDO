@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich" xmlns:ccom="http://customcomponents/jsf" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{adjuntarArchivosSalidasBean.cargarRegistroDetalleResumen}"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<rich:panel>
+
+			<f:facet name="header">
+				<h:outputText value="#{msg.labelDetalle}"></h:outputText>
+			</f:facet>
+
+			<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm" styleClass="panelBorder">
+
+				<h:outputText value="#{msg.corresNoRadicacion}" />
+				<h:outputText value="#{adjuntarArchivosSalidasBean.salidaSeleccionada.salNsa}" />
+
+				<h:outputText value="#{msg.corresFechaHoraRad}" />
+				<h:outputText value="#{adjuntarArchivosSalidasBean.salidaSeleccionada.salFsa}">
+					<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+				</h:outputText>
+
+			</h:panelGrid>
+
+			<div class="spacer15"></div>
+
+			<h:panelGrid columns="1" width="100%">
+
+				<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm">
+
+					<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+					<h:outputText value="#{adjuntarArchivosSalidasBean.salidaSeleccionada.depend.depNom}"></h:outputText>
+
+					<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+					<h:outputText value="#{adjuntarArchivosSalidasBean.salidaSeleccionada.clasificacion.claNom}"></h:outputText>
+
+					<h:outputText value="#{msg.corresRecibidaPor}"></h:outputText>
+					<h:outputText value="#{adjuntarArchivosSalidasBean.salidaSeleccionada.medio.medNom}"></h:outputText>
+
+					<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+					<h:outputText value="#{adjuntarArchivosSalidasBean.salidaSeleccionada.salAsu}" />
+				</h:panelGrid>
+
+				<div class="spacer15"></div>
+			</h:panelGrid>
+		</rich:panel>
+		<div class="spacer15"></div>
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msg.labelAdjuntaArchivos}"></h:outputText>
+			</f:facet>
+
+			<h:form enctype="multipart/form-data" acceptcharset="UTF-8">
+
+				<p:fileUpload fileUploadListener="#{adjuntarArchivosSalidasBean.uploadFile}" mode="advanced" update=":panelArchivosEntrada,:erroresValidacionPanel" allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/" uploadLabel="#{msg.labelGuardarArchivo}"
+					cancelLabel="#{msg.labelCancelarArchivo}" label="#{msg.labelSeleccionarArchivo}" showButtons="true" sizeLimit="#{adjuntarArchivosSalidasBean.sizeLimit}" />
+
+			</h:form>
+		</rich:panel>
+		<div class="spacer15"></div>
+		<rich:panel id="panelArchivosEntrada">
+			<f:facet name="header">
+				<h:outputText value="#{msg.corresArchivosAdjuntos}"></h:outputText>
+			</f:facet>
+			<h:form>
+				<rich:dataTable var="archivo" value="#{adjuntarArchivosSalidasBean.archivossalida}" style="width:80%;">
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelArchivoNombre}" />
+						</f:facet>
+						<h:outputText value="#{archivo.nombre}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelArchivoSize}" />
+						</f:facet>
+						<h:outputText value="#{archivo.size}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelFechaRegistro}" />
+						</f:facet>
+						<h:outputText value="#{archivo.fechaRegistro}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column width="10%">
+						<p:commandButton value="#{msg.labelDescargarArchivo}" ajax="false" icon="ui-icon-arrowthick-1-s">
+							<p:fileDownload value="#{adjuntarArchivosSalidasBean.descargar(archivo.id)}" />
+						</p:commandButton>
+					</rich:column>
+				</rich:dataTable>
+			</h:form>
+		</rich:panel>
+
+	</ui:define>
+</ui:composition>

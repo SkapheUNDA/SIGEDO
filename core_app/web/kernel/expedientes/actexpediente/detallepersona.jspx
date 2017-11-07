@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelDetallePersona}"></h:outputText>
+				</f:facet>
+
+				
+				
+				<h:panelGrid columns="2" width="100%"
+					columnClasses="columnLabelsDetalle,columnDatosDetalle">
+
+
+					<rich:panelMenu itemMode="server"
+						groupExpandedLeftIcon="triangleUp"
+						groupCollapsedLeftIcon="triangleDown"
+						topGroupExpandedRightIcon="chevronUp"
+						topGroupCollapsedRightIcon="chevronDown" itemLeftIcon="disc"
+						binding="#{menuModulosBean.panelMenuVertical}">
+
+					</rich:panelMenu>
+
+
+				</h:panelGrid>
+
+				<div class="spacer15"></div>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

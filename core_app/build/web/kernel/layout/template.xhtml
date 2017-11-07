@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:rich="http://richfaces.org/rich"
+   xmlns:a="http://richfaces.org/a4j"
+   xmlns:ccom="http://customcomponents/jsf"  >
+<f:view contentType="text/html">   
+   <h:head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+    
+      <title>Sistema Funcionarios</title>
+      	<h:outputStylesheet library="css" name="estilosModulos.css"  />	  
+  		<h:outputScript library="javascript" name="funciones.js" target="head"/>
+       
+       <ui:insert name="head"/>
+      
+       <f:loadBundle basename="la.netco.core.uilayer.bundle.Messages_es_ES"  var="msg"  />
+
+   </h:head>
+   <h:body> 
+   
+      <div align="center">
+       		<ccom:header />
+       		<ccom:headermenu />
+      </div>
+      
+      
+      
+      <div class="body">
+         <ui:insert name="body"/>
+      </div>
+      
+      
+      
+      <div class="footer" align="center">
+      </div>
+
+	
+
+
+<ccom:statusAjax id="allStatus" />
+<ccom:modalErrores id="erroresValidacion" showWhenRendered="#{!empty facesContext.maximumSeverity}" />
+
+
+
+ 		<ui:insert name="script"/>
+
+   </h:body>
+
+</f:view>
+</html>

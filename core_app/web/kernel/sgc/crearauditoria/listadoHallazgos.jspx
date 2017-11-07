@@ -1,0 +1,95 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" template="internalTemplate.jspx"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:cnet="http://customcomponents/jsf">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formListado">
+			<f:metadata>
+				<f:event type="preRenderView"
+					listener="#{hallazgosBean.cargarRegistro}" />
+			</f:metadata>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.reghallazgos}"></h:outputText>
+				</f:facet>
+				<div align="left">
+					<h:panelGrid columns="2">
+						<h:outputLabel for="NumeroAud"
+							value="#{msg.reghalNumeroAuditoria}" />
+						<h:outputLabel
+							value="#{hallazgosBean.auditoriaSeleccionada.audId}"
+							id="NumeroAud" />
+
+						<h:outputLabel for="TipoAud" value="#{msg.reghalTipoAuditoria}" />
+						<h:outputLabel
+							value="#{hallazgosBean.auditoriaSeleccionada.audTipo.tauNombre}"
+							id="TipoAud" />
+
+						<h:outputLabel for="FechaAud" value="#{msg.reghalFechaEnvio}" />
+						<h:outputLabel
+							value="#{hallazgosBean.auditoriaSeleccionada.audFechaEnvioOficio}"
+							id="FechaAud" />
+
+						<h:outputLabel for="SociedadAud" value="#{msg.reghalSociedad}" />
+						<h:outputLabel
+							value="#{hallazgosBean.auditoriaSeleccionada.audSociedad.entObjetoSocial}"
+							id="SociedadAud" />
+					</h:panelGrid>
+
+					<div class="spacer15"></div>
+					<div align="center">
+						<h:panelGrid columns="2">
+							<p:commandButton value="#{msg.reghalCrearHallazgo}"
+								action="#{hallazgosBean.navRegistrarHallazgo}" execute="@form">
+								<f:param name="idAuditoriaSeleccionada"
+									value="#{hallazgosBean.auditoriaSeleccionada.audId}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</div>
+
+				</div>
+			</rich:panel>
+			<h:panelGroup id="dataTablemodalAuditorias">
+				<p:dataTable var="hallazgos" paginator="true" rows="15"
+					paginatorPosition="bottom" value="#{hallazgosBean.listDatamodel}"
+					lazy="true">
+
+					<p:column headerText="#{msg.reghalTipo}">
+						<h:outputText value="#{hallazgos.halTipo}" />
+					</p:column>
+
+					<p:column headerText="#{msg.reghalArea}">
+						<h:outputText value="#{hallazgos.halArea.descripcionArea}" />
+					</p:column>
+
+					<p:column headerText="#{msg.reghalEstado}">
+						<h:outputText
+							value="#{hallazgos.halEstado.descripcionEstadoAuditoria}" />
+					</p:column>
+
+					<p:column headerText="#{msg.reghalFechaVencimiento}">
+						<h:outputText value="#{hallazgos.halFechaVencimiento}" />
+					</p:column>
+					
+					<p:column>
+						<p:commandLink style="color: #FFFFFF;"
+							action="#{hallazgosBean.cambiarEstadoNavigation}">
+							<h:graphicImage width="16" height="16"
+								alt="#{msg.labelActualizar}" title="#{msg.labelCambiarEstado}"
+								url="/img/icons/actualizar.png"></h:graphicImage>
+							<f:param name="idHallazgoSel" value="#{hallazgos.halId}" />
+						</p:commandLink>
+					</p:column>
+
+				</p:dataTable>
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+

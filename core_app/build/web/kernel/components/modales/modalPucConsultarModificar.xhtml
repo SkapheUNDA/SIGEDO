@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<p:dialog id="dialogPucConsultarModificar" header="#{msg.pucModalIngreseCodigoCuenta}"
+		widgetVar="modalPucConsultarModificar" modal="true" dynamic="false"
+		width="300" height="100">
+
+		<h:form style="padding-bottom: 3px;" id="formModalMPersona">
+		
+			<h:panelGrid columns="2" width="100%">
+
+				<h:outputText ></h:outputText>
+				<h:outputText ></h:outputText>
+
+				<h:outputText value="#{msg.conconpucCodigoCuenta}:"></h:outputText>
+				<h:inputText value="#{pucBean.puc.id}"></h:inputText>
+							
+			</h:panelGrid>
+			
+			<h:panelGroup id="buttonGroup">
+			<div class="spacer15"></div>
+			<div align="center">
+			
+					<p:commandButton 
+						value="#{msg.ingresar}"
+						action="#{pucBean.cargarRegistro()}" process="@form"
+						update="formAgregar"
+						oncomplete="modalPucConsultarModificar.hide();" >	
+						<f:setPropertyActionListener value="400" target="#{scroll}" />
+				</p:commandButton>
+                            
+			</div>
+
+		</h:panelGroup>
+			
+					
+
+		</h:form>
+	</p:dialog>
+
+</ui:composition>

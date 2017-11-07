@@ -1,0 +1,14 @@
+<rich:panel xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<div align="center">
+		<h:panelGrid columns="3">
+			<h:outputText value="#{lblCampoCombo}" styleClass="tituloModulo" />
+			<h:selectOneMenu value="#{itemActualCombo}">
+				<f:selectItems value="#{listaCombo}" />
+			</h:selectOneMenu>
+			<h:commandButton value="#{msg.tmaesLblBuscar}" action="buscar"></h:commandButton>
+			<h:outputText value=" "></h:outputText>
+		</h:panelGrid>
+	</div>
+</rich:panel>

@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.formatosTitulo} - Crear"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="3">
+
+						<f:facet name="header"></f:facet>
+						
+						<h:outputLabel value="#{msg.formatosNombreFormato}" for="nombreFormato" style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{formatosBean.nombreFormato}" required="true" id="nombreFormato"></h:inputText>
+
+						<h:outputLabel value="#{msg.formatosDescFormato}" for="descFormato" style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{formatosBean.descripcionFormato}" required="true" id="descFormato"/>
+
+						
+						<h:outputLabel value="#{msg.formatosNumeroCampos}" for="numeroCampos" style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{formatosBean.numeroCampos}" required="true" id="numeroCampos">
+							<f:convertNumber />
+						</h:inputText>
+
+						
+						<h:outputLabel value="#{msg.formatosNombreHojaExcel}" for="nombreHojaExcel" style="text-align:right" />
+						<h:outputText value="" style="color : red" />
+						<h:inputText value="#{formatosBean.nombreHojaExcel}" id="nombreHojaExcel"></h:inputText>
+
+						
+						<h:outputLabel value="#{msg.formatosNumeroLineaInicial}" for="numeroLineaInicial" style="text-align:right" />
+						<h:outputText value="" style="color : red" />
+						<h:inputText value="#{formatosBean.numeroLineaInicial}" id="numeroLineaInicial">
+							<f:convertNumber />
+						</h:inputText>
+
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" width="30%" style="text-align: center;">
+						<h:commandButton value="#{msg.formatosButtonGuardar}"
+							action="#{formatosBean.accionGuardar}"
+							onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+						</h:commandButton>
+
+						<h:commandButton value="#{msg.formatosButtonCancelar}" immediate="true"
+							action="#{alertas.cancelar}">
+						</h:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

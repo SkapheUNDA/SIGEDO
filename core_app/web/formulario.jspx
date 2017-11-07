@@ -1,0 +1,390 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	template="kernel/layout/simple.xhtml">
+
+	<ui:define name="body">
+		<div id="loading_hover" class="transparent_class hover_div invisible">
+			<div style="text-align: center; width: 100%; height: 100%;" class="ui-widget">
+				<p style="font-weight: bold; color: white; margin-top: 10%; font-size: 150%;">Espere un momento por favor...</p>
+			</div>
+		</div>
+		<p:tabView>
+			<p:tab title="#{general.titFormulario}">
+				<h:form id="formulario" enctype="multipart/form-data">
+					<h:outputScript>$('#loading_hover').addClass('invisible');</h:outputScript>
+					<input type="hidden" name="request_q" value="#{consultaJuridicaNoRegistrado.requestQ}" />
+					<input type="hidden" name="request_layout" value="#{consultaJuridicaNoRegistrado.requestLay}" />
+					<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+					<h:panelGroup id="pnlConsultasGlobal" layout="block">
+						<h:panelGrid columns="1" width="100%"
+							rendered="#{consultaJuridicaNoRegistrado.estado eq '1'}">
+							<h:outputText value="#{consultaJuridicaNoRegistrado.instruccion}"
+								style="width=100%; font-weight:bold;" />
+							<h:panelGrid columns="2" width="100%">
+								<h:panelGrid columns="1" width="100%"
+									rendered="#{!consultaJuridicaNoRegistrado.verSoloPqrs}">
+									<h:message for="tramite" style="color:red" />
+									<h:outputLabel for="tramite" value="#{general.tramite}" />
+									<h:selectOneMenu id="tramite" converter="#{EntityConverter}"
+										value="#{consultaJuridicaNoRegistrado.tramiteSel}"
+										style="width:250px;" required="true"
+										label="#{general.tramite}"
+										valueChangeListener="#{consultaJuridicaNoRegistrado.cargarClasificaciones}">
+										<f:selectItem itemLabel="#{general.seleccione}"
+											itemValue="#{null}" />
+										<f:selectItems
+											value="#{consultaJuridicaNoRegistrado.tramites}"
+											var="tramite" itemValue="#{tramite}"
+											itemLabel="#{tramite.trmNom}" />
+										<f:ajax event="valueChange" immediate="true"
+											render="clasificacion" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+
+								<h:panelGrid columns="1" width="100%">
+									<h:message for="clasificacion" style="color:red" />
+									<h:outputLabel for="clasificacion"
+										value="#{general.clasificacion}" />
+									<h:selectOneMenu id="clasificacion"
+										converter="#{EntityConverter}"
+										value="#{consultaJuridicaNoRegistrado.clasificacionSel}"
+										label="#{general.clasificacion}" style="width:250px;"
+										required="true"
+										valueChangeListener="#{consultaJuridicaNoRegistrado.actualizarAsunto}">
+										<f:selectItem itemLabel="#{general.seleccione}"
+											itemValue="#{null}" />
+										<f:selectItems
+											value="#{consultaJuridicaNoRegistrado.clasificaciones}"
+											var="clasificacion" itemValue="#{clasificacion}"
+											itemLabel="#{clasificacion.nom}" />
+										<f:ajax event="valueChange" immediate="true" render="asunto" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+							</h:panelGrid>
+							<h:panelGrid columns="2" width="100%"
+								rendered="#{!consultaJuridicaNoRegistrado.usuarioLogeado}">
+
+								<h:panelGrid columns="1" width="100%">
+									<h:message for="nacionalidad" style="color:red" />
+									<h:outputLabel for="nacionalidad"
+										value="#{general.nacionalidad}" />
+									<h:selectOneMenu converter="#{EntityConverter}"
+										id="nacionalidad" label="#{general.nacionalidad}"
+										valueChangeListener="#{consultaJuridicaNoRegistrado.actualizarListaTiposDocumento}"
+										value="#{consultaJuridicaNoRegistrado.nacionalidadSel}"
+										style="width:250px;"
+										required="#{!consultaJuridicaNoRegistrado.usuarioLogeado}">
+										<f:selectItem itemLabel="#{general.seleccione}"
+											itemValue="#{null}" />
+										<f:selectItems value="#{consultaJuridicaNoRegistrado.paises}"
+											var="nacionalidad" itemValue="#{nacionalidad}"
+											itemLabel="#{nacionalidad.paiNac}" />
+										<f:ajax event="valueChange" immediate="true"
+											render="tipoDocumento" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+
+								<h:panelGrid columns="1" width="100%">
+									<h:message for="tipoDocumento" style="color:red" />
+									<h:outputLabel for="tipoDocumento"
+										value="#{general.tipoDocumento}" />
+									<h:selectOneMenu id="tipoDocumento"
+										label="#{general.tipoDocumento}"
+										value="#{consultaJuridicaNoRegistrado.tipoDocumentoSel}"
+										style="width:250px;"
+										required="#{!consultaJuridicaNoRegistrado.usuarioLogeado}">
+										<f:selectItems
+											value="#{consultaJuridicaNoRegistrado.tiposDocumento}"
+											var="tipo" itemValue="tipo" itemLabel="#{tipo.tdoNom}" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+
+								<h:outputText value="&#160;" />
+
+								<h:panelGrid columns="1" width="100%">
+									<h:message for="per_doc" style="color:red" />
+									<h:outputLabel for="per_doc" value="#{general.numeroDocumento}" />
+									<h:inputText id="per_doc"
+										required="#{!consultaJuridicaNoRegistrado.usuarioLogeado}"
+										style="width:90%; text-transform: uppercase;"
+										label="#{general.numeroDocumento}"
+										value="#{consultaJuridicaNoRegistrado.numeroDocumento}" />
+									<div class="spacer15"></div>
+								</h:panelGrid>
+
+								<h:panelGrid columns="1" width="100%">
+									<h:message for="per_nom" style="color:red" />
+									<h:outputLabel for="per_nom" value="#{general.nombres}" />
+									<h:inputText id="per_nom"
+										required="#{!consultaJuridicaNoRegistrado.usuarioLogeado}"
+										label="#{general.nombres}"
+										style="width:90%; text-transform: uppercase;"
+										value="#{consultaJuridicaNoRegistrado.nombres}" />
+									<div class="spacer15"></div>
+								</h:panelGrid>
+								
+								<h:panelGrid columns="1" width="100%">
+									<h:message for="per_pap" style="color:red" />
+									<h:outputLabel for="per_pap" value="#{general.primerApellido}" />
+									<h:inputText id="per_pap"
+										required="#{!consultaJuridicaNoRegistrado.usuarioLogeado}"
+										label="#{general.primerApellido}"
+										style="width:90%; text-transform: uppercase;"
+										value="#{consultaJuridicaNoRegistrado.primerApellido}" />
+									<div class="spacer15"></div>
+								</h:panelGrid>
+
+								<h:panelGrid columns="1" width="100%">
+									<h:message for="per_sap" style="color:red" />
+									<h:outputLabel for="per_sap" value="#{general.segundoApellido}" />
+									<h:inputText id="per_sap"
+										style="width:90%; text-transform: uppercase;"
+										label="#{general.segundoApellido}"
+										value="#{consultaJuridicaNoRegistrado.segundoApellido}" />
+									<div class="spacer15"></div>
+								</h:panelGrid>
+
+								<h:outputText value="&#160;" />
+
+								<h:panelGrid columns="1" width="100%" id="paises">
+									<h:message for="pais" style="color:red" />
+									<h:outputLabel for="pais" value="#{general.pais}" />
+									<h:selectOneMenu id="pais" converter="#{EntityConverter}"
+										valueChangeListener="#{consultaJuridicaNoRegistrado.cargarDepartamentos}"
+										value="#{consultaJuridicaNoRegistrado.paisSel}"
+										style="width:250px;"
+										required="#{!consultaJuridicaNoRegistrado.usuarioLogeado}"
+										label="#{general.pais}">
+										<f:selectItem itemLabel="#{general.seleccione}"
+											itemValue="#{null}" />
+										<f:selectItems value="#{consultaJuridicaNoRegistrado.paises}"
+											var="pais" itemValue="#{pais}" itemLabel="#{pais.paiNom}" />
+										<f:ajax event="valueChange" immediate="true"
+											render="departamentosPanel ciudadesPanel" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+
+								<h:panelGrid id="departamentosPanel" columns="1" width="100%" style="display:#{(consultaJuridicaNoRegistrado.esColombia)?'block':'none'}">
+									<h:message for="departamentos" style="color:red" />
+									<h:outputLabel for="departamentos"
+										value="#{general.departamento}" />
+									<h:selectOneMenu id="departamentos"
+										converter="#{EntityConverter}"
+										valueChangeListener="#{consultaJuridicaNoRegistrado.cargarCiudades}"
+										value="#{consultaJuridicaNoRegistrado.departamentoSel}"
+										style="width:250px;"
+										required="#{!consultaJuridicaNoRegistrado.usuarioLogeado and consultaJuridicaNoRegistrado.esColombia}"
+										label="#{general.departamento}">
+										<f:selectItem itemLabel="#{general.seleccione}"
+											itemValue="#{null}" />
+										<f:selectItems
+											value="#{consultaJuridicaNoRegistrado.departamentos}" />
+										<f:ajax event="valueChange" immediate="true" render="ciudades" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+
+								<h:panelGrid id="ciudadesPanel" columns="1" width="100%" style="display:#{(consultaJuridicaNoRegistrado.esColombia)?'block':'none'}">
+									<h:message for="ciudades" style="color:red" />
+									<h:outputLabel for="ciudades" value="#{general.ciudad}" />
+									<h:selectOneMenu id="ciudades" converter="#{EntityConverter}"
+										value="#{consultaJuridicaNoRegistrado.ciudadSel}"
+										style="width:250px;"
+										required="#{!consultaJuridicaNoRegistrado.usuarioLogeado and consultaJuridicaNoRegistrado.esColombia}"
+										label="#{general.ciudad}">
+										<f:selectItem itemLabel="#{general.seleccione}"
+											itemValue="#{null}" />
+										<f:selectItems
+											value="#{consultaJuridicaNoRegistrado.ciudades}" var="ciudad"
+											itemValue="#{ciudad}" itemLabel="#{ciudad.lugCiu}" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+
+								<h:panelGrid columns="1" width="100%">
+									<h:message for="email" style="color:red" />
+									<h:outputLabel for="email" value="#{general.email}" />
+									<h:inputText id="email"
+										required="#{!consultaJuridicaNoRegistrado.usuarioLogeado}"
+										style="width:90%; text-transform: lowercase;"
+										value="#{consultaJuridicaNoRegistrado.email}"
+										label="#{general.email}">
+										<f:validator validatorId="emailValidator" />
+									</h:inputText>
+									<div class="spacer15"></div>
+								</h:panelGrid>
+
+
+								<h:panelGrid columns="1" width="100%">
+									<h:message for="direccion" style="color:red" />
+									<h:outputLabel for="direccion" value="#{general.direccion}" />
+									<h:inputText id="direccion" label="#{general.direccion}"
+										style="width:90%; text-transform: uppercase;"
+										value="#{consultaJuridicaNoRegistrado.direccion}" />
+									<div class="spacer15"></div>
+								</h:panelGrid>
+
+								<h:panelGrid columns="1" width="100%">
+									<h:message for="telefono" style="color:red" />
+									<h:outputLabel for="telefono" value="#{general.telefono}" />
+									<h:inputText id="telefono" label="#{general.telefono}"
+										style="width:90%; text-transform: uppercase;"
+										value="#{consultaJuridicaNoRegistrado.telefono}" />
+									<div class="spacer15"></div>
+								</h:panelGrid>
+							</h:panelGrid>
+
+							<h:panelGrid columns="1" style="width:100%;">
+								<h:panelGrid columns="1" style="width:100%;">
+									<h:message for="asunto" style="color:red" />
+									<h:outputLabel for="asunto" value="#{general.asunto}" />
+									<h:inputText label="#{general.asunto}"
+										style="width:100%; 
+									text-transform: uppercase;"
+										id="asunto" required="true"
+										value="#{consultaJuridicaNoRegistrado.asunto}" />
+									<div class="spacer15"></div>
+								</h:panelGrid>
+
+								<h:panelGrid columns="1" width="100%">
+									<h:outputText id="adjuntosMessage"
+										value="#{consultaJuridicaNoRegistrado.msgInstruccionAdjunto}"
+										style="width=100%; font-weight:bold;" />
+									<p:fileUpload widgetVar="uploader" label="1. Buscar archivo"
+										style="display: block !important;"
+										fileUploadListener="#{consultaJuridicaNoRegistrado.handleFileUpload}"
+										mode="advanced"
+										sizeLimit="#{consultaJuridicaNoRegistrado.maxFileSize}"
+										multiple="true"
+										fileLimit="#{consultaJuridicaNoRegistrado.maxJointFiles}"
+										update="adjuntosMessage" cancelLabel="Cancelar"
+										uploadLabel="2. Adjuntarlo"
+										invalidSizeMessage="#{consultaJuridicaNoRegistrado.msgTamanioMax}" />
+								</h:panelGrid>
+
+								<h:panelGrid columns="1" style="width:100%;">
+									<h:message for="consultaTexto" style="color:red" />
+									<h:outputLabel for="consultaTexto"
+										value="#{general.mensajeConsulta}" />
+									<h:inputTextarea id="consultaTexto" style="width:100%;"
+										cols="30" rows="5" label="#{general.mensajeConsulta}"
+										required="true"
+										value="#{consultaJuridicaNoRegistrado.mensajeConsulta}" />
+									<div class="spacer15"></div>
+								</h:panelGrid>
+								<p:commandButton id="botonEnviar" value="#{general.enviar}"
+									actionListener="#{consultaJuridicaNoRegistrado.enviarConsulta}"
+									update="formulario" onclick="$('#loading_hover').removeClass('invisible');" />
+							</h:panelGrid>
+						</h:panelGrid>
+						<h:panelGrid columns="1" width="100%"
+							rendered="#{consultaJuridicaNoRegistrado.estado eq '2'}">
+							<h:outputText value="#{general.msgFinal}" />
+							<h:outputText id="idTextFinal"
+								value="#{consultaJuridicaNoRegistrado.msgFinal}"
+								style="width=100%; font-weight:bold; font-size:120%; text-align:center; display:block;" />
+							<h:outputText value="#{general.msgFinal2}" />
+							<p:commandButton id="botonRehacer" value="#{general.rehacer}"
+								ajax="false"
+								actionListener="#{consultaJuridicaNoRegistrado.rehacer}"
+								update="formulario,formulario3" />
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:form>
+			</p:tab>
+			<p:tab title="#{general.titListaConsultas}"
+				rendered="#{consultaJuridicaNoRegistrado.usuarioLogeado}">
+				<h:form id="formulario2">
+					<input type="hidden" name="request_q" value="#{consultaJuridicaNoRegistrado.requestQ}" />
+					<input type="hidden" name="request_layout" value="#{consultaJuridicaNoRegistrado.requestLay}" />
+					<p:messages id="messages2" showDetail="true" autoUpdate="true"
+						closable="true" />
+					<h:panelGrid columns="1" width="100%">
+						<h:outputText value="#{general.instHistorial}" />
+						<p:commandButton id="botonRecargar" value="#{general.actualizar}"
+							ajax="false"
+							actionListener="#{consultaJuridicaNoRegistrado.cargarConsultas}"
+							update="tablaConsultas" oncomplete="varTablaConsultas.filter()" />
+						<p:dataTable id="tablaConsultas" var="cons" paginator="true"
+							widgetvar="varTablaConsultas" rows="10"
+							paginatorPosition="bottom" lazy="true"
+							value="#{consultaJuridicaNoRegistrado.consultas}">
+							<p:column headerText="#{general.colFecha}">
+								<h:outputText value="#{cons.fecha}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-05:00" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="#{general.colNumRad}">
+								<h:outputText value="#{cons.radicado}" />
+							</p:column>
+							<p:column headerText="#{general.colAsunto}">
+								<h:outputText value="#{cons.asunto}" />
+							</p:column>
+							<p:column headerText="#{general.colEstado}">
+								<h:outputText value="#{cons.nombreEstado}" />
+							</p:column>
+							<p:column style="width:32px;text-align: center">
+								<p:commandButton update="@(.claDiaConsDet)" ajax="true"
+									oncomplete="consDialog.show()" icon="ui-icon-search"
+									title="View">
+									<f:setPropertyActionListener value="#{cons}"
+										target="#{consultaJuridicaNoRegistrado.selectedCons}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</h:panelGrid>
+					<p:dialog id="consdetalle" header="#{general.titConsultaSel}"
+						widgetVar="consDialog" modal="true" resizable="false" width="400">
+						<p:panelGrid columns="1" style="width: 100%"
+							styleClass="claDiaConsDet">
+							<h:outputLabel for="numRad2" value="#{general.mensajeNumRad}"
+								style="width=100%; font-weight:bold;" />
+							<h:outputText id="numRad2" style="width:100%;"
+								value="#{consultaJuridicaNoRegistrado.selectedCons.radicado}" />
+
+							<h:outputLabel for="fechaRad2" value="#{general.mensajeFechaRad}"
+								style="width=100%; font-weight:bold;" />
+							<h:outputText id="fechaRad2"
+								value="#{consultaJuridicaNoRegistrado.selectedCons.fecha}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-05:00" />
+							</h:outputText>
+
+							<h:outputLabel for="fechaMax" value="#{general.mensajeFechaMax}"
+								style="width=100%; font-weight:bold;" />
+							<h:outputText id="fechaMax"
+								value="#{consultaJuridicaNoRegistrado.selectedCons.fechaMax}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-05:00" />
+							</h:outputText>
+
+							<h:outputLabel for="asunto2" value="#{general.asunto}"
+								style="width=100%; font-weight:bold;" />
+							<h:outputText id="asunto2" style="width:100%;"
+								value="#{consultaJuridicaNoRegistrado.selectedCons.asunto}" />
+
+							<h:outputLabel for="detalle2" value="#{general.mensajeConsulta}"
+								style="width=100%; font-weight:bold;" />
+							<h:outputText id="detalle2" style="width:100%;"
+								value="#{consultaJuridicaNoRegistrado.selectedCons.detalle}" />
+
+							<p:commandButton
+								rendered="#{consultaJuridicaNoRegistrado.puedeDescargar}"
+								value="Descargar respuesta" ajax="false"
+								icon="ui-icon-arrowthick-1-s">
+								<p:fileDownload
+									value="#{consultaJuridicaNoRegistrado.descargarArchivo}" />
+							</p:commandButton>
+						</p:panelGrid>
+					</p:dialog>
+				</h:form>
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:composition>

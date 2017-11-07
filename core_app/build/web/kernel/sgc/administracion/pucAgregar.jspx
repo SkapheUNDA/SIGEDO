@@ -1,0 +1,80 @@
+<ui:composition 
+xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns:f="http://java.sun.com/jsf/core"  
+xmlns:p="http://primefaces.org/ui" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:a4j="http://richfaces.org/a4j" 
+xmlns:rich="http://richfaces.org/rich" 
+template="internalTemplate.jspx"
+xmlns:ccom="http://customcomponents/jsf"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:cnet="http://customcomponents/jsf">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+
+
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.conconPuc}"></h:outputText>
+				</f:facet>
+
+				<div align="center">
+
+					<h:panelGrid columns="3" width="100%">
+
+					<h:outputText value="#{msg.conconpucCodigoCuenta}:"></h:outputText>
+					<h:outputText value="#{msg.conconpucDescripcion}:"></h:outputText>
+					<h:outputText value="#{msg.conconpucNivel}:"></h:outputText>
+
+						
+					<h:inputText value="#{pucBean.puc.id}" required="true"  label="#{msg.conconpucCodigoCuenta}">
+					<f:convertNumber/>
+					</h:inputText>
+					<h:inputText value="#{pucBean.puc.descripcion}" required="true" label="#{msg.conconpucDescripcion}"></h:inputText>
+					<h:inputText value="#{pucBean.puc.nivel}" required="true"  label="#{msg.conconpucNivel}"></h:inputText>					
+					
+					<h:outputText value="#{msg.conconpucDetalleCuenta}:"></h:outputText>
+					<h:outputText value="#{msg.conconpucEstado}:"></h:outputText>
+					<h:outputText value="#{msg.conconpucRequiereTercero}:"></h:outputText>
+					<h:selectOneMenu id="cuentaDetalle" value="#{pucBean.puc.cuentaDetalle}" style="width:125px">
+            			<f:selectItem itemLabel="Seleccione" itemValue="" />
+            			<f:selectItem itemLabel="Si" itemValue="1" />
+            			<f:selectItem itemLabel="No" itemValue="0" />
+        			</h:selectOneMenu>
+					<h:selectOneMenu id="estado" value="#{pucBean.puc.estado}" style="width:125px">
+						<f:selectItem itemLabel="Seleccione" itemValue="" />
+						<f:selectItem itemLabel="Activo" itemValue="1" />
+						<f:selectItem itemLabel="Inactivo" itemValue="0" />						
+					</h:selectOneMenu>
+					<h:selectOneMenu id="requiereTercero" value="#{pucBean.puc.requiereTercero}" style="width:125px">
+						<f:selectItem itemLabel="Seleccione" itemValue="" />
+						<f:selectItem itemLabel="Si" itemValue="1" />
+						<f:selectItem itemLabel="No" itemValue="0" />						
+					</h:selectOneMenu>
+						
+				</h:panelGrid>
+				</div>
+				<div class="spacer15"></div>
+				<h:panelGroup id="buttonGroup">
+			<div class="spacer15"></div>
+			<div align="center">
+			
+					<h:commandButton
+					action="#{pucBean.createOrReplace}"
+					value="#{msg.labelAgregar}"
+					onclick="if (!confirm('#{msg.confirmacionCrearCuenta}')) return false">
+					<f:setPropertyActionListener value="400" target="#{scroll}" />
+				</h:commandButton>
+
+			</div>
+
+		</h:panelGroup>
+			</rich:panel>
+			
+		
+	</h:form>
+				
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="../detalleTemplate.jspx">
+	<ui:define name="content">
+
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelAgregar} #{msg.labelAnexo}"></h:outputText>
+				</f:facet>
+
+				<div align="left">
+					<h:panelGrid columns="2" width="100%"
+						columnClasses="columnLabelsForm,columnDatosForm">
+
+						<h:outputText value="#{msg.labelAnexo}" />
+						<h:selectOneMenu value="#{expedienteBean.idAnexoSeleccionado}"
+							required="false" label="#{msg.labelAnexo}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{expedienteBean.anexosItems}" />
+						</h:selectOneMenu>
+
+						<h:outputText value="#{msg.labelFolios}" />
+						<h:inputText  value="#{expedienteBean.textoGeneric}" />
+					</h:panelGrid>
+				</div>
+
+				<div class="spacer15"></div>
+				<div align="center">
+
+					<h:panelGrid columns="2">
+						<h:commandButton action="#{expedienteBean.anexosExpAgregar}"
+							value="#{msg.labelGuardar}">
+						</h:commandButton>
+						
+						<h:commandButton
+							action="#{expedienteBean.infoExpedienteNavegacion}"
+							value="#{msg.labelCancelar}">
+						</h:commandButton>
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+			
+			<h:inputHidden value="#{expedienteBean.idExpedienteSeleccionado}" />
+			
+		</h:form>
+
+		<t:saveState value="#{expedienteBean.idExpedienteSeleccionado}"></t:saveState>
+		<t:saveState value="#{expedienteBean.expedienteSeleccionado}" />
+
+	</ui:define>
+</ui:composition>

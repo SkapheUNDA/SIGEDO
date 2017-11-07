@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{perfilesBean.cargarObjetoSelecionado}" />
+		</f:metadata>
+
+
+			<h:inputHidden value="#{perfilesBean.perfilSeleccionado.id}"
+				required="true" requiredMessage="#{msg.labelSeleccioneRole}"></h:inputHidden>
+			<h:inputHidden value="#{perfilesBean.perfilSeleccionado.nombre}"></h:inputHidden>
+			<h:inputHidden
+				value="#{perfilesBean.perfilSeleccionado.nombreMostrar}"></h:inputHidden>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelRoleSeleccionado}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2"
+					columnClasses="columnLabelsDetalleSolicitud,columnDatosDetalleSolicitud ">
+					<h:outputText value="#{msg.labelId}"></h:outputText>
+					<h:outputText value="#{perfilesBean.perfilSeleccionado.id}"></h:outputText>
+					<h:outputText value="#{msg.labelNombreRole}"></h:outputText>
+					<h:outputText
+						value="#{perfilesBean.perfilSeleccionado.nombreMostrar}"></h:outputText>
+					<h:outputText value="#{msg.labelNombreRoleSistema}"></h:outputText>
+					<h:outputText value="#{perfilesBean.perfilSeleccionado.nombre}"></h:outputText>
+				</h:panelGrid>
+
+
+
+			</rich:panel>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelRelacionarUsuarios}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="4" width="100%">
+
+					<h:outputText value="#{msg.labelNombres}"></h:outputText>
+					<h:outputText value="#{msg.labelPrimerApellido}"></h:outputText>
+					<h:outputText value="#{msg.labelSegundoApellido}"></h:outputText>
+					<h:outputText value="#{msg.labelNombreUsuario}"></h:outputText>
+
+
+					<h:inputText value="#{perfilesBean.nombres}"></h:inputText>
+					<h:inputText value="#{perfilesBean.primerApellido}"></h:inputText>
+					<h:inputText value="#{perfilesBean.segundoApellido}"></h:inputText>
+					<h:inputText value="#{perfilesBean.nombreUsuario}">	</h:inputText>
+					
+				</h:panelGrid>
+				<div align="center"><h:panelGrid columns="3">
+					<h:commandButton value="#{msg.labelBuscarUsuario}"
+						action="#{perfilesBean.cargaFiltrosDataModel}"></h:commandButton>
+
+					<h:commandButton value="#{msg.labelRelacionarUsuarios}"	action="#{perfilesBean.relacionarUsuarios}"></h:commandButton>
+
+					<h:commandButton value="#{msg.labelLimpiar}" action="#{perfilesBean.limpiarForm}"></h:commandButton>
+
+				</h:panelGrid></div>
+			</rich:panel>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelResultadosEncontrados}"></h:outputText>
+				</f:facet>
+				<rich:dataTable  style="width: 100%;"  rows="10" var="usuario" 		binding="#{perfilesBean.usuariosDataTable}"
+					id="tablaUsuarios" value="#{perfilesBean.usuariosDataModel}">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column />
+							<rich:column width="5%">
+								<h:outputText value="#{msg.labelId}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelNombres}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelPrimerApellido}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelSegundoApellido}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelNombreUsuario}"></h:outputText>
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+
+					<rich:column style="width: 5px;">
+						<h:selectBooleanCheckbox id="chk" disabled="#{perfilesBean.tienePerfil(usuario)}"
+							value="#{perfilesBean.idsUsuariosSeleccionados[usuario.usrId]}" />
+					</rich:column>
+
+					<rich:column>
+						<h:outputText value="#{usuario.usrId}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{usuario.usrNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{usuario.usrPap}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{usuario.usrSap}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{usuario.usrLog}"></h:outputText>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller id="ds" maxPages="5" ajaxSingle="false"
+							for="tablaUsuarios"></rich:dataScroller>
+					</f:facet>
+				</rich:dataTable>
+			</rich:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+

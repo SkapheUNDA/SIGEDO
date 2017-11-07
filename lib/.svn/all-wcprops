@@ -1,0 +1,743 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/SM/!svn/ver/2854/DNDA/portlets/core_app/WebContent/WEB-INF/lib
+END
+sac-1.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/sac-1.3.jar
+END
+com.springsource.org.apache.axis-1.4.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.org.apache.axis-1.4.0.jar
+END
+wsdl4j.jar
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/wsdl4j.jar
+END
+javax.persistence_2.0.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/javax.persistence_2.0.0.jar
+END
+mysql-connector-java-5.1.18-bin.jar
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/mysql-connector-java-5.1.18-bin.jar
+END
+org.springframework.beans-3.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/org.springframework.beans-3.0.2.RELEASE.jar
+END
+spring-security-core-3.0.5.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/spring-security-core-3.0.5.RELEASE.jar
+END
+com.springsource.com.caucho-3.2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.com.caucho-3.2.1.jar
+END
+jaas.jar
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jaas.jar
+END
+tika-core-0.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/tika-core-0.6.jar
+END
+tagsoup-1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/tagsoup-1.2.jar
+END
+common-annotations.jar
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/common-annotations.jar
+END
+concurrent-1.3.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/concurrent-1.3.4.jar
+END
+org.springframework.jdbc-3.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/org.springframework.jdbc-3.0.2.RELEASE.jar
+END
+com.springsource.javax.mail-1.4.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.javax.mail-1.4.0.jar
+END
+jasperreports-fonts-4.0.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jasperreports-fonts-4.0.2.jar
+END
+poi-3.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/poi-3.6.jar
+END
+com.springsource.org.apache.commons.lang-2.1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.org.apache.commons.lang-2.1.0.jar
+END
+jxl.jar
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jxl.jar
+END
+commons-validator.jar
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-validator.jar
+END
+oro.jar
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/oro.jar
+END
+iText-2.1.7.jar
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/iText-2.1.7.jar
+END
+jackrabbit-api-2.1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jackrabbit-api-2.1.2.jar
+END
+lucene-core-2.4.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/lucene-core-2.4.1.jar
+END
+poi-scratchpad-3.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/poi-scratchpad-3.6.jar
+END
+poi-ooxml-schemas-3.7-20101029.jar
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/poi-ooxml-schemas-3.7-20101029.jar
+END
+sqljdbc4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/sqljdbc4.jar
+END
+poi-ooxml-schemas-3.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/poi-ooxml-schemas-3.6.jar
+END
+guava-r08.jar
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/guava-r08.jar
+END
+cssparser-0.9.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/cssparser-0.9.5.jar
+END
+richfaces-core-api-4.2.2.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/richfaces-core-api-4.2.2.Final.jar
+END
+jasypt-1.7.jar
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jasypt-1.7.jar
+END
+commons-digester.jar
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-digester.jar
+END
+commons-dbcp-1.2.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-dbcp-1.2.2.jar
+END
+jstl-api-1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jstl-api-1.2.jar
+END
+jcommon-1.0.23.jar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/SM/!svn/ver/2854/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jcommon-1.0.23.jar
+END
+jxls-core-0.9.9.jar
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jxls-core-0.9.9.jar
+END
+org.springframework.web.servlet-3.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/org.springframework.web.servlet-3.0.2.RELEASE.jar
+END
+jackrabbit-spi-2.1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jackrabbit-spi-2.1.2.jar
+END
+com.springsource.org.apache.commons.discovery-0.4.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.org.apache.commons.discovery-0.4.0.jar
+END
+poi-ooxml-3.7-20101029.jar
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/poi-ooxml-3.7-20101029.jar
+END
+spring-security-acl-3.0.5.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/spring-security-acl-3.0.5.RELEASE.jar
+END
+jackrabbit-jca-2.1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jackrabbit-jca-2.1.2.jar
+END
+taglib-core-0.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/taglib-core-0.4.jar
+END
+jackrabbit-jcr-rmi-2.1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jackrabbit-jcr-rmi-2.1.0.jar
+END
+tomahawk20-1.1.11.jar
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/tomahawk20-1.1.11.jar
+END
+jempbox-1.0.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jempbox-1.0.0.jar
+END
+commons-logging.jar
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-logging.jar
+END
+metadata-extractor-2.4.0-beta-1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/metadata-extractor-2.4.0-beta-1.jar
+END
+org.springframework.web-3.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/org.springframework.web-3.0.2.RELEASE.jar
+END
+slf4j-api-1.5.8.jar
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/slf4j-api-1.5.8.jar
+END
+jasperreports-4.0.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jasperreports-4.0.2.jar
+END
+org.springframework.asm-3.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/org.springframework.asm-3.0.2.RELEASE.jar
+END
+poi-scratchpad-3.7-20101029.jar
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/poi-scratchpad-3.7-20101029.jar
+END
+com.springsource.org.aspectj.tools-1.6.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.org.aspectj.tools-1.6.6.RELEASE.jar
+END
+org.springframework.context-3.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/org.springframework.context-3.0.2.RELEASE.jar
+END
+tika-parsers-0.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/tika-parsers-0.6.jar
+END
+org.springframework.transaction-3.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/org.springframework.transaction-3.0.2.RELEASE.jar
+END
+xmlbeans-2.3.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/xmlbeans-2.3.0.jar
+END
+commons-jexl-1.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-jexl-1.1.jar
+END
+fontbox-1.0.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/fontbox-1.0.0.jar
+END
+bluesky-1.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/bluesky-1.0.1.jar
+END
+slf4j-log4j12-1.5.8.jar
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/slf4j-log4j12-1.5.8.jar
+END
+org.springframework.core-3.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/org.springframework.core-3.0.2.RELEASE.jar
+END
+jcr-2.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jcr-2.0.jar
+END
+jxls-reader-1.0-RC-1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jxls-reader-1.0-RC-1.jar
+END
+dom4j-1.6.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/dom4j-1.6.1.jar
+END
+fontArialJasperPDF.jar
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/fontArialJasperPDF.jar
+END
+asm-3.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/asm-3.1.jar
+END
+jackrabbit-jcr-commons-2.1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jackrabbit-jcr-commons-2.1.2.jar
+END
+pd4ml.jar
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/SM/!svn/ver/1756/DNDA/portlets/core_app/WebContent/WEB-INF/lib/pd4ml.jar
+END
+commons-io-1.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-io-1.4.jar
+END
+jsf-impl-2.1.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jsf-impl-2.1.3.jar
+END
+org.springframework.expression-3.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/org.springframework.expression-3.0.2.RELEASE.jar
+END
+spring-modules-jcr.jar
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/spring-modules-jcr.jar
+END
+commons-collections-3.2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-collections-3.2.1.jar
+END
+poi-ooxml-3.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/poi-ooxml-3.6.jar
+END
+tomcat-jdbc.jar
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/tomcat-jdbc.jar
+END
+geronimo-stax-api_1.0_spec-1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/geronimo-stax-api_1.0_spec-1.0.jar
+END
+commons-fileupload-1.3.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/SM/!svn/ver/2789/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-fileupload-1.3.2.jar
+END
+hsqldb-1.8.0-10.jar
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/hsqldb-1.8.0-10.jar
+END
+commons-fileupload.jar
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-fileupload.jar
+END
+commons-compress-1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-compress-1.0.jar
+END
+standard.jar
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/standard.jar
+END
+jfreechart-1.0.19.jar
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SM/!svn/ver/2854/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jfreechart-1.0.19.jar
+END
+javassist-3.9.0.GA.jar
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/javassist-3.9.0.GA.jar
+END
+com.springsource.org.apache.velocity-1.5.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.org.apache.velocity-1.5.0.jar
+END
+com.springsource.javax.activation-1.1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.javax.activation-1.1.0.jar
+END
+richfaces-core-impl-4.2.2.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/richfaces-core-impl-4.2.2.Final.jar
+END
+com.springsource.org.apache.log4j-1.2.15.jar
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.org.apache.log4j-1.2.15.jar
+END
+jcl-over-slf4j-1.5.8.jar
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jcl-over-slf4j-1.5.8.jar
+END
+remoteDerechos.jar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/remoteDerechos.jar
+END
+spring-security-taglibs-3.0.5.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/spring-security-taglibs-3.0.5.RELEASE.jar
+END
+richfaces-components-api-4.2.2.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/richfaces-components-api-4.2.2.Final.jar
+END
+rmiio-2.0.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/rmiio-2.0.2.jar
+END
+commons-cli-1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-cli-1.0.jar
+END
+pdfbox-1.0.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/pdfbox-1.0.0.jar
+END
+richfaces-components-ui-4.2.2.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/richfaces-components-ui-4.2.2.Final.jar
+END
+facelets-spring-security3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/facelets-spring-security3.jar
+END
+ss_css2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/SM/!svn/ver/1756/DNDA/portlets/core_app/WebContent/WEB-INF/lib/ss_css2.jar
+END
+org.springframework.orm-3.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/org.springframework.orm-3.0.2.RELEASE.jar
+END
+primefaces-3.4.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/primefaces-3.4.1.jar
+END
+jackrabbit-core-2.1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jackrabbit-core-2.1.2.jar
+END
+org.springframework.context.support-3.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/org.springframework.context.support-3.0.2.RELEASE.jar
+END
+commons-pool-1.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-pool-1.3.jar
+END
+hibernate3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/hibernate3.jar
+END
+com.springsource.javax.xml.rpc-1.1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.javax.xml.rpc-1.1.0.jar
+END
+com.springsource.javax.transaction-1.1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.javax.transaction-1.1.0.jar
+END
+com.springsource.org.aopalliance-1.0.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.org.aopalliance-1.0.0.jar
+END
+xml-apis-1.0.b2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/xml-apis-1.0.b2.jar
+END
+tomcat-juli.jar
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/tomcat-juli.jar
+END
+antlr-2.7.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/antlr-2.7.6.jar
+END
+jsf-api-2.1.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jsf-api-2.1.3.jar
+END
+poi-3.7-20101029.jar
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/poi-3.7-20101029.jar
+END
+commons-codec-1.7.jar
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SM/!svn/ver/1753/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-codec-1.7.jar
+END
+spring-security-config-3.0.5.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/spring-security-config-3.0.5.RELEASE.jar
+END
+itextpdf-5.0.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/SM/!svn/ver/2854/DNDA/portlets/core_app/WebContent/WEB-INF/lib/itextpdf-5.0.6.jar
+END
+jackrabbit-spi-commons-2.1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/jackrabbit-spi-commons-2.1.2.jar
+END
+commons-beanutils.jar
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/commons-beanutils.jar
+END
+fontTahomaJasperPDF.jar
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/fontTahomaJasperPDF.jar
+END
+org.springframework.aop-3.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/org.springframework.aop-3.0.2.RELEASE.jar
+END
+spring-security-web-3.0.5.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/spring-security-web-3.0.5.RELEASE.jar
+END
+com.springsource.org.dom4j-1.6.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/SM/!svn/ver/1358/DNDA/portlets/core_app/WebContent/WEB-INF/lib/com.springsource.org.dom4j-1.6.1.jar
+END

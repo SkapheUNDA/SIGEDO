@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="../../layout/principalTemplate.xhtml">
+
+	<ui:define name="body">
+		<ccom:tituloModulo titulo="#{msg.adconau}"/>	
+		<h:form style="padding-bottom: 3px;" id="formToolBar">
+		
+		  <rich:toolbar height="34" itemSeparator="grid" id="toolBar" separatorClass="separator" >
+				<rich:toolbarGroup>
+					<h:panelGroup >
+						<h:commandLink value="#{msg.conaudAuditores}" id="auditoria"  action="#{auditorBean.navlistado}" />
+					</h:panelGroup>			
+				</rich:toolbarGroup>
+				<rich:toolbarGroup>
+					<h:panelGroup >
+						<h:commandLink value="#{msg.conaudAreas}" id="area"  action="#{areaBean.navlistado}" />
+					</h:panelGroup>			
+				</rich:toolbarGroup>
+				<rich:toolbarGroup>
+					<h:panelGroup >
+						<h:commandLink value="#{msg.conaudEstadoAuditorias}" id="estadoauditoria"  action="#{estadoAuditoriaBean.navlistado}" />
+					</h:panelGroup>			
+				</rich:toolbarGroup>
+				<rich:toolbarGroup>
+					<h:panelGroup >
+						<h:commandLink value="#{msg.conaudTiposAuditoria}" id="tipodeauditoria"  action="#{auditorBean.agregarNavigationTipodeAuditoria}" />
+					</h:panelGroup>			
+				</rich:toolbarGroup>				
+				<rich:toolbarGroup>
+					<h:panelGroup >
+						<h:commandLink value="#{msg.conaudTiposProgramacion}" id="tipoprogramacion"  action="#{auditorBean.agregarNavigationTipoProgramacion}" />
+					</h:panelGroup>			
+				</rich:toolbarGroup>
+				
+			
+				
+			</rich:toolbar>		
+		</h:form>			
+		<ui:insert name="content" />
+	</ui:define>
+</ui:composition>

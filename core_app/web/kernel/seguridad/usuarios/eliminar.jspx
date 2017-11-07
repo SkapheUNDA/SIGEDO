@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="internalTemplate.jspx">
+	
+
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formActualizar">
+			
+<f:metadata>
+  <f:event type="preRenderView" listener="#{usuariosBean.cargarRegistro}"/>
+</f:metadata>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelEliminar}"></h:outputText>
+				</f:facet>
+				<h:inputHidden value="#{usuariosBean.idRegSeleccionado}" />
+				<h:inputHidden value="#{usuariosBean.usuarioSeleccionado.usrId}" />
+					<h:panelGrid columns="2" width="50%"
+						columnClasses="columnLabelsDetalleSolicitud,columnDatosDetalleSolicitud">
+						<h:outputText value="#{msg.labelNombres}" />
+						<h:panelGroup>
+							<h:outputText id="primerNombrePeticionario"
+									value="#{usuariosBean.usuarioSeleccionado.usrNom}" />
+						</h:panelGroup>
+
+						<h:outputText value="#{msg.labelApellidos}" />
+						<h:panelGroup>
+							<h:panelGrid columns="2">
+								<h:outputText id="primerApellidoPeticionario"
+									value="#{usuariosBean.usuarioSeleccionado.usrPap}" />
+								<h:outputText id="segundoApellidoPeticionario"
+									value="#{usuariosBean.usuarioSeleccionado.usrSap}" />
+							</h:panelGrid>
+						</h:panelGroup>
+
+						<h:outputText value="#{msg.labelNombreUsuario}" />
+						<h:outputText
+							value="#{usuariosBean.usuarioSeleccionado.usrLog}"
+							id="username">
+						</h:outputText>
+
+
+						<h:outputText value="#{msg.labelEstadoUsuario}" />
+						<h:outputText
+							value="#{usuariosBean.usuarioSeleccionado.usrLact}" />
+					</h:panelGrid>
+					
+				<div align="center"><h:commandButton
+					action="#{usuariosBean.eliminarUsuario}"
+					value="#{msg.labelEliminar}"
+					onclick="if (!confirm('#{msg.confirmacionEliminarUsuario}')) return false">
+					
+				</h:commandButton></div>
+
+
+			</rich:panel>
+			<t:saveState value="#{usuariosBean.usuarioSeleccionado}"></t:saveState>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

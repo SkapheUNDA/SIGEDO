@@ -1,0 +1,41 @@
+<ui:composition
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="../../layout/principalTemplate.xhtml">
+
+	<ui:define name="body">
+		<ccom:tituloModulo titulo="#{msg.corresGestionSalidas}"/>	
+		<h:form style="padding-bottom: 3px;" id="formToolBar">
+		
+		  <rich:toolbar height="34" itemSeparator="grid" id="toolBar" separatorClass="separator" >
+				<rich:toolbarGroup>
+					<h:panelGroup >
+						<h:commandLink value="#{msg.labelListado}" id="salidas"  action="salidacorrespondencia" />
+					</h:panelGroup>			
+				</rich:toolbarGroup>
+				<rich:toolbarGroup>
+					<h:panelGroup >
+						<h:commandLink value="#{msg.labelAgregar}" id="agregarSalida"  action="#{buscadorSalidasBean.agregarNavigation}" />
+					</h:panelGroup>			
+				</rich:toolbarGroup>
+				<rich:toolbarGroup>
+					<h:panelGroup >
+						<h:commandLink value="#{msg.corresCambiarEtapamultiplesSalidas}" id="cambiarEtapaMultiple"  action="#{buscadorSalidasBean.cambiarEtapasMultiplesNavigation}" />
+					</h:panelGroup>			
+				</rich:toolbarGroup>
+				<rich:toolbarGroup>
+					<h:panelGroup >
+						<h:commandLink value="#{msg.corresEntregaMultiple}" id="entregaMultiple"  action="#{buscadorSalidasBean.entregaMultipleNavigation}" />
+					</h:panelGroup>			
+				</rich:toolbarGroup>
+				
+			</rich:toolbar>		
+		</h:form>			
+		<ui:insert name="content" />
+	</ui:define>
+
+
+	
+</ui:composition>

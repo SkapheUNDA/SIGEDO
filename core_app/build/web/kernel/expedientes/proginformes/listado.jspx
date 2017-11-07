@@ -1,0 +1,134 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<h:form style="padding-bottom: 3px;" id="formListado">
+
+			<!--  Panel de busqueda -->
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.tituloBusqueda}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%">
+
+					<h:outputText value="#{msg.labelInforme}:"></h:outputText>
+					<h:outputText value="#{msg.labelDependenciaREL}:"></h:outputText>
+
+					<h:inputText value="#{programacionBean.nombreInforme}"
+						label="#{msg.labelInforme}"></h:inputText>
+					<h:selectOneMenu value="#{programacionBean.idDependSeleccionada}"
+						required="false" label="#{msg.labelDependenciaREL}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{programacionBean.dependItems}" />
+					</h:selectOneMenu>
+
+					<h:outputText value="#{msg.labelUsuario}:"></h:outputText>
+					<h:outputText value="#{msg.labelPresentadoa}:"></h:outputText>
+					<h:selectOneMenu value="#{programacionBean.idUsuarioSeleccionado}"
+						required="false" label="#{msg.labelUsuario}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{programacionBean.usuariosItems}" />
+					</h:selectOneMenu>
+					<h:inputText value="#{programacionBean.textoTresGenerico}" />
+
+					<h:outputText value="#{msg.expproFechaVec} #{msg.expproDesde}:" />
+					<h:outputText value="#{msg.expproFechaVec} #{msg.expproHasta}:" />
+					<rich:calendar value="#{programacionBean.fechaUnoGenerico}"
+						datePattern="dd/MM/yyyy hh:mm a"></rich:calendar>
+					<rich:calendar value="#{programacionBean.fechaDosGenerico}"
+						datePattern="dd/MM/yyyy hh:mm a"></rich:calendar>
+
+					<h:outputText value="#{msg.expproMesesAnteriores}:" />
+					<h:outputText value="#{msg.expproDiasAnteriores}:" />
+					<h:inputText value="#{programacionBean.textoUnoGenerico}" />
+					<h:inputText value="#{programacionBean.textoDosGenerico}" />
+
+				</h:panelGrid>
+
+				<div class="spacer15"></div>
+
+				<div align="center">
+					<h:panelGrid columns="1">
+						<h:commandButton value="#{msg.expproBuscarProg}"
+							action="#{programacionBean.cargaFiltrosDataModel}"></h:commandButton>
+
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+
+			<div class="spacer15"></div>
+
+			<!-- Panel De Datos -->
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelResultadosEncontrados}"></h:outputText>
+				</f:facet>
+
+				<rich:dataTable style="width: 100%;" rows="10"   var="progInforme"  
+					id="tablaProgInformes"
+					value="#{programacionBean.programacionDataModel}">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value="#{msg.labelDependenciaREL}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelInforme}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.expproPresentaEmp}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelOpciones}" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<h:outputText value="#{progInforme.depend.depNom}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{progInforme.prgNom}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{progInforme.entidad.etdNom}" />
+					</rich:column>
+					<rich:column>
+						<h:panelGrid columns="3">
+							<h:commandLink style="color: #FFFFFF;"
+								action="#{programacionBean.detalleNavegacion}">
+								<h:graphicImage width="25" height="25" alt="#{msg.labelDetalle}"
+									title="#{msg.labelDetalle}" url="/img/icons/detail.png"></h:graphicImage>
+								<f:param name="idProgSeleccionada" value="#{progInforme.prgId}" />
+							</h:commandLink>
+							<h:commandLink style="color: #FFFFFF;"
+								action="#{programacionBean.actualizarNavegacion}">
+								<h:graphicImage alt="#{msg.labelActualizar}"
+									title="#{i18n['actualizar']}" url="/img/icons/actualizar.png"></h:graphicImage>
+								<f:param name="idProgSeleccionada" value="#{progInforme.prgId}" />
+							</h:commandLink>
+							<h:commandLink style="color: #FFFFFF;"
+								action="#{programacionBean.eliminarNavegacion}">
+								<h:graphicImage alt="#{msg.labelEliminar}"
+									title="#{msg.labelEliminar}" url="/img/icons/eliminar.png"></h:graphicImage>
+								<f:param name="idProgSeleccionada" value="#{progInforme.prgId}" />
+							</h:commandLink>
+						</h:panelGrid>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller id="ds" maxPages="40" for="tablaProgInformes"  />
+					</f:facet>
+				</rich:dataTable>
+
+			</rich:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

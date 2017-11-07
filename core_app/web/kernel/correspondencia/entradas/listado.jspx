@@ -1,0 +1,313 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{generarEtiquetaBean.cargarEtiquetaEntrada}"></f:event>
+		</f:metadata>
+
+		<h:form style="padding-bottom: 3px;" id="formListado">
+
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelListado}"></h:outputText>
+				</f:facet>
+				<div align="center">
+
+					<h:panelGrid columns="5" width="100%">
+
+						<h:outputText value="#{msg.corresNoRadicacion}"></h:outputText>
+						<h:outputText value="#{msg.corresFechaHora1}"></h:outputText>
+						<h:outputText value="#{msg.corresFechaHora2}"></h:outputText>
+						<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+						<h:outputText value="#{msg.corresPersonaNatural}"></h:outputText>
+						
+						<h:inputText value="#{buscadorEntradasBean.noRadicacion}"></h:inputText>
+						<rich:calendar value="#{buscadorEntradasBean.fechaRadicacion1}" direction="topRight" datePattern="dd/MM/yyyy"></rich:calendar>
+						<rich:calendar value="#{buscadorEntradasBean.fechaRadicacion2}" direction="topRight" datePattern="dd/MM/yyyy"></rich:calendar>
+						<h:inputText value="#{buscadorEntradasBean.asunto}"></h:inputText>
+						<h:inputText value="#{buscadorEntradasBean.nomPersonaNatural}"></h:inputText>
+						
+						<h:outputText value="#{msg.corresPersonaJuridica}"></h:outputText>
+						<h:outputText value="#{msg.corresDocSol}"></h:outputText>
+						<h:outputText value="#{msg.corresFechRespuesta1}"></h:outputText>
+						<h:outputText value="#{msg.corresFechRespuesta2}"></h:outputText>
+						<h:outputText value="#{msg.corresEsContestada}"></h:outputText>
+						
+						<h:inputText value="#{buscadorEntradasBean.nomPersonaJuridica}"></h:inputText>
+						<h:inputText value="#{buscadorEntradasBean.docPersona}"></h:inputText>
+						<rich:calendar value="#{buscadorEntradasBean.fechaRespuesta1}" direction="topRight" datePattern="dd/MM/yyyy"></rich:calendar>
+						<rich:calendar value="#{buscadorEntradasBean.fechaRespuesta2}" direction="topRight" datePattern="dd/MM/yyyy"></rich:calendar>
+						
+						<h:selectOneMenu value="#{buscadorEntradasBean.estaContestada}">
+							<f:selectItem itemLabel="#{msg.corresEstNoContest}" itemValue="0" />
+							<f:selectItem itemLabel="#{msg.corresEstContest}" itemValue="1" />
+							<f:selectItem itemLabel="#{msg.corresEstTodas}" itemValue="2"  />
+						</h:selectOneMenu>
+						
+					</h:panelGrid>
+
+					<h:panelGrid columns="1" width="100%">
+
+						<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+
+
+						<h:selectOneMenu id="dependencia"
+							value="#{buscadorEntradasBean.idDependenciaSeleccionada}"
+							label="#{msg.corresDependencia}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{buscadorEntradasBean.dependenciasItems}" />
+							<a4j:ajax render="clasificacion" limitRender="true"
+								execute="@this" event="valueChange" immediate="true"></a4j:ajax>
+						</h:selectOneMenu>
+
+						<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+						
+						<h:selectOneMenu id="clasificacion"
+							value="#{buscadorEntradasBean.idClasificacionSeleccionada}"
+							label="#{msg.corresClasificacion}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{buscadorEntradasBean.clasificacionItems}" />
+							<a4j:ajax render="estadoFiltro" limitRender="true"
+								execute="@this" event="valueChange" immediate="true"></a4j:ajax>
+						</h:selectOneMenu>
+						
+						<h:outputText value="#{msg.corresPorEstado}"></h:outputText>
+						
+						<h:selectOneMenu id="estadoFiltro"
+							value="#{buscadorEntradasBean.idEstadoSeleccionado}"
+							label="#{msg.corresPorEstado}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{buscadorEntradasBean.estadosItems}" />
+						</h:selectOneMenu>
+						
+					</h:panelGrid>
+
+					<h:panelGrid columns="1" width="100%"
+						rendered="#{buscadorEntradasBean.adminCorrespondencia}">
+
+						<h:outputText value="#{msg.corresUsuario}"></h:outputText>
+
+						<h:selectOneMenu id="usuarios"
+							value="#{buscadorEntradasBean.idUsuarioSeleccionado}"
+							label="#{msg.corresUsuario}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{buscadorEntradasBean.usuariosItems}" />
+						</h:selectOneMenu>
+
+					</h:panelGrid>
+					
+					<h:panelGrid columns="2" width="100%">
+						<h:outputText value="#{msg.corresOrdenPor}"></h:outputText>
+						<h:outputText value="#{msg.corresOrdenPorDir}"></h:outputText>
+						
+						<h:selectOneMenu id="ordenFiltro"
+							value="#{buscadorEntradasBean.ordenarPor}">
+							<f:selectItem itemLabel="#{msg.ordenarPorFechaEntrega}" itemValue="entFdr"  />
+							<f:selectItem itemLabel="#{msg.ordenarPorRadicado}" itemValue="entNen" />
+							<f:selectItem itemLabel="#{msg.ordenarPorFechaRad}" itemValue="entFen" />
+						</h:selectOneMenu>
+						
+						<h:selectBooleanCheckbox value="#{buscadorEntradasBean.ordenarDir}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="3">
+
+						<a4j:commandButton value="#{msg.labelBuscar}"
+							action="#{buscadorEntradasBean.cargaFiltrosDataModel}"
+							render="panelresultados" execute="@form"></a4j:commandButton>
+						<h:commandButton value="#{msg.labelLimpiar}"
+							action="entradacorrespondencia"></h:commandButton>
+						<h:outputText value=" "></h:outputText>
+
+					</h:panelGrid>
+				</div>
+			</rich:panel>
+			<div class="spacer15"></div>
+			<rich:panel id="panelresultados" style="overflow-x:scroll;">
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelResultadosEncontrados}"></h:outputText>
+				</f:facet>
+				<div align="right">
+					<h:panelGrid columns="3">
+
+						<a4j:commandButton value="#{msg.corresBorrarSelec}"
+							action="#{buscadorEntradasBean.borrarSeleccion}"
+							render="tablaentradas" ></a4j:commandButton>
+
+						
+
+						<h:commandButton id="opcCambioEtapaMasivo"
+							value="#{msg.corresCambiarEtapamultiplesEntradas}"
+							action="#{buscadorEntradasBean.guardaFlashEntradasSeleccionadasCambioEtapa}"></h:commandButton>
+
+						<h:commandLink value="#{msg.labelExportarExcel}">
+							<p:dataExporter type="xls" target="tablaentradas"
+								fileName="entradas" />
+						</h:commandLink>
+					</h:panelGrid>
+				</div>
+				<p:dataTable var="entrada" id="tablaentradas" paginator="true"
+					rows="15" paginatorPosition="bottom"
+					value="#{buscadorEntradasBean.principalDataModel}" lazy="true"
+					rowStyleClass="#{entrada.estiloClase}">
+					<p:column exportable="false" width="105">
+						<div style="float: left;">
+							<p:selectBooleanCheckbox id="chk"
+								value="#{buscadorEntradasBean.idsEntradasSeleccionadas[entrada.entId]}"></p:selectBooleanCheckbox>
+
+
+							<p:commandButton id="opcButton" value="#{msg.labelOpciones}"
+								type="button" />
+							<p:tieredMenu overlay="true" trigger="opcButton" my="left top"
+								at="left bottom">
+								<p:menuitem value="#{msg.corresEtiqueta}" ajax="true"
+									update=":formListado:dialogEtiquetaEntrada" process="@this"
+									oncomplete="modalEtiquetaEntrada.show();"
+									action="#{generarEtiquetaBean.generarEtiquetaEntrada(entrada)}"
+									icon="ui-icon-extlink"></p:menuitem>
+
+								<p:menuitem value="#{msg.labelActualizar}" rendered="#{!entrada.entLcon}"
+									action="#{buscadorEntradasBean.actualizarNavigation}"
+									ajax="false" icon="ui-icon-disk">
+									<f:param name="idRegSeleccionado" value="#{entrada.entId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.labelDetalle}"
+									action="#{buscadorEntradasBean.detalleNavigation}" ajax="false"
+									icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{entrada.entId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.labelDuplicar}" ajax="false"
+									action="#{buscadorEntradasBean.duplicarNavigation}"
+									icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{entrada.entId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.corresCambiarFecha}" ajax="false" rendered="#{!entrada.entLcon}"
+									action="#{buscadorEntradasBean.cambiarFechaNavigation}"
+									icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{entrada.entId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.corresArchivosAdjuntos}" ajax="false"
+									action="#{buscadorEntradasBean.archivosAdjuntosNavigation}"
+									icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{entrada.entId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.corresNoNotificar}" ajax="false"
+									action="#{buscadorEntradasBean.noNotificarNavigation}"
+									rendered="#{!entrada.entLnot}" icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{entrada.entId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.labelcambiaEtapa}" ajax="false"
+									action="#{buscadorEntradasBean.cambiarEtapaNavigation}"
+									icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{entrada.entId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.corresAlerta}" ajax="false"
+									action="#{buscadorEntradasBean.alertasEntradaNavigation}"
+									icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{entrada.entId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.labelHistorial}" ajax="false"
+									action="#{buscadorEntradasBean.historialNavigation}"
+									icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{entrada.entId}" />
+								</p:menuitem>
+							</p:tieredMenu>
+						</div>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresNoRadicacion}" />
+						</f:facet>
+						<h:outputText value="#{entrada.entNen}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresFechaHora}" />
+						</f:facet>
+						<h:outputText value="#{entrada.entFen}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="GMT-05:00" />
+						</h:outputText>
+						<br/>
+						<h:outputText value="#{entrada.entFdr}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="GMT-05:00" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresAsunto}" />
+						</f:facet>
+						<h:outputText value="#{entrada.entAsu}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresRes}" />
+						</f:facet>
+						<h:selectBooleanCheckbox value="#{entrada.entLrta}"
+							disabled="true" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresCon}" />
+						</f:facet>
+						<h:selectBooleanCheckbox value="#{entrada.entLcon}"
+							disabled="true" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresEtapa}" />
+						</f:facet>
+						<h:outputText value="#{entrada.estado.estNom}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresSolicitanteRemitente}" />
+						</f:facet>
+						<h:outputText
+							value="#{entrada.entNom} #{entrada.entPap} #{entrada.entSap}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresDependencia}" />
+						</f:facet>
+						<h:outputText value="#{entrada.dependencia.depNom}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresClasificacion}" />
+						</f:facet>
+						<h:outputText value="#{entrada.clasificacion.claNom}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.corresUsuario}" />
+						</f:facet>
+						<h:outputText value="#{entrada.usuario.usrLog}"></h:outputText>
+					</p:column>
+					
+
+				</p:dataTable>
+
+			</rich:panel>
+
+			<p:dialog id="dialogEtiquetaEntrada" header="#{msg.corresEtiqueta}"
+				widgetVar="modalEtiquetaEntrada"
+				visible="#{generarEtiquetaBean.modalVisible}" modal="true"
+				dynamic="#{!generarEtiquetaBean.modalVisible}" width="850"
+				height="300" resizable="false">
+				<p:media player="pdf" value="#{generarEtiquetaBean.enlaceEtiqueta}"
+					width="100%" height="100%" id="etiqueta"></p:media>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+

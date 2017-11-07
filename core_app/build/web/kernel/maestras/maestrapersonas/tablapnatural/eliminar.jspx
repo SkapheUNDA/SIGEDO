@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="internalTemplate.jspx">
+	
+
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formEliminar">
+
+			<f:metadata>
+				<f:event type="preRenderView"
+					listener="#{personaNaturalBean.cargarRegistro}" />
+			</f:metadata>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelEliminarPersona}"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="2" width="50%"
+					columnClasses="columnLabelsDetalleSolicitud,columnDatosDetalleSolicitud">
+					<h:outputText value="#{msg.labelNombres}" />
+					<h:panelGroup>
+						<h:outputText id="primerNombrePeticionario"
+							value="#{personaNaturalBean.personaSeleccionada.perNom}" />
+					</h:panelGroup>
+
+					<h:outputText value="#{msg.labelApellidos}" />
+					<h:panelGroup>
+						<h:panelGrid columns="2">
+							<h:outputText id="primerApellidoPeticionario"
+								value="#{personaNaturalBean.personaSeleccionada.perPap}" />
+							<h:outputText id="segundoApellidoPeticionario"
+								value="#{personaNaturalBean.personaSeleccionada.perSap}" />
+						</h:panelGrid>
+					</h:panelGroup>
+
+					<h:outputText value="#{msg.labelDocumento}" />
+					<h:outputText
+						value="#{personaNaturalBean.personaSeleccionada.perDoc}"
+						id="username">
+					</h:outputText>
+
+
+					<h:outputText value="#{msg.labelTipoDocumento}" />
+					<h:outputText
+						value="#{personaNaturalBean.personaSeleccionada.tiposdocumento.tdoNom}" />
+				</h:panelGrid>
+
+				<div align="center">
+					<h:commandButton action="#{personaNaturalBean.eliminarPersona}"
+						value="#{msg.labelEliminar}"
+						onclick="if (!confirm('#{msg.confirmacionEliminarPersona}')) return false">
+
+					</h:commandButton>
+						
+				</div>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="../detalleTemplate.jspx">
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event listener="#{expedienteBean.cargaAnotacion}"
+				type="preRenderView"></f:event>
+			<f:event listener="#{expedienteBean.cargaParametros}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+
+		<h:form style="padding-bottom: 3px;" id="formEliminar">
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelAnotaciones}"></h:outputText>
+				</f:facet>
+				<div align="center">
+					<h:panelGrid columns="2" width="100%"
+						columnClasses="columnLabelsForm,columnDatosForm">
+
+						<h:outputText value="#{msg.expproNomAnotacion}:" />
+						<h:outputText
+							value="#{expedienteBean.anotacionSeleccionada.anoNom}" />
+						<h:outputText value="#{msg.expproAnotacion}:" />
+						<h:outputLabel 
+							value="#{expedienteBean.anotacionSeleccionada.anoDes}"
+							style="width: 402px;height: 82px" />
+						<h:outputText value="#{msg.expproFechaCreacion}:" />
+						<h:outputText
+							value="#{expedienteBean.anotacionSeleccionada.anoFcr}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a"	timeZone="GMT-05:00" />
+							</h:outputText>
+						<h:outputText value="#{msg.expproFechaVec}:" />
+						<h:outputText
+							value="#{expedienteBean.anotacionSeleccionada.anoFve}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a"	timeZone="GMT-05:00" />
+							</h:outputText>
+					</h:panelGrid>
+					<div class="spacer15"></div>
+				</div>
+				<div align="center">
+					<h:panelGrid columns="2">
+						<h:commandButton
+							action="#{expedienteBean.anotacionesExpEliminar}"
+							value="#{msg.labelEliminar}">
+						</h:commandButton>
+						<h:commandButton
+							action="#{expedienteBean.infoExpedienteNavegacion}"
+							value="#{msg.labelCancelar}">
+						</h:commandButton>
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+			<h:inputHidden value="#{expedienteBean.idExpedienteSeleccionado}" />
+			<h:inputHidden value="#{expedienteBean.idAnotacionSeleccionada}" />
+			
+			<t:saveState value="#{expedienteBean.idExpedienteSeleccionado}" />
+			<t:saveState value="#{expedienteBean.expedienteSeleccionado}" />
+			<t:saveState value="#{expedienteBean.idAnotacionSeleccionada}" />
+			<t:saveState value="#{expedienteBean.anotacionSeleccionada}" />
+		</h:form>
+	</ui:define>
+</ui:composition>

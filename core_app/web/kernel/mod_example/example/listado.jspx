@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:liferay-ui="http://liferay.com/faces/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<div class="spacer15"></div>
+		
+		<h:form style="padding-bottom: 3px;" id="formListado">
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelListado}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%">
+					<h:outputText value="#{msg.tmaesLblCampoiListado}"></h:outputText>
+				
+					<h:inputText value="#{exampleBean.nombre}"
+						label="#{msg.exampleCampo}"></h:inputText>
+
+
+				</h:panelGrid>
+				<div class="spacer15"></div>
+				<div align="center">
+					<h:panelGrid columns="3">
+						<h:commandButton value="#{msg.labelBuscar}"
+							action="#{exampleBean.cargaFiltrosDataModel}"></h:commandButton>
+
+						<h:commandButton value="#{msg.labelListado}" action="listado"></h:commandButton>
+						<h:outputText value=" "></h:outputText>
+
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+
+			<div class="spacer15"></div>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelResultadosEncontrados}"></h:outputText>
+				</f:facet>
+
+				<rich:dataTable style="width: 100%;" rows="20" var="dato"
+					id="dataTable" value="#{exampleBean.exampleDataModel}" >
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value="#{msg.labelNombre}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelOpciones}"></h:outputText>
+							</rich:column>
+							
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<h:outputText value="#{dato.id}"></h:outputText>
+					</rich:column>
+					
+
+					<rich:column>
+						<h:panelGrid columns="2">
+						<h:commandLink style="color: #FFFFFF;" action="actualizar" >
+								<h:graphicImage alt="#{msg.labelActualizar}"
+									title="#{i18n['actualizar']}"
+									url="/img/icons/actualizar.png"></h:graphicImage>
+								<f:param name="idRegSeleccionado" value="#{dato.id}" />
+							</h:commandLink>
+							<h:commandLink style="color: #FFFFFF;"
+								action="eliminar" >
+								<h:graphicImage alt="#{msg.labelEliminar}"
+									title="#{msg.labelEliminar}"
+									url="/img/icons/eliminar.png"></h:graphicImage>
+								<f:param name="idRegSeleccionado" value="#{dato.id}" />
+							</h:commandLink>
+
+							
+						</h:panelGrid>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller id="ds" maxPages="5" for="dataTable"></rich:dataScroller>
+					</f:facet>
+				</rich:dataTable>
+
+			</rich:panel>
+			
+			<h:commandButton action="#{exampleBean}" value="" />
+			
+		</h:form>
+</ui:define>
+</ui:composition>

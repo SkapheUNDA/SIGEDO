@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+	<!-- Reglas de  tablas Maestras -->
+	<navigation-rule>
+		<from-view-id>/kernel/maestras/*</from-view-id>
+		<navigation-case>
+			<from-outcome>tablasbasicas</from-outcome>
+			<to-view-id>/kernel/maestras/tablasbasicas/listado.jspx</to-view-id>
+		</navigation-case>
+		 <navigation-case>
+   			<from-outcome>tablapnatural</from-outcome>
+   			<to-view-id>/kernel/maestras/maestrapersonas/tablapnatural/listado.jspx</to-view-id>
+ 		 </navigation-case>
+ 		 <navigation-case>
+   			<from-outcome>tablapjuridica</from-outcome>
+   			<to-view-id>/kernel/maestras/maestrapersonas/tablapjuridica/listado.jspx</to-view-id>
+ 		 </navigation-case>
+		
+	</navigation-rule>
+
+	<!-- Reglas Tablas Basicas de tablas Maestras -->
+	<navigation-rule>
+		<from-view-id>/kernel/maestras/tablasbasicas/*</from-view-id>
+		<navigation-case>
+			<from-outcome>agregar</from-outcome>
+			<to-view-id>/kernel/maestras/tablasbasicas/agregar.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>actualizar</from-outcome>
+			<to-view-id>/kernel/maestras/tablasbasicas/actualizar.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>eliminar</from-outcome>
+			<to-view-id>/kernel/maestras/tablasbasicas/eliminar.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>transaccionExitosa</from-outcome>
+			<to-view-id>/kernel/maestras/tablasbasicas/listado.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listado</from-outcome>
+			<to-view-id>/kernel/maestras/tablasbasicas/listado.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Reglas Tablas Basicas de tablas Maestras Personas Natural -->
+	<navigation-rule>
+		<from-view-id>/kernel/maestras/maestrapersonas/tablapnatural/*</from-view-id>
+		<navigation-case>
+			<from-outcome>actualizar</from-outcome>
+			<to-view-id>/kernel/maestras/maestrapersonas/tablapnatural/actualizar.jspx</to-view-id>
+		</navigation-case>
+		 <navigation-case>
+   			<from-outcome>transaccionExitosa</from-outcome>
+   			<to-view-id>/kernel/maestras/maestrapersonas/tablapnatural/listado.jspx</to-view-id>
+ 		 </navigation-case>
+ 		  <navigation-case>
+   			<from-outcome>eliminar</from-outcome>
+   			<to-view-id>/kernel/maestras/maestrapersonas/tablapnatural/eliminar.jspx</to-view-id>
+ 		 </navigation-case>
+	</navigation-rule>
+	
+	<!-- Reglas Tablas Basicas de tablas Maestras Personas Juridica -->
+	<navigation-rule>
+		<from-view-id>/kernel/maestras/maestrapersonas/tablapjuridica/*</from-view-id>
+		<navigation-case>
+			<from-outcome>actualizar</from-outcome>
+			<to-view-id>/kernel/maestras/maestrapersonas/tablapjuridica/actualizar.jspx</to-view-id>
+		</navigation-case>
+		 <navigation-case>
+   			<from-outcome>transaccionExitosa</from-outcome>
+   			<to-view-id>/kernel/maestras/maestrapersonas/tablapjuridica/listado.jspx</to-view-id>
+ 		 </navigation-case>
+ 		  <navigation-case>
+   			<from-outcome>eliminar</from-outcome>
+   			<to-view-id>/kernel/maestras/maestrapersonas/tablapjuridica/eliminar.jspx</to-view-id>
+ 		 </navigation-case>
+	</navigation-rule>
+	
+
+</faces-config>

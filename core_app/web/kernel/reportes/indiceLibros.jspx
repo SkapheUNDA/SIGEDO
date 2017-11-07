@@ -1,0 +1,126 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formAgregar"
+			enctype="multipart/form-data">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelIndiceLibros}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="4" width="100%">
+
+					<h:outputText value="#{msg.labelCodigoRegistroN1}"></h:outputText>
+					<h:outputText value="#{msg.labelCodigoRegistroN2}"></h:outputText>
+					<h:outputText value="#{msg.labelDesde}"></h:outputText>
+					<h:outputText value="#{msg.labelHasta}"></h:outputText>
+
+
+					<h:inputText value="#{indiceLibroRegistroBean.codRegistroN1}"
+						required="true" id="codReg1" label="#{msg.labelCodigoRegistroN1}">
+
+					</h:inputText>
+					<h:inputText value="#{indiceLibroRegistroBean.codRegistroN2}"
+						required="true" id="codReg2" label="#{msg.labelCodigoRegistroN2}">
+						<f:convertNumber />
+					</h:inputText>
+					<h:inputText value="#{indiceLibroRegistroBean.desde}"
+						required="true" id="desde" label="#{msg.labelDesde}">
+						<f:convertNumber />
+					</h:inputText>
+					<h:inputText value="#{indiceLibroRegistroBean.hasta}"
+						required="true" id="hasta" label="#{msg.labelHasta}">
+						<f:convertNumber />
+					</h:inputText>
+
+
+				</h:panelGrid>
+				<div align="center">
+					<h:panelGrid columns="3">
+						<h:commandButton value="#{msg.labelBtnBuscar}"
+							action="#{indiceLibroRegistroBean.buscar}"
+							update="dataTableIndiceLibroRegistro"></h:commandButton>
+
+						<h:outputText value=" "></h:outputText>
+
+					</h:panelGrid>
+				</div>
+				<div class="spacer15"></div>
+
+				<h:panelGroup>
+					<div align="right">
+						<h:panelGrid columns="2">
+							<h:commandLink>
+								<p:graphicImage library="images" name="descargaExcel.png" />
+								<p:dataExporter type="xls" target="dataTableIndiceLibroRegistro"
+									fileName="indiceLibrosRegistro" />
+							</h:commandLink>
+						</h:panelGrid>
+					</div>
+
+
+				</h:panelGroup>
+			</rich:panel>
+			<p:dataTable id="dataTableIndiceLibroRegistro" var="reporte"
+				paginator="true" rows="15" paginatorPosition="bottom"
+				value="#{indiceLibroRegistroBean.listIndiceLibroRegistro}"
+				lazy="true">
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelCodigo}" />
+					</f:facet>
+					<h:outputText value="#{reporte.codigo}" />
+
+					<f:facet name="footer">
+						<h:outputText value="#{msg.labelTotalRegistros}"></h:outputText>
+					</f:facet>
+
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelFechaReg}" />
+					</f:facet>
+					<h:outputText value="#{reporte.fechaRegistro}" />
+
+					<f:facet name="footer">
+						<h:outputText value="#{indiceLibroRegistroBean.sizeReporte()}">
+							<f:convertNumber />
+						</h:outputText>
+					</f:facet>
+
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelTitulo}" />
+					</f:facet>
+					<h:outputText value="#{reporte.tituloUobjeto}" />
+				</p:column>
+				<p:column style="width:200px">
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelConcatena}" />
+					</f:facet>
+					<h:outputText value="#{reporte.imprimirAutores}"
+						styleClass="preformatted" />
+
+
+
+
+				</p:column>
+
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

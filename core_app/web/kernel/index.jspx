@@ -1,0 +1,263 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="layout/template.xhtml">
+
+	<ui:define name="body">
+
+		<div class="spacer25"></div>
+
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{alertasBean.cargarRegistroDetalleResumen}"></f:event>
+		</f:metadata>
+
+		<h:form id="formAlertas">
+			<rich:tabPanel switchType="client" rendered="#{alertasModulosBean.usuarioLogeado.habilitaAlerta}">
+				<rich:tab header="#{msg.labelAlertasExppro}">
+					<rich:tabPanel switchType="client">
+						<rich:tab header="#{msg.labelAlertasExp}">
+							<rich:dataTable style="width: 100%;" rows="20" var="vexpediente"
+								id="tablaExpedientes"
+								value="#{alertasModulosBean.expedientesDataModel}">
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column>
+											<h:outputText value="#{msg.expproNoExpediente}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.labelFecha}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.expproNomExpediente}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.labelEtapa}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.labelUsuario}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.expproTipoExpediente}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.labelDependenciaREL}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.labelSolicitante}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.labelTramite}"></h:outputText>
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+								<rich:column>
+									<h:outputText value="#{vexpediente.expCod}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{vexpediente.expFso}">
+										<f:convertDateTime pattern="dd/MM/yyyy hh:mm a"
+											timeZone="GMT-05:00" />
+									</h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{vexpediente.expNom}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{vexpediente.estado.estNom}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText
+										value="#{vexpediente.usuarioTemp.usrNom} #{vexpediente.usuarioTemp.usrPap} #{vexpediente.usuarioTemp.usrSap} "></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{vexpediente.tiposexpediente.texNom}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{vexpediente.depend.depNom}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText
+										value="#{vexpediente.persona.perNom} #{vexpediente.persona.perPap} #{vexpediente.persona.perSap}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{vexpediente.tramite.trmNom}"></h:outputText>
+								</rich:column>
+								<f:facet name="footer">
+									<rich:dataScroller id="ds" maxPages="5" for="tablaExpedientes"></rich:dataScroller>
+								</f:facet>
+							</rich:dataTable>
+						</rich:tab>
+						<rich:tab header="#{msg.labelAlertasProg}">
+							<h:panelGrid columns="1" width="100%">
+								<rich:dataTable value="#{alertasModulosBean.listaProgramacion}"
+									rows="5" id="tablaProgramaciones" width="100%"
+									var="programacion">
+									<f:facet name="header">
+										<rich:columnGroup>
+											<rich:column>
+												<h:outputText value="#{msg.labelDetalle}" />
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{msg.labelPorcentaje}" />
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{msg.labelEntregaEstimada}" />
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{msg.expproFVLegal}" />
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{msg.labelTermino}" />
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{msg.labelDiasFaltantes }" />
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{msg.labelTerminosFVe}" />
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{msg.labelEntregaReal}" />
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{msg.labelDependenciaREL}" />
+											</rich:column>
+										</rich:columnGroup>
+									</f:facet>
+									<rich:column colspan="9">
+										<rich:collapsibleSubTableToggler for="detallesExpand" />
+										<h:outputText value="#{programacion.prgNom}" />
+									</rich:column>
+									<rich:collapsibleSubTable value="#{programacion.detalles}"
+										expandMode="client" id="detallesExpand" expanded="true"
+										sortMode="multi" var="varDtlProg">
+										<rich:column>
+											<h:outputText value="#{varDtlProg.dprCom}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{varDtlProg.dprPor}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{varDtlProg.dprFen}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{varDtlProg.dprFve}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="No. Uno" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="No. Dos" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Fecha" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{varDtlProg.dprFeo}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{varDtlProg.depend.depNom}" />
+										</rich:column>
+									</rich:collapsibleSubTable>
+									<f:facet name="footer">
+										<rich:dataScroller id="ds" maxPages="5"
+											for="tablaProgramaciones" />
+									</f:facet>
+								</rich:dataTable>
+							</h:panelGrid>
+						</rich:tab>
+					</rich:tabPanel>
+				</rich:tab>
+				<rich:tab header="Alertas Correspondencia">
+					<rich:dataTable style="width: 100%;" rows="10" var="entrada"
+						id="tablaEntrada" value="#{alertasBean.principalDataModel}">
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column>
+									<h:outputText value="#{msg.corresNoRadicacion}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.corresSolicitanteRemitente}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.corresFechaHora}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.corresTiemporespuesta}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.corresFechaLegalVencimiento}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.corresTiempoRestante}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.corresUsuario}"></h:outputText>
+								</rich:column>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column>
+							<h:outputText value="#{entrada.entNen}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{entrada.entAsu}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{entrada.clasificacion.claNom}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText
+								value="#{entrada.entNom} #{entrada.entPap} #{entrada.entSap}"></h:outputText>
+						</rich:column>
+
+						<rich:column>
+							<h:outputText value="#{entrada.entFen}">
+								<f:convertDateTime pattern="dd/MM/yyyy hh:mm a"
+									timeZone="GMT-05:00" />
+							</h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{entrada.entTrt}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{entrada.entFdr}">
+								<f:convertDateTime pattern="dd/MM/yyyy hh:mm a"
+									timeZone="GMT-05:00" />
+							</h:outputText>
+						</rich:column>
+
+						<rich:column>
+							<h:outputText
+								value="#{alertasBean.getTiempoRestante(entrada.entFdr)}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{entrada.dependencia.depNom}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{entrada.usuario.usrLog}"></h:outputText>
+						</rich:column>
+					</rich:dataTable>
+					<div align="center" class="panelBorder">
+						<rich:dataScroller id="ds" maxPages="10" ajaxSingle="true"
+							for="tablaEntrada"></rich:dataScroller>
+					</div>
+				</rich:tab>
+			</rich:tabPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,117 @@
+label {
+	color: #39A935;
+	font-size: 13px !important;
+	font-family: Arial,Helvetica,sans-serif !important;
+}
+
+span {
+	color: #39A935;
+	font-size: 13px !important;
+	font-family: Arial,Helvetica,sans-serif !important;
+}
+
+.transparent_class {
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+
+  /* IE 5-7 */
+  filter: alpha(opacity=50);
+
+  /* Netscape */
+  -moz-opacity: 0.5;
+
+  /* Safari 1.x */
+  -khtml-opacity: 0.5;
+
+  /* Good browsers */
+  opacity: 0.5;
+  
+  background-color: black;
+}
+
+.invisible {
+	display: none;
+}
+
+.hover_div {
+	z-index: 9999; 
+	position: fixed; 
+	left: 0; 
+	top: 0; 
+	width: 100%;
+	height: 100%;
+}
+
+.ui-button {
+	border: 0 !important;
+	background-color: #39A935 !important;
+	background-image: none !important;
+    background: #39A935 !important;
+    font-weight: bold !important;
+    border-radius: 5px !important;
+    color: #FFFFFF !important;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+	border-color: #3c65a7 !important;
+	background: white !important;
+}
+
+.ui-state-active a {
+	color: #39A935 !important;
+}
+
+.ui-tabs .ui-tabs-nav li {
+	border-width: 1px 1px 0 1px !important;
+	border-color: white;
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+    font-weight: bold !important;
+    font-size: 13px !important;
+	font-family: Arial,Helvetica,sans-serif !important;
+    background: #3c65a7;
+}
+
+.ui-tabs .ui-tabs-nav li a {
+	color: white;
+}
+
+.ui-tabs .ui-tabs-nav {
+	background: #39A935 !important;
+	background-image: none !important;
+}
+
+.ui-button-text {
+	color: #FFFFFF !important;
+}
+
+a {
+	color: #39A935;
+	font-size: 13px !important;
+	font-family: Arial,Helvetica,sans-serif !important;
+}
+
+select {
+	font-size: 13px !important;
+	font-family: Arial,Helvetica,sans-serif !important;
+}
+
+input [type=text] {
+	font-size: 13px !important;
+	font-family: Arial,Helvetica,sans-serif !important;
+}
+
+textarea {
+	font-size: 13px !important;
+	font-family: Arial,Helvetica,sans-serif !important;
+}
+
+.fileupload-buttonbar {
+	background-image: none !important;
+	background: white !important;
+}
+
+.cancel {
+	display: none !important;
+}
+

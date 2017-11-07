@@ -1,0 +1,73 @@
+<ui:composition 
+xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns:f="http://java.sun.com/jsf/core"  
+xmlns:p="http://primefaces.org/ui" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:a4j="http://richfaces.org/a4j" 
+xmlns:rich="http://richfaces.org/rich" 
+template="internalTemplate.jspx"
+xmlns:ccom="http://customcomponents/jsf"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:cnet="http://customcomponents/jsf">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formListado">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.conconPuc}"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="3" width="100%">
+						<h:outputText value="#{msg.conconpucCodigoCuenta}:"></h:outputText>
+						<h:outputText value="#{msg.conconpucDescripcion}:"></h:outputText>
+						<h:outputText value="#{msg.conconpucNivel}:"></h:outputText>
+						<h:inputText value="#{pucBean.id}"></h:inputText>
+						<h:inputText value="#{pucBean.descripcion}"></h:inputText>
+						<h:inputText value="#{pucBean.nivel}"></h:inputText>
+					</h:panelGrid>
+				<div align="center">
+						<p:commandButton value="#{msg.modalPersonasBuscar}"
+							update="dataTablePuc"
+							action="#{pucBean.buscar}" execute="@form"></p:commandButton>
+				
+					<h:commandButton value="Crear"
+							action="#{pucBean.agregarNavigation}"
+							></h:commandButton>
+				</div>
+			</rich:panel>
+			<h:panelGroup id="dataTablePuc">
+				<p:dataTable var="pucData" paginator="true" rows="15"
+					paginatorPosition="bottom" value="#{pucBean.listDatamodel}"
+					lazy="true">
+
+					<p:column headerText="#{msg.conconpucCodigoCuenta}">
+						<h:outputText value="#{pucData.id}" />
+					</p:column>
+					<p:column headerText="#{msg.conconpucDescripcion}">
+						<h:outputText value="#{pucData.descripcion}" />
+					</p:column>
+					<p:column headerText="#{msg.conconpucNivel}">
+						<h:outputText value="#{pucData.nivel}" />
+					</p:column>
+					<p:column headerText="#{msg.conconpucDetalleCuenta}">
+						<h:outputText value="#{pucData.cuentaDetalle}" />
+					</p:column>
+					<p:column headerText="#{msg.conconpucRequiereTercero}">
+						<h:outputText value="#{pucData.requiereTercero}" />
+					</p:column>
+					<p:column headerText="#{msg.conconpucEstado}">
+						<h:outputText value="#{pucData.estado}" />
+					</p:column>
+					<p:column>
+						<h:commandLink style="color: #FFFFFF;"
+							action="#{pucBean.editarNavigation}">
+							<h:graphicImage width="16" height="16"
+								alt="#{msg.labelActualizar}" title="#{msg.labelActualizar}"
+								url="/img/icons/actualizar.png"></h:graphicImage>
+							<f:param name="idPucSeleccionado" value="#{pucData.id}" />
+						</h:commandLink>
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,174 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<ui:define name="content">
+		<div class="spacer15"></div>
+		<h:form id="cargue" enctype="multipart/form-data">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Cargue de Formatos"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="3" width="100%">
+					<h:outputLabel value="#{msg.sgcFormato}" for="formato" />
+					<h:outputText value="*" style="color : red" />
+					<h:selectOneMenu id="formato" required="true"						
+						value="#{cargarFormatoBean.formatoSeleccionado}">
+						<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+						<f:selectItems value="#{cargarFormatoBean.listaFormatos}"></f:selectItems>
+						<a4j:ajax event="valueChange" render="panelCorte ,entidad"
+							execute="@form" />
+					</h:selectOneMenu>
+
+					<h:outputLabel value="#{msg.sgcFechaCorte}" for="corte" />
+					<h:outputText value="*" style="color : red" />					
+					<h:panelGrid id="panelCorte">
+						<h:outputLabel value="#{cargarFormatoBean.periodoHabilitado}" />
+					</h:panelGrid>
+										
+				</h:panelGrid>
+
+				<h:panelGrid id="panelCargue" columns="1" width="100%">
+					<p:messages showDetail="true" />
+					<p:fileUpload fileUploadListener="#{cargarFormatoBean.uploadFile}"
+						mode="advanced" auto="true" sizeLimit="10000000"
+						update="formato, detalles, certificado, errorTipoArchivoCargueModal, :erroresValidacionPanel"
+						allowTypes="/(\.|\/)(xls|xlsx)$/" label="Subir archivo">
+					</p:fileUpload>
+					<h:inputHidden id="tmpFileField"
+						value="#{cargarFormatoBean.tmpFile}"></h:inputHidden>
+					<a4j:outputPanel id="detalles">
+						<h:panelGrid columns="2"
+							rendered="#{cargarFormatoBean.erroresCargue != null and cargarFormatoBean.erroresCargue.size() > 0}">
+							<a4j:commandLink value="Ver Errores"
+								onclick="#{rich:component('erroresCargueModal')}.show()">
+							</a4j:commandLink>
+							<h:commandLink value="Descargar"
+								action="#{cargarFormatoBean.download}">
+							</h:commandLink>							  
+						</h:panelGrid>
+
+						<rich:popupPanel autosized="true" style="z-index: 10000;"
+							modal="true"
+							onmaskclick="#{rich:component('erroresCargueModal')}.hide()"
+							id="erroresCargueModal" resizeable="false" moveable="true"
+							show="false">
+							<f:facet name="header">
+								<h:outputText value="Errores Cargue Formatos" />
+							</f:facet>
+							<f:facet name="controls">
+								<h:panelGroup>
+									<h:graphicImage value="/img/icons/closemodal.png"
+										styleClass="hidelink" id="hidelinkCloseErroresCargueModal"
+										onclick="#{rich:component('erroresCargueModal')}.hide()"></h:graphicImage>
+								</h:panelGroup>
+							</f:facet>
+
+							<h:panelGrid width="100%">								
+								<h:outputText
+									value="Numero Errores: #{cargarFormatoBean.erroresCargue.size()}" />
+									
+								<rich:dataTable value="#{cargarFormatoBean.erroresCargue}"
+									var="error" rows="10" id="tablaErroresCargue"
+									style="width:100%">
+
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="#{msg.labelLinea}" />
+										</f:facet>
+										<h:outputText value="#{error.idFila}" />
+									</rich:column>
+
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="Columna" />
+										</f:facet>
+										<h:outputText value="#{error.columna}" />
+									</rich:column>
+
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="Valor" />
+										</f:facet>
+										<h:outputText value="#{error.valor}" />
+									</rich:column>
+
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="#{msg.labelDescripcion}" />
+										</f:facet>
+										<h:outputText value="#{error.mensaje}" />
+									</rich:column>
+
+									<f:facet name="footer">
+										<rich:dataScroller id="dsErrores" for="tablaErroresCargue"
+											maxPages="5" />
+									</f:facet>
+								</rich:dataTable>
+
+							</h:panelGrid>
+
+							<div align="center">
+								<input type="button" value="Aceptar"
+									onclick="#{rich:component('erroresCargueModal')}.hide()" />
+							</div>
+						</rich:popupPanel>
+
+						<rich:popupPanel autosized="true" style="z-index: 10000;"
+							modal="true"
+							onmaskclick="#{rich:component('errorTipoArchivoCargueModal')}.hide()"
+							id="errorTipoArchivoCargueModal" resizeable="false"
+							moveable="true" show="false">
+							<f:facet name="header">
+								<h:outputText value="Errores Cargue Formatos" />
+							</f:facet>
+							<f:facet name="controls">
+								<h:panelGroup>
+									<h:graphicImage value="/img/icons/closemodal.png"
+										styleClass="hidelink" id="hidelinkCloseErrorTipoArchivoModal"
+										onclick="#{rich:component('errorTipoArchivoCargueModal')}.hide()"></h:graphicImage>
+								</h:panelGroup>
+							</f:facet>
+
+							<h:panelGrid width="100%">
+								<h:outputText
+									value="Solo son permitidos archivos con extension xls y xlsx" />
+							</h:panelGrid>
+
+							<div align="center">
+								<input type="button" value="Aceptar"
+									onclick="#{rich:component('errorTipoArchivoCargueModal')}.hide()" />
+							</div>
+						</rich:popupPanel>
+					
+				<div class="spacer15"></div>	
+					<h:commandButton id="certificado" value="Descargar Certificado" immediate="true" rendered="#{!cargarFormatoBean.faltaAlgunObligatorio}"
+							action="#{cargarFormatoBean.descargarCertificado}">
+						</h:commandButton>
+					</a4j:outputPanel>	
+				</h:panelGrid>
+				<div class="spacer25"></div>
+
+				
+
+			</rich:panel>
+			<t:saveState value="#{cargarFormatoBean.entidadSeleccionada}"></t:saveState>
+			<t:saveState value="#{cargarFormatoBean.listaregistroCargueFormato}"></t:saveState>
+			<t:saveState value="#{cargarFormatoBean.formatoSeleccionado}"></t:saveState>
+			<t:saveState value="#{cargarFormatoBean.idFechaCorteSeleccionada}"></t:saveState>
+			<t:saveState value="#{cargarFormatoBean.erroresCargue}"></t:saveState>
+			<t:saveState value="#{cargarFormatoBean.errorLog}"></t:saveState>
+			<t:saveState value="#{cargarFormatoBean.tmpFile}"></t:saveState>
+		</h:form>
+	</ui:define>
+</ui:composition>

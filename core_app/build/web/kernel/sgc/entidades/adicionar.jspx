@@ -1,0 +1,94 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.entidadesTitulo} - Crear"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="3">
+
+						<f:facet name="header"></f:facet>
+						
+						<h:outputLabel value="#{msg.entidadesAnioCreacion}" for="anioCreacion" style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{entidadesBean.entidad.entAcreacion}" required="true" id="anioCreacion">
+							<f:convertNumber />
+						</h:inputText>
+
+						<h:outputLabel value="#{msg.entidadesPersoneriaJuridica}" for="personeria" style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{entidadesBean.entidad.entPjuridica}" required="true" id="personeria"/>
+
+						
+						<h:outputLabel value="#{msg.entidadesAutorizacionFuncionamiento}" for="autorizacion" style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{entidadesBean.entidad.entAutorizacionF}" required="true" id="autorizacion"/>
+
+						
+						<h:outputLabel value="#{msg.entidadesObjetoSocial}" for="objetoSocial" style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{entidadesBean.entidad.entObjetoSocial}" required="true" id="objetoSocial"/>
+
+						
+						<h:outputLabel value="#{msg.entidadesDomicilio}" for="domicilio" style="text-align:right" />
+						<h:outputText value="" />
+						<h:inputText value="#{entidadesBean.entidad.entDomicilio}" id="domicilio"/>
+
+						<h:outputLabel value="#{msg.entidadesDireccion}" for="direccion" style="text-align:right" />
+						<h:outputText value="" />
+						<h:inputText value="#{entidadesBean.entidad.entDireccion}" id="direccion"/>
+
+						
+						<h:outputLabel value="#{msg.entidadesTelefono}" for="telefono" style="text-align:right" />
+						<h:outputText value="" />
+						<h:inputText value="#{entidadesBean.entidad.entTelefonos}" id="telefono">
+							<f:convertNumber />
+						</h:inputText>
+						
+						<h:outputLabel value="#{msg.entidadesFax}" for="fax" style="text-align:right" />
+						<h:outputText value="" />
+						<h:inputText value="#{entidadesBean.entidad.entFax}" id="fax">
+							<f:convertNumber />
+						</h:inputText>
+						
+						<h:outputLabel value="#{msg.entidadesWEB}" for="web" style="text-align:right" />
+						<h:outputText value="" />
+						<h:inputText value="#{entidadesBean.entidad.entWeb}" id="web" />
+						
+						<h:outputLabel value="#{msg.entidadesNumeroSedes}" for="numeroSedes" style="text-align:right" />
+						<h:outputText value=""/>
+						<h:inputText value="#{entidadesBean.entidad.entNoSedes}" id="numeroSedes">
+							<f:convertNumber />
+						</h:inputText>
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" width="30%" style="text-align: center;">
+						<h:commandButton value="#{msg.entidadesButtonGuardar}"
+							action="#{entidadesBean.accionGuardar}"
+							onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+						</h:commandButton>
+
+						<h:commandButton value="#{msg.entidadesButtonCancelar}" immediate="true"
+							action="#{entidadesBean.navListado}">
+						</h:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

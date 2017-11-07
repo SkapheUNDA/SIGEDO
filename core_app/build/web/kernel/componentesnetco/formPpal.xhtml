@@ -1,0 +1,54 @@
+<rich:panel xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html" style="margin:0px; padding:0px;"
+	xmlns:f="http://java.sun.com/jsf/core" bodyClass="tituloModuloPanel">
+
+
+	<div align="center">
+		<rich:dataTable value="#{listaPropCons}" var="propCons">
+			<rich:column>
+				<h:outputText value="#{propCons.prop_eti}" />
+			</rich:column>
+			<rich:column>
+				<h:inputTextarea cols="30" rows="2" label="#{propCons.prop_eti}"
+					value="#{formMaster[propCons.prop_cam]}"
+					rendered="#{propCons.prop_tipdat.equals('alfanumerico')}" />
+				<h:selectBooleanCheckbox label="#{propCons.prop_eti}"
+					value="#{propCons.prop_cam}"
+					rendered="#{propCons.prop_tipdat.equals('boleano')}" />
+			</rich:column>
+		</rich:dataTable>
+	</div>
+
+
+	<div class="spacer15"></div>
+
+	<div align="center">
+		<h:panelGrid columns="2"
+			rendered="#{tMaestrasBean.idRegSeleccionado == null}">
+			<h:commandButton action="#{tMaestrasBean.insertarRegistro}"
+				value="#{msg.tmaesLblNuevo}"
+				onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+			</h:commandButton>
+
+			<h:commandButton immediate="true" value="#{msg.labelLimpiar}"
+				action="agregar">
+			</h:commandButton>
+
+		</h:panelGrid>
+
+		<h:panelGrid columns="2"
+			rendered="#{tMaestrasBean.idRegSeleccionado != null}">
+			<h:commandButton action="#{tMaestrasBean.actualizarRegistro}"
+				value="#{msg.labelActualizar}"
+				onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+			</h:commandButton>
+
+			<h:commandButton immediate="true" value="#{msg.labelLimpiar}"
+				action="actualizar">
+			</h:commandButton>
+		</h:panelGrid>
+	</div>
+
+
+</rich:panel>

@@ -1,0 +1,149 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+	xmlns:ccom="http://customcomponents/jsf" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{historialSalidasBean.cargarRegistroDetalle}"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formDetalle">
+
+			<rich:panel>
+
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelDetalle}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm" styleClass="panelBorder">
+
+					<h:outputText value="#{msg.corresNoRadicacion}" />
+					<h:outputText value="#{historialSalidasBean.salidaSeleccionada.salNsa}" />
+
+					<h:outputText value="#{msg.corresFechaHoraRad}" />
+					<h:outputText value="#{historialSalidasBean.salidaSeleccionada.salFsa}">
+						<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+					</h:outputText>
+
+				</h:panelGrid>
+
+				<div class="spacer15"></div>
+
+				<h:panelGrid columns="1" width="100%">
+
+					<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm">
+
+						<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+						<h:outputText value="#{historialSalidasBean.salidaSeleccionada.depend.depNom}"></h:outputText>
+
+						<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+						<h:outputText value="#{historialSalidasBean.salidaSeleccionada.clasificacion.claNom}"></h:outputText>
+
+						<h:outputText value="#{msg.corresRecibidaPor}"></h:outputText>
+						<h:outputText value="#{historialSalidasBean.salidaSeleccionada.medio.medNom}"></h:outputText>
+
+						<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+						<h:outputText value="#{historialSalidasBean.salidaSeleccionada.salAsu}" />
+					</h:panelGrid>
+
+					<div class="spacer15"></div>
+				</h:panelGrid>
+			</rich:panel>
+			<div class="spacer15"></div>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelHistorial}"></h:outputText>
+				</f:facet>
+
+				<rich:dataTable value="#{historialSalidasBean.seguimientoSalida}" var="seguimiento" style="width: 100%;" rows="10" id="tablaSeguimiento">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value="#{msg.labelEtapa}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelFecha}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelDescripcion}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelUsuarioInicial}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelUsuarioFinal}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelObservaciones}"></h:outputText>
+							</rich:column>
+							<rich:column />
+						</rich:columnGroup>
+					</f:facet>
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value="#{msg.labelEtapa}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelFecha}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelDescripcion}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelUsuarioInicial}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelUsuarioFinal}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelObservaciones}"></h:outputText>
+							</rich:column>
+							<rich:column />
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<h:outputText value="#{seguimiento.estadoBySsaEst.estNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{seguimiento.ssaFec}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{seguimiento.ssaDes}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{seguimiento.usuarioBySsaUsrini.usrNom } #{seguimiento.usuarioBySsaUsrini.usrPap} #{seguimiento.usuarioBySsaUsrini.usrSap}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{seguimiento.usuarioBySsaUsr.usrNom} #{seguimiento.usuarioBySsaUsr.usrPap} #{seguimiento.usuarioBySsaUsr.usrSap}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{seguimiento.ssaObs}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<a4j:commandLink style="color: #FFFFFF;" oncomplete="modalObservaciones.show();" render="dialogObservaciones" execute="@this">
+							<h:graphicImage alt="#{msg.labelDetalle}" style=" width: 16px;height: 16px;" title="#{msg.labelDetalle}" url="/img/icons/info.png"></h:graphicImage>
+							<f:setPropertyActionListener target="#{historialSalidasBean.seguimientoSeleccionado}" value="#{seguimiento}" />
+						</a4j:commandLink>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller id="scrollerTablaSeguimiento" maxPages="5" for="tablaSeguimiento"></rich:dataScroller>
+					</f:facet>
+				</rich:dataTable>
+
+
+
+			</rich:panel>
+			<p:dialog id="dialogObservaciones" header="#{msg.labelObservaciones}" widgetVar="modalObservaciones" modal="true" dynamic="false" width="300" height="200">
+				<h:panelGrid columns="1" styleClass="panelBorder">
+					<h:outputText value="#{historialSalidasBean.seguimientoSeleccionado.ssaObs }" />
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

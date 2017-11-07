@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich" xmlns:ccom="http://customcomponents/jsf" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{entregaCorrespondenciaBean.cargarRegistroDetalleResumen}"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formDetalle">
+
+			<rich:panel>
+
+				<f:facet name="header">
+					<h:outputText value="#{msg.corresInfoActual}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm" styleClass="panelBorder">
+
+					<h:outputText value="#{msg.corresNoRadicacion}" />
+					<h:outputText value="#{entregaCorrespondenciaBean.salidaSeleccionada.salNsa}" />
+
+					<h:outputText value="#{msg.corresFechaHoraRad}" />
+					<h:outputText value="#{entregaCorrespondenciaBean.salidaSeleccionada.salFsa}">
+						<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+					</h:outputText>
+					<h:outputText value="#{msg.corresDestinatario}"></h:outputText>
+					<h:outputText value="#{entregaCorrespondenciaBean.salidaSeleccionada.salNom} #{entregaCorrespondenciaBean.salidaSeleccionada.salPap} #{entregaCorrespondenciaBean.salidaSeleccionada.salSap}"></h:outputText>
+
+					<h:outputText value="#{msg.corresEntidadDestinataria}"></h:outputText>
+					<h:outputText value="#{entregaCorrespondenciaBean.salidaSeleccionada.salEnt}"></h:outputText>
+
+				</h:panelGrid>
+
+			</rich:panel>
+			<div class="spacer15"></div>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.corresDatosEntrega}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm">
+					<h:outputLabel for="usuarios" value="#{msg.corresFuncionarioEntrega}"></h:outputLabel>
+					<h:selectOneMenu id="usuarios" required="true" value="#{entregaCorrespondenciaBean.idUsuarioSeleccionado}" label="#{msg.corresUsuario}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{entregaCorrespondenciaBean.usuariosItems}" />
+					</h:selectOneMenu>
+
+					<h:outputLabel for="personaRecibe" value="#{msg.corresPersonaRecibe}"></h:outputLabel>
+					<h:inputText id="personaRecibe" value="#{entregaCorrespondenciaBean.personaRecibe}" required="true"></h:inputText>
+
+
+					<h:outputLabel for="enviadapor" value="#{msg.corresEnviadaPor}"></h:outputLabel>
+					<h:selectOneMenu id="enviadapor" value="#{entregaCorrespondenciaBean.idMedioSeleccionada}" required="true">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{entregaCorrespondenciaBean.mediosItems}" />
+					</h:selectOneMenu>
+
+					<h:outputLabel for="fechaHoraRecibido" value="#{msg.corresFechaHoraRecibo}"></h:outputLabel>
+					<rich:calendar value="#{entregaCorrespondenciaBean.fechaHoraRecibido}" id="fechaHoraRecibido" required="true" inputSize="16" direction="topRight" datePattern="dd/MM/yyyy hh:mm a" showApplyButton="true"   />
+
+					<h:outputLabel for="observacion" value="#{msg.labelObservaciones}"></h:outputLabel>
+					<h:inputTextarea id="observacion" cols="80" rows="5" value="#{entregaCorrespondenciaBean.observacion}" required="true" />
+
+
+				</h:panelGrid>
+
+				<div class="spacer15"></div>
+
+				<div align="center">
+					<h:panelGrid columns="1">
+						<h:commandButton value="#{msg.labelActualizar}" action="#{entregaCorrespondenciaBean.actualizar}" />
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

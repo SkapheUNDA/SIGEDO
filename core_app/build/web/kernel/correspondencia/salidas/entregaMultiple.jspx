@@ -1,0 +1,154 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formListado">
+
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelListado}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%">
+
+					<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+					
+					<h:outputText value="#{msg.corresFiltroEntregada}"></h:outputText>
+					
+					<h:selectOneMenu value="#{entregaSalidasMultipleBean.idDependenciaSeleccionada}" label="#{msg.corresDependencia}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{entregaSalidasMultipleBean.dependenciasItems}" />
+					</h:selectOneMenu>
+
+					
+					<h:selectBooleanCheckbox value="#{entregaSalidasMultipleBean.filtroEntregada}" />
+
+
+				</h:panelGrid>
+
+				<div align="center">
+					<h:panelGrid columns="1">
+						<a4j:commandButton value="#{msg.labelBuscar}" action="#{entregaSalidasMultipleBean.cargaListaDataModel}" render="panelresultados" execute="@form"></a4j:commandButton>
+					</h:panelGrid>
+				</div>
+			</rich:panel>
+
+			<rich:panel id="panelresultados" style="overflow-x: scroll;">
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelResultadosEncontrados}"></h:outputText>
+				</f:facet>
+
+				<rich:dataTable style="width: 100%;" rows="15"  var="salida" id="tablaSalida" value="#{entregaSalidasMultipleBean.listDatamodel}" rowKeyVar="rowKey">
+					<f:facet name="header">
+								<rich:columnGroup>
+									<rich:column />
+									<rich:column>
+										<h:outputText value="#{msg.corresNoRadicacion}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.corresFechaHora}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.corresFuncionarioEntrega}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.corresPersonaRecibe}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.corresEnviadaPor}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.corresFechaHoraRecibo}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.labelObservaciones}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.corresDes}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.corresDestinatario}"></h:outputText>
+									</rich:column>									
+									<rich:column>
+										<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.labelResponsable}"></h:outputText>
+									</rich:column>
+		
+								</rich:columnGroup>
+							</f:facet>
+					<rich:column>
+						<h:selectBooleanCheckbox id="chk" value="#{entregaSalidasMultipleBean.idsSalidasSeleccionadas[rowKey]}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{salida.salNsa}"></h:outputText>
+					</rich:column>
+					<rich:column >
+						<h:outputText value="#{salida.salFsa}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column >
+						<h:outputText value="#{salida.salAsu}"></h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<h:selectOneMenu id="usuarios" required="false" value="#{salida.usrEntrega}" label="#{msg.corresUsuario}" style="width: 150px;">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{entregaSalidasMultipleBean.usuariosItems}" />
+						</h:selectOneMenu>
+					</rich:column>
+
+					<rich:column>
+						<h:inputText id="personaRecibe" value="#{salida.salPen}" required="false"></h:inputText>
+					</rich:column>
+
+					<rich:column>
+						<h:selectOneMenu id="enviadapor" value="#{salida.idMedioEntrega}" required="false" style="width: 150px;">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{entregaSalidasMultipleBean.mediosItems}" />
+						</h:selectOneMenu>
+					</rich:column>
+					
+					<rich:column>
+						<p:calendar value="#{salida.salFen}" pattern="dd/MM/yyyy hh:mm a"/> 
+					</rich:column>
+					
+					<rich:column >
+						<h:inputText id="observacion" value="#{salida.salOde}" required="false" />
+					</rich:column>
+
+					<rich:column>
+						<h:selectBooleanCheckbox value="#{salida.salLent}" disabled="true" />
+					</rich:column>
+					<rich:column >
+						<h:outputText value="#{salida.salNom} #{salida.salPap} #{salida.salSap}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{salida.depend.depNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{salida.clasificacion.claNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{salida.usuarioBySalUsr.usrLog}"></h:outputText>
+					</rich:column>
+				</rich:dataTable>
+			</rich:panel>
+			
+			<div align="center">
+					<h:panelGrid columns="1">
+						<h:commandButton value="#{msg.labelActualizar}" action="#{entregaSalidasMultipleBean.actualizar}" />
+					</h:panelGrid>
+				</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

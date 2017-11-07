@@ -1,0 +1,187 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<div class="spacer15"></div>
+
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			
+			<h:panelGrid id="fireHiddens">
+				<h:inputHidden value="#{expedienteBean.personaSeleccionada.perId}" />
+				<h:inputHidden value="#{expedienteBean.entidadSeleccionada.etdId}" />
+				<h:inputHidden value="#{expedienteBean.entradaSeleccionada.entId}" />
+			</h:panelGrid>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelAgregar}"></h:outputText>
+				</f:facet>
+
+				<div align="left">
+					<h:panelGrid columns="2" width="100%"
+						columnClasses="columnLabelsForm,columnDatosForm">
+						<h:outputText value="#{msg.expproSolicitudEntrada}" />
+						<h:outputLink onclick="modalEntrada.show();" value="#">#{msg.expproBuscarEntrada}</h:outputLink>
+					</h:panelGrid>
+					<h:panelGroup id="pregCargaEntrada">
+						<h:panelGrid columns="2" width="100%"
+							rendered="#{expedienteBean.entradaSeleccionada.entId != 0}"
+							columnClasses="columnLabelsForm,columnDatosForm">
+							<h:outputText value="#{msg.expproCargaEntrada}" />
+							<h:outputText
+								value="#{expedienteBean.entradaSeleccionada.entNen}  -  #{expedienteBean.entradaSeleccionada.entAsu}" />
+							<h:outputText value="" />
+							<a4j:commandLink value="#{msg.expproCargar}" execute="@this"
+								render="pnlBasico, pnlSecundario,panelNatural,panelJuridica,panelEmpresas,panelPNatural,pnlCalidad"
+								actionListener="#{expedienteBean.cargaValoresEntrada}"></a4j:commandLink>
+						</h:panelGrid>
+					</h:panelGroup>
+				</div>
+
+
+				<div align="left">
+					<h:panelGrid columns="2" width="100%" id="pnlBasico"
+						columnClasses="columnLabelsForm,columnDatosForm">
+
+						<h:outputText value="#{msg.expproFechaApertura}" />
+						<rich:calendar datePattern="dd/M/yy hh:mm a"
+							value="#{expedienteBean.fechaSolicitud}"></rich:calendar>
+						<h:outputText value="#{msg.expproNomExpediente}" />
+						<h:inputTextarea value="#{expedienteBean.nomExpediente}"
+							style="width: 402px;height: 82px" />
+						<h:outputText value="#{msg.expproDepenResponsable}" />
+						<h:selectOneMenu value="#{expedienteBean.idDependSeleccionada}"
+							required="false" label="#{msg.labelDependenciaREL}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{expedienteBean.dependItems}" />
+						</h:selectOneMenu>
+						<h:outputText value="#{msg.labelTramite}" />
+						<h:selectOneMenu value="#{expedienteBean.idTramiteSeleccionado}"
+							required="false" label="#{msg.labelTramite}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{expedienteBean.tramiteItems}" />
+						</h:selectOneMenu>
+					</h:panelGrid>
+					<div class="spacer15"></div>
+
+					<fieldset>
+						<legend>
+							<h:outputText value="#{msg.labelSolicitante}"></h:outputText>
+						</legend>
+
+
+						<h:panelGrid columns="2" width="100%" id="pnlSecundario"
+							columnClasses="columnLabelsForm,columnDatosForm">
+							<h:outputText value="#{msg.labelTipoPersona}:"></h:outputText>
+							<h:selectOneMenu
+								value="#{expedienteBean.idTiposPersonaSeleccionado}"
+								required="false" label="#{msg.labelPersonaNatural}">
+								<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+								<f:selectItems value="#{expedienteBean.tiposPersonaItems}" />
+								<a4j:ajax event="valueChange"
+									render="panelNatural,panelJuridica" execute="@this">
+								</a4j:ajax>
+							</h:selectOneMenu>
+						</h:panelGrid>
+
+
+						<h:panelGroup id="panelNatural">
+							<h:panelGrid columns="3" width="100%"
+								rendered="#{expedienteBean.idTiposPersonaSeleccionado == '1'}"
+								columnClasses="columnLabelsForm,columnDatosForm">
+								<h:outputLink onclick="modalPersonaNatural.show();" value="#">#{msg.labelBuscarPersona}</h:outputLink>
+								<h:outputText value="" />
+							</h:panelGrid>
+						</h:panelGroup>
+
+
+						<h:panelGroup id="panelJuridica">
+							<h:panelGrid columns="2" width="100%"
+								rendered="#{expedienteBean.idTiposPersonaSeleccionado == '2'}"
+								columnClasses="columnLabelsForm,columnDatosForm">
+								<h:outputLink onclick="modalPersonaJuridica.show();" value="#">#{msg.labelBuscarEmpresa}</h:outputLink>
+								<h:outputText value="" />
+								<h:outputLink onclick="modalPersonaNatural.show();" value="#">#{msg.labelBuscarRtante}</h:outputLink>
+								<h:outputText value="" />
+							</h:panelGrid>
+						</h:panelGroup>
+
+
+						<h:panelGroup id="panelEmpresas">
+							<h:panelGrid columns="2" width="100%"
+								rendered="#{expedienteBean.entidadSeleccionada.etdId != 0}"
+								columnClasses="columnLabelsForm,columnDatosForm">
+								<h:outputText value="#{msg.labelNomEmpresa}" />
+								<h:outputText
+									value="#{expedienteBean.entidadSeleccionada.etdNom}"></h:outputText>
+							</h:panelGrid>
+						</h:panelGroup>
+
+						<h:panelGroup id="panelPNatural">
+							<h:panelGrid columns="3" width="100%"
+								columnClasses="columnLabelsForm,columnDatosForm"
+								rendered="#{expedienteBean.personaSeleccionada.perId != 0}">
+								<h:outputText value="#{msg.labelNomPersona}:" />
+								<h:outputText
+									value="#{expedienteBean.personaSeleccionada.perNom} #{expedienteBean.personaSeleccionada.perPap} #{expedienteBean.personaSeleccionada.perSap}" />
+							</h:panelGrid>
+						</h:panelGroup>
+
+						<h:panelGrid columns="2" width="100%" id="pnlCalidad"
+							columnClasses="columnLabelsForm,columnDatosForm">
+							<h:outputText value="#{msg.labelEnCalidadDe}:"></h:outputText>
+							<h:selectOneMenu
+								value="#{expedienteBean.idCRepresentanteSeleccionado}"
+								required="true" label="#{msg.labelEnCalidadDe}">
+								<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+								<f:selectItems
+									value="#{expedienteBean.calidadRepresentateItems}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+					</fieldset>
+				</div>
+
+				<div class="spacer15"></div>
+				<div align="center">
+
+					<h:panelGrid columns="3">
+						<h:commandButton action="#{expedienteBean.agregarExpediente}"
+							value="#{msg.labelGuardar}">
+						</h:commandButton>
+
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+		</h:form>
+
+
+		<ccom:modalPersonaNatural
+			objetoSeleccionado="#{expedienteBean.personaSeleccionada}"
+			renderPanel=":formAgregar:panelPNatural,:formAgregar:fireHiddens,:formAgregar:panelEmpresas"
+			resetInput=":formAgregar:panelPNatural"></ccom:modalPersonaNatural>
+
+		<ccom:modalPersonaJuridica
+			renderPanel=":formAgregar:panelPNatural,:formAgregar:fireHiddens,:formAgregar:panelEmpresas"
+			objetoSeleccionado="#{expedienteBean.entidadSeleccionada}"
+			resetInput=":formAgregar:panelEmpresas"></ccom:modalPersonaJuridica>
+
+		<ccom:modalEntradas
+			renderPanel=":formAgregar:fireHiddens,:formAgregar:pregCargaEntrada"
+			objetoSeleccionado="#{expedienteBean.entradaSeleccionada}"></ccom:modalEntradas>
+
+		<t:saveState value="#{expedienteBean.personaSeleccionada}"></t:saveState>
+		<t:saveState value="#{expedienteBean.entradaSeleccionada}"></t:saveState>
+		<t:saveState value="#{expedienteBean.entidadSeleccionada}"></t:saveState>
+		<t:saveState value="#{expedienteBean.idTiposPersonaSeleccionado}"></t:saveState>
+	</ui:define>
+</ui:composition>

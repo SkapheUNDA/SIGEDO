@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formListadoLogged">
+
+			<rich:dataTable width="100%" var="principal"
+				id="tablaPrincipals" value="#{usuariosBean.allUsersLogged}">
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="#{msg.labelNombreUsuario}"></h:outputText>
+						</rich:column>
+						<rich:column />
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column>
+					<h:outputText value="#{principal.username}"></h:outputText>
+				</rich:column>
+				
+			</rich:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+

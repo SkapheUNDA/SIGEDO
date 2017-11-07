@@ -1,0 +1,132 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="../internalTemplate.jspx">
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{programacionBean.cargarProgramacionDetalle}" />
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelAgregar}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%"
+					columnClasses="columnLabelsForm,columnDatosForm">
+
+					<h:outputText value="#{msg.labelPResponsable}:"></h:outputText>
+					<h:selectOneMenu value="#{programacionBean.idUsuarioSeleccionado}"
+						required="true" label="#{msg.labelPResponsable}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{programacionBean.usuariosItems}" />
+					</h:selectOneMenu>
+
+					<h:outputText value="#{msg.labelDependenciaREL}:"></h:outputText>
+					<h:selectOneMenu value="#{programacionBean.idDependSeleccionada}"
+						required="true" label="#{msg.labelDependenciaREL}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{programacionBean.dependItems}" />
+					</h:selectOneMenu>
+
+					<h:outputText value="#{msg.expproFVLegal}:"></h:outputText>
+					<rich:calendar value="#{programacionBean.fechaVencimientoLegal}"
+						datePattern="dd/MM/yyyy hh:mm a"></rich:calendar>
+
+					<h:outputText value="#{msg.expproPeriodoInfo}:"></h:outputText>
+					<h:inputText value="#{programacionBean.textoUnoGenerico}" />
+
+					<h:outputText value="#{msg.expproNomDtlProg}:"></h:outputText>
+					<h:inputTextarea value="#{programacionBean.textoDosGenerico}"
+						style="width: 402px;height: 82px" />
+				</h:panelGrid>
+
+				<div class="spacer15"></div>
+
+				<h:outputText value="#{msg.expproFechaCompro}" />
+				<h:panelGrid columns="2" width="100%"
+					columnClasses="columnLabelsForm,columnDatosForm"
+					styleClass="panelBorder">
+
+					<h:outputText value="#{msg.labelEntregaEstimada}" />
+					<rich:calendar value="#{programacionBean.fechaUnoGenerico}"
+						datePattern="dd/MM/yyyy hh:mm a"></rich:calendar>
+
+					<h:outputText value="#{msg.labelEntregaReal}" />
+					<rich:calendar value="#{programacionBean.fechaDosGenerico}"
+						datePattern="dd/MM/yyyy hh:mm a"></rich:calendar>
+				</h:panelGrid>
+				<div class="spacer15"></div>
+
+
+				<h:outputText value="#{msg.labelEntregaExterna}" />
+				<h:panelGrid columns="1" width="100%" id="panelPorcentaje">
+					<rich:inputNumberSlider showInput="false"
+						disabled="#{programacionBean.salidaSeleccionada.salId != null }"
+						value="#{programacionBean.porcentajeGenerico}">
+					</rich:inputNumberSlider>
+
+					<p>#{msg.expproPorcentajeAvanze}</p>
+				</h:panelGrid>
+
+				<h:panelGrid columns="1" width="100%">
+					<h:outputLink onclick="modalSalida.show();" value="#">#{msg.expproBuscarSalida}</h:outputLink>
+				</h:panelGrid>
+
+				<h:panelGroup id="panelSalidas">
+					<h:panelGrid
+						rendered="#{programacionBean.salidaSeleccionada.salId != null}"
+						styleClass="panelBorder" columns="2"
+						columnClasses="columnLabelsForm,columnDatosForm">
+
+						<h:outputText value="#{msg.labelFecha}" />
+						<h:outputText
+							value="#{programacionBean.salidaSeleccionada.salFsa}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a"
+								timeZone="GMT-05:00" />
+						</h:outputText>
+
+						<h:outputText value="#{msg.noRadicacion}" />
+						<h:outputText
+							value="#{programacionBean.salidaSeleccionada.salNsa}" />
+
+					</h:panelGrid>
+				</h:panelGroup>
+
+				<div class="spacer15"></div>
+
+				<div align="center">
+
+					<h:panelGrid columns="2">
+						<h:commandButton action="#{programacionBean.agregarDetalleProg}"
+							value="#{msg.labelAgregar}">
+							<f:param name="idProgSeleccionada"
+								value="#{programacionBean.programacionSeleccionada.prgId}" />
+						</h:commandButton>
+
+						<h:commandButton value="#{msg.labelCancelar}"
+							action="#{programacionBean.listadoNavegacion}">
+						</h:commandButton>
+
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+		</h:form>
+
+		<ccom:modalSalidas
+			renderPanel=":formAgregar:panelSalidas,:formAgregar:panelPorcentaje"
+			objetoSeleccionado="#{programacionBean.salidaSeleccionada}"
+			resetInput=":formAgregar:panelSalidas,:formAgregar:panelPorcentaje"></ccom:modalSalidas>
+
+	</ui:define>
+</ui:composition>

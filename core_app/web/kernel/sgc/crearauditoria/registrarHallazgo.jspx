@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+
+	<ui:define name="content">
+
+		<h:form style="padding-bottom: 3px;" id="Grabar">
+			<f:metadata>
+				<f:event type="preRenderView"
+					listener="#{hallazgosBean.cargarRegistro}" />
+			</f:metadata>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.registrarhallazgos}"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="3" width="100%">
+
+					<h:outputLabel value="#{msg.reghalTipo}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.reghalFechaVencimiento}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.reghalArea}:"></h:outputLabel>
+
+					<h:selectOneMenu required="true" id="Tipo_Hallazgo"
+						value="#{hallazgosBean.idTipo}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItem itemLabel="#{msg.reghalHallazgo}"
+							itemValue="#{msg.reghalHallazgo}" />
+						<f:selectItem itemLabel="#{msg.reghalObservacion}"
+							itemValue="#{msg.reghalObservacion}" />
+					</h:selectOneMenu>
+
+					<rich:calendar required="true" id="Fecha_Vencimiento"
+						value="#{hallazgosBean.fechaVencimiento}" direction="topRight"
+						datePattern="dd/MM/yyyy">	
+						<f:validator validatorId="hallazgosValidator" />
+						<f:attribute name="fechaTrabajoCampoC" value="#{hallazgosBean.auditoriaSeleccionada.audFechaTrabajoCampo}" />
+					</rich:calendar>
+
+					<h:selectOneMenu required="true" id="Area"
+						value="#{hallazgosBean.idArea}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItems value="#{hallazgosBean.areasItems}" />
+					</h:selectOneMenu>
+
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+
+
+					<h:outputLabel value="#{msg.reghalEstado}:"></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+
+					<h:selectOneMenu required="true" id="Estado"
+						value="#{hallazgosBean.idEstadoAuditoria}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItems value="#{hallazgosBean.estadoAuditoriaItems}" />
+					</h:selectOneMenu>
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" width="100%">
+					<h:outputLabel value="#{msg.reghalCondicion}:"></h:outputLabel>
+					<h:inputTextarea id="Condicion" cols="150" rows="3"
+						value="#{hallazgosBean.condicion}" required="true"/>
+
+					<h:outputLabel value="#{msg.reghalNorma}:"></h:outputLabel>
+					<h:inputTextarea id="Norma" cols="150" rows="3"
+						value="#{hallazgosBean.norma}" required="true"/>
+
+					<h:outputLabel value="#{msg.reghalCausa}:"></h:outputLabel>
+					<h:inputTextarea id="Causa" cols="150" rows="3"
+						value="#{hallazgosBean.causa}" required="true"/>
+
+					<h:outputLabel value="#{msg.reghalRecomendacion}:"></h:outputLabel>
+					<h:inputTextarea id="Recomendacion" cols="150" rows="3"
+						value="#{hallazgosBean.recomendacion}" required="true"/>
+				</h:panelGrid>
+
+				<div align="right">
+					<h:panelGrid columns="3">
+						<h:commandButton value="#{msg.prograauGrabar}"
+							action="#{hallazgosBean.createOrReplace}"
+							onclick="if (!confirm('#{msg.confirmacionHallazgo}')) return false">
+							<f:param name="idAuditoriaSeleccionada"
+									value="#{hallazgosBean.auditoriaSeleccionada.audId}" />
+						</h:commandButton>
+
+					</h:panelGrid>
+				</div>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

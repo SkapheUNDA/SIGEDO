@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:aui-cc="http://liferay.com/faces/aui-cc"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="../layout/principalTemplate.xhtml">
+
+	<ui:define name="body">
+		<ccom:tituloModulo titulo="#{msg.labelInformeParametrico}"/>	
+		<h:form style="padding-bottom: 3px;" id="formToolBar">
+			
+		</h:form>
+		<aui-cc:messages globalOnly="true" layout="list" />
+		<ui:insert name="content" />
+
+
+	</ui:define>
+
+
+
+</ui:composition>

@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelAgregar}"></h:outputText>
+				</f:facet>				
+
+				<h:panelGrid columns="2" width="100%"
+					columnClasses="columnLabelsForm,columnDatosForm">
+
+					<h:outputText value="#{msg.expproNomInforme}:"></h:outputText>
+					<h:inputText value="#{programacionBean.nombreInforme}"
+						label="#{msg.expproNomInforme}" required="true"></h:inputText>
+
+					<h:outputText value="#{msg.labelDependenciaREL}:"></h:outputText>
+					<h:selectOneMenu value="#{programacionBean.idDependSeleccionada}"
+						required="true" label="#{msg.labelDependenciaREL}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{programacionBean.dependItems}" />
+					</h:selectOneMenu>
+
+					<h:outputLink onclick="modalPersonaJuridica.show();" value="#">#{msg.labelBuscarEmpresa}</h:outputLink>
+					<h:outputText value="" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" width="100%" id="panelEmpresas"
+					columnClasses="columnLabelsForm,columnDatosForm">
+					<h:outputText value="#{msg.labelNomEmpresa}" />
+					<h:outputText
+						value="#{programacionBean.entidadSeleccionada.etdNom}"></h:outputText>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" width="100%"
+					columnClasses="columnLabelsForm,columnDatosForm">
+					<h:outputText value="#{msg.expproSoporteLegal}"></h:outputText>
+					<h:inputTextarea value="#{programacionBean.resSoporteLegal}"
+						style="width: 402px;height: 82px" />
+
+				</h:panelGrid>
+				<div class="spacer15"></div>
+				<div align="center">
+
+					<h:panelGrid columns="2">
+						<h:commandButton action="#{programacionBean.agregarProgramacion}"
+							value="#{msg.labelAgregar}">
+						</h:commandButton>
+
+						<h:commandButton immediate="true" value="#{msg.labelCancelar}"
+							action="#{programacionBean.listadoNavegacion}">
+						</h:commandButton>
+
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+		</h:form>
+		<ccom:modalPersonaJuridica renderPanel=":formAgregar:panelEmpresas"
+			objetoSeleccionado="#{programacionBean.entidadSeleccionada}"
+			resetInput=":formAgregar:panelEmpresas"></ccom:modalPersonaJuridica>
+	</ui:define>
+</ui:composition>

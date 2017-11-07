@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.conconInformeSociedades} "></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="3" width="100%">
+					<h:outputLabel value="#{msg.conconinformesociedadesCodigoSociedad}"
+						for="codSociedad" style="text-align:right" />
+					<h:outputText value="*" style="color : red" />
+					<h:selectOneMenu id="idCodSociedad"
+						value="#{informeEntidadBean.idSociedad}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{informeEntidadBean.tiposSociedadesItems}" />
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="#{msg.conconinformesociedadesCodigoInforme}"
+						for="personeria" style="text-align:right" />
+					<h:outputText value="*" style="color : red" />
+					<h:selectOneMenu id="idCodInforme"
+						value="#{informeEntidadBean.idInforme}" >
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{informeEntidadBean.tiposInformes}" />
+					</h:selectOneMenu>
+
+
+				</h:panelGrid>
+				<div class="spacer15"></div>
+
+				<div align="left">
+					<div align="center">
+						<p:commandButton value="#{msg.modalPersonasBuscar}"
+							update="dataTableInformeSociedades"
+							action="#{informeEntidadBean.buscar}" execute="@form"></p:commandButton>
+							
+					<h:commandButton value="Crear"
+							action="#{informeEntidadBean.agregarNavigation}"
+							></h:commandButton>
+				</div>
+			
+					
+				</div>
+			</rich:panel>
+			<h:panelGroup id="dataTableInformeSociedades">
+				<p:dataTable var="informeSociedad" paginator="true" rows="15"
+					paginatorPosition="bottom"
+					value="#{informeEntidadBean.listDatamodel}" lazy="true">
+					<p:column headerText="#{msg.conconsociedadesCodigoSociedad}">
+						<h:outputText value="#{informeSociedad.entidad.entCodigo}" />
+					</p:column>
+					<p:column headerText="#{msg.entidadesObjetoSocial}">
+						<h:outputText value="#{informeSociedad.entidad.entObjetoSocial}" />
+					</p:column>
+					<p:column headerText="#{msg.conconinformesociedadesCodigoInforme}">
+						<h:outputText value="#{informeSociedad.formato.forCodigo}" />
+					</p:column>
+					<p:column headerText="#{msg.conconinformesociedades}">
+						<h:outputText value="#{informeSociedad.formato.forNombre}" />
+					</p:column>
+				
+					<p:column>
+						<h:commandLink style="color: #FFFFFF;"
+							action="#{informeEntidadBean.editarNavigation}">
+							<h:graphicImage width="16" height="16"
+								alt="#{msg.labelActualizar}" title="#{msg.labelActualizar}"
+								url="/img/icons/actualizar.png"></h:graphicImage>
+									<f:param name="idInforme" value="#{informeSociedad.id}" />
+						
+
+						</h:commandLink>
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+</ui:composition>

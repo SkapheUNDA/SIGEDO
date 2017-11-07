@@ -1,0 +1,112 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich" xmlns:ccom="http://customcomponents/jsf" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{cambiarEtapaSalidasBean.cargarRegistroDetalleResumen}"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formDetalle">
+
+			<rich:panel>
+
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelDetalle}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm" styleClass="panelBorder">
+
+					<h:outputText value="#{msg.corresNoRadicacion}" />
+					<h:outputText value="#{cambiarEtapaSalidasBean.salidaSeleccionada.salNsa}" />
+
+					<h:outputText value="#{msg.corresFechaHoraRad}" />
+					<h:outputText value="#{cambiarEtapaSalidasBean.salidaSeleccionada.salFsa}">
+						<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+					</h:outputText>
+
+				</h:panelGrid>
+
+				<div class="spacer15"></div>
+
+				<h:panelGrid columns="1" width="100%">
+
+					<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm">
+
+						<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+						<h:outputText value="#{cambiarEtapaSalidasBean.salidaSeleccionada.depend.depNom}"></h:outputText>
+
+						<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+						<h:outputText value="#{cambiarEtapaSalidasBean.salidaSeleccionada.clasificacion.claNom}"></h:outputText>
+
+						<h:outputText value="#{msg.corresRecibidaPor}"></h:outputText>
+						<h:outputText value="#{cambiarEtapaSalidasBean.salidaSeleccionada.medio.medNom}"></h:outputText>
+
+						<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+						<h:outputText value="#{cambiarEtapaSalidasBean.salidaSeleccionada.salAsu}" />
+					</h:panelGrid>
+
+					<div class="spacer15"></div>
+				</h:panelGrid>
+			</rich:panel>
+			
+			<div class="spacer15"></div>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.corresInfoActual}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm" styleClass="panelBorder">
+
+					<h:outputText value="#{msg.modalEntradaEtapaActual}" />
+					<h:outputText value="#{cambiarEtapaSalidasBean.salidaSeleccionada.estado.estNom}" />
+
+					<h:outputText value="#{msg.modalEntradaResponsable}" />
+					<h:outputText value="#{cambiarEtapaSalidasBean.salidaSeleccionada.usuarioBySalUsr.usrNom} #{cambiarEtapaSalidasBean.salidaSeleccionada.usuarioBySalUsr.usrPap} #{cambiarEtapaSalidasBean.salidaSeleccionada.usuarioBySalUsr.usrSap}" />
+
+				</h:panelGrid>
+			</rich:panel>
+			<div class="spacer15"></div>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelcambiaEtapa}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid width="100%">
+					<h:outputText value="#{msg.corresCambioEtapaAyuda}" style="font-weight: bold;"></h:outputText>
+				</h:panelGrid>
+				<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm">
+					<h:outputText value="#{msg.corresEvento}"></h:outputText>
+					<h:selectOneMenu id="evento" required="true" value="#{cambiarEtapaSalidasBean.idEventoSeleccionado}" label="#{msg.corresEvento}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{cambiarEtapaSalidasBean.eventosItems}" />						
+					</h:selectOneMenu>
+					
+					<h:outputText value="#{msg.corresUsuario}"></h:outputText>										
+					<h:selectOneMenu id="usuarios" required="true" 
+							value="#{cambiarEtapaSalidasBean.idUsuarioSeleccionado}"
+							label="#{msg.corresUsuario}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{cambiarEtapaSalidasBean.usuariosItems}" />
+					</h:selectOneMenu>	
+					
+					<h:outputLabel for="observacion" value="#{msg.labelObservaciones}" ></h:outputLabel>
+					<h:inputTextarea id="observacion" cols="80" rows="5" value="#{cambiarEtapaSalidasBean.observacion}" required="true" />
+					
+					
+				</h:panelGrid>
+				
+				<div class="spacer15"></div>
+
+				<div align="center">
+					<h:panelGrid columns="1">
+						<h:commandButton value="#{msg.labelActualizar}" action="#{cambiarEtapaSalidasBean.actualizar}" />
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

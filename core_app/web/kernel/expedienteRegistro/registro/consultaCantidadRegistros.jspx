@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formAgregar"
+			enctype="multipart/form-data">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelConsultaCantidadRegistros}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%">
+					<h:outputText value="#{msg.corresFechaInicial}"></h:outputText>
+					<h:outputText value="#{msg.corresFechaFinal}"></h:outputText>
+
+					<rich:calendar value="#{consultaCantidadRegistrosBean.fechaDesde}"
+						direction="topRight" datePattern="dd/MM/yyyy"></rich:calendar>
+					<rich:calendar value="#{consultaCantidadRegistrosBean.fechaHasta}"
+						direction="topRight" datePattern="dd/MM/yyyy"></rich:calendar>
+				</h:panelGrid>
+
+				<div align="center">
+					<h:panelGrid columns="3">
+						<h:outputText value=" "></h:outputText>
+						<h:commandButton value="#{msg.labelBtnBuscar}"
+							action="#{consultaCantidadRegistrosBean.buscar}"
+							update="dataTableCantidadRegistros"></h:commandButton>
+						<h:outputText value=" "></h:outputText>
+					</h:panelGrid>
+				</div>
+
+				<div class="spacer15"></div>
+
+				<h:panelGroup>
+					<div align="right">
+						<h:panelGrid columns="2">
+							<h:commandLink>
+								<p:graphicImage library="images" name="descargaExcel.png" />
+								<p:dataExporter type="xls"
+									target="dataTableCantidadRegistros"
+									fileName="CantidadRegistrosFis_Lin" />
+							</h:commandLink>
+						</h:panelGrid>
+					</div>
+				</h:panelGroup>
+
+				<p:dataTable id="dataTableCantidadRegistros" var="reporte"
+					paginator="true" rows="15" paginatorPosition="bottom"
+					value="#{consultaCantidadRegistrosBean.listConsultaCantidadRegistros}"
+					lazy="true">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelUbicacion}" />
+						</f:facet>
+						<h:outputText value="#{reporte.ubicacion}" />
+
+						<f:facet name="footer">
+							<h:outputText value="#{msg.labelTotal}"></h:outputText>
+						</f:facet>
+
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelCantidadRegistros}" />
+						</f:facet>
+						<h:outputText value="#{reporte.cantidad}" />
+
+						<f:facet name="footer">
+							<h:outputText value="#{consultaCantidadRegistrosBean.total}">
+								<f:convertNumber />
+							</h:outputText>
+						</f:facet>
+					</p:column>
+
+				</p:dataTable>
+
+			</rich:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,251 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="internalTemplate.jspx">
+
+	<ui:define name="content">
+
+		<div class="spacer15"></div>
+
+		<h:form style="padding-bottom: 3px;" id="formListado">
+
+			<!--  Panel de busqueda -->
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.tituloBusqueda}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%">
+
+					<h:outputText value="#{msg.labelTramite}:"></h:outputText>
+					<h:outputText value="#{msg.labelDependenciaREL}:"></h:outputText>
+
+
+					<h:selectOneMenu value="#{expedienteBean.idTramiteSeleccionado}"
+						required="false" label="#{msg.labelTramite}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{expedienteBean.tramiteItems}" />
+					</h:selectOneMenu>
+					<h:selectOneMenu value="#{expedienteBean.idDependSeleccionada}"
+						required="false" label="#{msg.labelDependenciaREL}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{expedienteBean.dependItems}" />
+					</h:selectOneMenu>
+
+					<h:outputText value="#{msg.expproNomExpediente}:"></h:outputText>
+					<h:outputText value="#{msg.labelSolicitante}:"></h:outputText>
+
+
+
+					<h:inputText value="#{expedienteBean.nomExpediente}"
+						label="#{msg.expproNomExpediente}"></h:inputText>
+					<h:inputText value="#{expedienteBean.nomSolicitante}"
+						label="#{msg.labelSolicitante}"></h:inputText>
+
+					<h:outputText value="#{msg.expproNoExpediente}:"></h:outputText>
+					<h:outputText value="#{msg.fechaSolicitud}:"></h:outputText>
+
+
+					<h:inputText value="#{expedienteBean.noExpediente}"
+						label="#{msg.expproNoExpediente}"></h:inputText>
+					<rich:calendar value="#{expedienteBean.fechaSolicitud}"
+						datePattern="dd/MM/yyyy hh:mm a"></rich:calendar>
+
+
+					<h:outputText value="#{msg.labelUsuario}:"></h:outputText>
+
+					<h:outputText value="#{msg.noRadicacion}:"></h:outputText>
+
+					<h:selectOneMenu value="#{expedienteBean.idUsuarioSeleccionado}"
+						required="false" label="#{msg.labelUsuario}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{expedienteBean.usuariosItems}" />
+					</h:selectOneMenu>
+
+					<h:panelGrid columns="2">
+						<h:inputText value="#{expedienteBean.noRadicacion}"
+							label="#{msg.noRadicacion}"></h:inputText>
+						<h:selectOneMenu value="#{expedienteBean.tipodeRadicacion}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItem itemLabel="#{msg.labelEntrada}" itemValue="1" />
+							<f:selectItem itemLabel="#{msg.labelSalida}" itemValue="2" />
+						</h:selectOneMenu>
+					</h:panelGrid>
+
+				</h:panelGrid>
+
+				<div class="spacer15"></div>
+
+
+				<div align="center">
+					<h:panelGrid columns="3">
+						<h:commandButton value="#{msg.expproLblBuscarExp}"
+							action="#{expedienteBean.cargaFiltrosDataModel}"></h:commandButton>
+
+						<h:commandButton value="#{msg.labelLimpiar}"
+							action="transaccionExitosa"></h:commandButton>
+
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+
+
+			<!-- Panel de tabla de datos  -->
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelResultadosEncontrados}"></h:outputText>
+				</f:facet>
+
+				<rich:dataTable style="width: 100%;" rows="20" var="vexpediente"
+					id="tablaExpedientes"
+					value="#{expedienteBean.expedientesDataModel}">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value="#{msg.expproNoExpediente}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelFecha}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.expproNomExpediente}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelEtapa}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelUsuario}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.expproTipoExpediente}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelDependenciaREL}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelSolicitante}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelTramite}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelOpciones}"></h:outputText>
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<h:outputText value="#{vexpediente.expCod}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{vexpediente.expFso}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a"
+								timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{vexpediente.expNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{vexpediente.estado.estNom}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText
+							value="#{vexpediente.usuarioTemp.usrNom} #{vexpediente.usuarioTemp.usrPap} #{vexpediente.usuarioTemp.usrSap} "></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{vexpediente.tiposexpediente.texNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{vexpediente.depend.depNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText
+							value="#{vexpediente.persona.perNom} #{vexpediente.persona.perPap} #{vexpediente.persona.perSap}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{vexpediente.tramite.trmNom}"></h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:panelGrid columns="6">
+							<h:commandLink style="color: #FFFFFF;"
+								action="#{expedienteBean.actualizarNavegacion}">
+								<h:graphicImage alt="#{msg.labelActualizar}"
+									style=" width: 24px;height: 24px;"
+									title="#{msg.labelActualizar}" url="/img/icons/actualizar.png"></h:graphicImage>
+								<f:setPropertyActionListener
+									target="#{expedienteBean.idExpedienteSeleccionado}"
+									value="#{vexpediente.expId}" />
+							</h:commandLink>
+							<h:commandLink style="color: #FFFFFF;"
+								action="#{expedienteBean.eliminarNavegacion}">
+								<h:graphicImage alt="#{msg.labelEliminar}"
+									style=" width: 24px;height: 24px;" title="#{msg.labelEliminar}"
+									url="/img/icons/eliminar.png"></h:graphicImage>
+								<f:setPropertyActionListener
+									target="#{expedienteBean.idExpedienteSeleccionado}"
+									value="#{vexpediente.expId}" />
+							</h:commandLink>
+
+							<h:commandLink style="color: #FFFFFF;"
+								action="#{expedienteBean.cambiarEtapaNavegacion}">
+								<h:graphicImage alt="#{msg.labelcambiaEtapa}"
+									style=" width: 24px;height: 24px;"
+									title="#{msg.labelcambiaEtapa}" url="/img/icons/current.png"></h:graphicImage>
+								<f:param name="idExpSeleccionado" value="#{vexpediente.expId}" />
+							</h:commandLink>
+
+							<h:commandLink style="color: #FFFFFF;"
+								action="#{expedienteBean.verExpedienteNavegacion}">
+								<h:graphicImage alt="#{msg.expproVerExpediente}"
+									style=" width: 24px;height: 24px;"
+									title="#{msg.expproVerExpediente}" url="/img/icons/detail.png"></h:graphicImage>
+								<f:setPropertyActionListener
+									target="#{expedienteBean.idExpedienteSeleccionado}"
+									value="#{vexpediente.expId}" />
+							</h:commandLink>
+
+							<h:commandLink style="color: #FFFFFF;"
+								action="#{expedienteBean.duplicarExpedienteNavegacion}">
+								<h:graphicImage alt="#{msg.labelDuplicar}"
+									title="#{msg.labelDuplicar}" style=" width: 24px;height: 24px;"
+									url="/img/icons/relacionar_recursos.png"></h:graphicImage>
+								<f:setPropertyActionListener
+									target="#{expedienteBean.idExpedienteSeleccionado}"
+									value="#{vexpediente.expId}" />
+							</h:commandLink>
+
+
+							<h:commandLink style="color: #FFFFFF;"
+								action="#{expedienteBean.infoExpedienteNavegacion}">
+								<h:graphicImage alt="#{msg.expproInfoExpediente}"
+									style=" width: 24px;height: 24px;"
+									title="#{msg.expproInfoExpediente}" url="/img/icons/info.png"></h:graphicImage>
+								<f:setPropertyActionListener
+									target="#{expedienteBean.idExpedienteSeleccionado}"
+									value="#{vexpediente.expId}" />
+							</h:commandLink>
+
+						</h:panelGrid>
+
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:dataScroller id="ds" maxPages="5" for="tablaExpedientes"></rich:dataScroller>
+					</f:facet>
+				</rich:dataTable>
+
+			</rich:panel>
+
+			<div class="spacer15"></div>
+			<t:saveState value="#{expedienteBean.idExpedienteSeleccionado}" />
+			<t:saveState value="#{expedienteBean.expedientesDataModel}" />
+		</h:form>
+	</ui:define>
+</ui:composition>

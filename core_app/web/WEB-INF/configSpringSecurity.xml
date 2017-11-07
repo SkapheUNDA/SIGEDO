@@ -1,0 +1,94 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:security="http://www.springframework.org/schema/security"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+
+	<security:global-method-security secured-annotations="enabled"  />
+	
+	
+	<security:http access-denied-page="/accessDenied.jsf" >
+
+		<security:intercept-url pattern="/formulario.*" filters="none"/>
+		<security:intercept-url pattern="/img/icons/**" filters="none"/>
+		<security:intercept-url pattern="/tempDownloads/**" filters="none"/>
+	    <security:intercept-url pattern="/primefaces_resource/**" filters="none"/>
+	    <security:intercept-url pattern="/resources/**" filters="none"/>
+	    <security:intercept-url pattern="/javax.faces.resource/**" filters="none"/>
+ 		<security:intercept-url pattern="/rfRes/**" filters="none"/>	   
+
+		<security:form-login login-processing-url="/j_spring_security_check"  
+			login-page="/login.jsf"
+			authentication-failure-url="/login.jsf?login_error=1" default-target-url="/kernel/index.jsf" />
+		<security:logout logout-url="/j_spring_security_logout" invalidate-session="true"
+			logout-success-url="/login.jsf"  />
+		
+		
+		<security:http-basic />
+		
+		 <security:session-management   session-authentication-strategy-ref="concurrentSessionControl" invalid-session-url="/login.jsf?login_error=2" />
+
+
+	</security:http>
+
+
+
+	<bean class="la.netco.core.spring.security.FilterInvocationSecurityMetadataSourcePostProcessor">
+		<property name="securityMetadataSource" ref="customFilterInvocationSec"></property>
+	</bean>
+    
+    <bean id="customFilterInvocationSec" class="la.netco.core.spring.security.CustomFilterInvocationSecurityMetadataSource" init-method="loadResourceDefine" />
+    
+            
+	<bean id="concurrentSessionControl" class="la.netco.core.spring.security.ConcurrentSessionControl" >
+			<constructor-arg ref="sessionRegistry"></constructor-arg>
+			<property name="maximumSessions" value="${security.app.maxSessionsByUser}" />
+			<property name="maxSystemSessions" value="${security.app.maxSystemSessions}" />
+   	 		<property name="exceptionIfMaximumExceeded" value="true" />
+	</bean>
+
+ 	<bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+
+
+
+	<bean id="jasyptPBEStringEncryptor"
+		class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="algorithm" value="PBEWithMD5AndTripleDES" />
+		<property name="password" value="123456" />
+	</bean>
+
+	<bean id="jasyptPBEByteEncryptor"
+		class="org.jasypt.encryption.pbe.StandardPBEByteEncryptor">
+		<property name="algorithm" value="PBEWithMD5AndTripleDES" />
+		<property name="password" value="123456" />
+	</bean>
+	
+	<bean id="passwordEncoder" class="org.jasypt.spring.security3.PBEPasswordEncoder">
+		<property name="pbeStringEncryptor">
+			<ref bean="jasyptPBEStringEncryptor" />
+		</property>
+	</bean>
+
+	<bean name="loginFilter" class="la.netco.core.spring.security.LoginFilter" >
+		<property name="defaultTargetUrl" value="kernel/index.jsf" />	
+	</bean>
+	
+
+	
+
+	<security:authentication-manager alias="authenticationManager" >
+		<security:authentication-provider>
+			<security:password-encoder ref="passwordEncoder" />
+			<security:jdbc-user-service data-source-ref="dataSource"  role-prefix="ROLE_"
+				authorities-by-username-query="select usuario.USR_LOG as username, perfil.nombre as rolename  from USUARIO as usuario
+												inner join CORE_APP.seg_perfiles_usuarios as seg_perfiles_usuarios on seg_perfiles_usuarios.id_usuario = usuario.USR_ID
+												inner join CORE_APP.seg_perfiles as perfil on seg_perfiles_usuarios.id_perfil = perfil.id_perfil
+												where usuario.USR_LOG = ? AND usuario.USR_LACT = 'true' "
+				users-by-username-query="select usuario.USR_LOG as username, usuario.USR_CON as password, 1 as enabled FROM USUARIO as usuario WHERE usuario.USR_LOG = ? AND usuario.USR_LACT = 'true' " />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>

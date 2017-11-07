@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formListado">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelListado}"></h:outputText>
+				</f:facet>
+				<rich:dataTable style="width: 100%;" rows="10" var="role"
+					value="#{gruposBean.dataModel}"  id="tablaGrupos" >
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column width="5%">
+								<h:outputText value="#{msg.labelId}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelNombreGrupo}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelEtiqueta}"></h:outputText>
+							</rich:column>
+							<rich:column width="5%">
+								<h:outputText value="#{msg.labelOpciones}"></h:outputText>
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<h:outputText value="#{role.id}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{role.nombre}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{role.nombreMostrar}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:panelGrid columns="4">
+
+							<h:commandLink style="color: #FFFFFF;"
+								action="#{gruposBean.actualizarNavigation}">								
+								<h:graphicImage width="25" height="25"
+									alt="#{msg.labelActualizar}" title="#{msg.labelActualizar}"
+									url="/img/icons/actualizar.png"></h:graphicImage>									
+								<f:param name="idRegSeleccionado" value="#{role.id}" />									
+							</h:commandLink>
+							<h:commandLink style="color: #FFFFFF;"
+								action="#{gruposBean.eliminarNavigation}">
+								<h:graphicImage width="25" height="25"
+									alt="#{msg.labelEliminar}" title="#{msg.labelEliminar}"
+									url="/img/icons/eliminar.png"></h:graphicImage>
+								<f:param name="idRegSeleccionado" value="#{role.id}" />
+							</h:commandLink>
+							<h:commandLink style="color: #FFFFFF;"
+								action="relacionarUsuarios">
+								<h:graphicImage width="25" height="25"
+									alt="#{msg.labelRelacionarUsuarios}"
+									title="#{msg.labelRelacionarUsuarios}"
+									url="/img/icons/relacionar_usuario.png"></h:graphicImage>
+								<f:param name="idRegSeleccionado" value="#{role.id}" />	
+							</h:commandLink>
+							<h:commandLink style="color: #FFFFFF;"
+								action="verUsuariosRelacionados">
+								<h:graphicImage width="25" height="25"
+									alt="#{msg.labelVerUsuariosRelacionados}"
+									title="#{msg.labelVerUsuariosRelacionados}"
+									url="/img/icons/detail.png"></h:graphicImage>
+								<f:param name="idRegSeleccionado" value="#{role.id}" />	
+
+							</h:commandLink>
+						</h:panelGrid>
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:dataScroller id="ds" maxPages="5" ajaxSingle="false"
+							for="tablaGrupos"></rich:dataScroller>
+					</f:facet>					
+					
+				</rich:dataTable>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

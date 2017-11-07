@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formListado">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelListado}"></h:outputText>
+				</f:facet>
+				
+				<div align="center">
+					<h:panelGrid columns="4" width="100%">
+						<h:outputText value="#{msg.labelFechaRegistro} - #{msg.labelDesde}" />
+						<h:outputText value="#{msg.labelFechaRegistro} -  #{msg.labelHasta}" />
+						<h:outputText value="#{msg.labelNombreUsuario}" />
+						<h:outputText value="#{msg.labelModulo}" />
+						<rich:calendar value="#{auditoriaBean.fechaInicial}"  datePattern="dd/MM/yyyy" inputSize="16" />
+						<rich:calendar value="#{auditoriaBean.fechaFinal}" 	datePattern="dd/MM/yyyy" inputSize="16" />
+						<h:inputText value="#{auditoriaBean.nombreUsuario}" />
+						
+						<h:selectOneMenu
+								value="#{auditoriaBean.idEntidadSeleccionada}">
+								<f:selectItem  itemLabel="#{msg.labelSeleccione}" />
+								<f:selectItems value="#{auditoriaBean.entidadesItems}" />
+						</h:selectOneMenu>						
+					</h:panelGrid>
+				</div>	
+				
+				<div align="center">
+					<h:panelGrid columns="2">
+							<h:commandButton action="#{auditoriaBean.cargaFiltrosDataModel}" value="#{msg.labelBuscar}" />
+							<h:commandButton type="reset" value="#{msg.labelLimpiar}" />
+					</h:panelGrid>
+				</div>		
+				<rich:dataTable  style="width: 100%;" id="tablaAuditoria" rows="10" var="auditoria" value="#{auditoriaBean.auditoriaDataModel}">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column width="5%">
+								<h:outputText value="#{msg.labelId}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelFechaRegistro}"></h:outputText>
+							</rich:column>
+							<rich:column >
+								<h:outputText value="#{msg.labelOperacion}"></h:outputText>
+							</rich:column>
+							<rich:column >
+								<h:outputText value="#{msg.labelModulo}"></h:outputText>
+							</rich:column>
+							<rich:column ></rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column >
+						<h:outputText value="#{auditoria.id}"></h:outputText>
+					</rich:column>
+					<rich:column >
+						<h:outputText value="#{auditoria.fechaRegistro}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a"
+								timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column >
+						<h:outputText value="#{auditoria.operacion}"></h:outputText>
+					</rich:column>
+					<rich:column >
+						<h:outputText value="#{auditoria.entidadAuditada.nombreModulo}"></h:outputText>
+					</rich:column>
+					<rich:column >
+						<h:commandLink  action="detalle" value="#{msg.labelDetalle}">
+						  <f:setPropertyActionListener value="#{auditoria}" target="#{auditoriaBean.auditoriaSeleccionada}"/>
+						</h:commandLink>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller id="ds" maxPages="5" ajaxSingle="false"
+							for="tablaAuditoria"></rich:dataScroller>
+					</f:facet>
+				</rich:dataTable>
+
+
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

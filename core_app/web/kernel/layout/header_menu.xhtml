@@ -1,0 +1,11 @@
+<h:form xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags" id="formMenuHeader">
+	<rich:toolbar rendered="false"></rich:toolbar>
+	<rich:panelMenu rendered="false"></rich:panelMenu>
+	<rich:toolbar binding="#{menuModulosBean.toolBarMenu}" height="34"
+		itemSeparator="grid" id="principanToolBar" separatorClass="separator">
+	</rich:toolbar>
+</h:form>
+

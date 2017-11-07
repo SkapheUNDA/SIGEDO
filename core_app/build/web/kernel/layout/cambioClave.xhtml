@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<p:dialog id="dialoglCambioClave" header="#{msg.labelCambioClave}"
+		widgetVar="modalCambioClave" modal="true" dynamic="true">
+		<h:form>
+
+			<h:panelGrid width="100%">
+				<h:messages id="errosClave" layout="table" infoClass="info" fatalClass="fatal" errorClass="error" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+				<h:outputText value="#{msg.labelClaveActual}" />
+				<h:inputSecret value="#{usuariosBean.claveactual}" required="true"
+					label="#{msg.labelClaveActual}" id="claveactual">
+				</h:inputSecret>
+
+				<h:outputText value="#{msg.labelClaveNueva}" />
+				<h:inputSecret value="#{usuariosBean.clavenueva}" required="true"
+					label="#{msg.labelClaveNueva}" id="clavenueva">
+				</h:inputSecret>
+
+				<h:outputText value="#{msg.labelVerificarClave}" />
+				<h:inputSecret value="#{usuariosBean.claveverificar}"
+					required="true" label="#{msg.labelVerificarClave}"
+					id="claveverificar">
+				</h:inputSecret>
+
+			</h:panelGrid>
+			<div align="center">
+				<a4j:commandButton render="errosClave"
+					action="#{usuariosBean.cambiarClave}"
+					value="#{msg.labelCambiarClave}"
+					onclick="if (!confirm('#{msg.confirmacionAcualizarUsuario}')) return false">
+				</a4j:commandButton>
+			</div>
+
+		</h:form>
+	</p:dialog>
+</ui:composition>

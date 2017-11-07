@@ -1,0 +1,69 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="kernel/layout/templateSimple.xhtml">
+
+	<ui:define name="body" >
+		<div align="center" >
+		
+		<h:panelGrid width="300">
+		
+			<rich:panel rendered="#{!empty facesContext.maximumSeverity}">
+			  	<rich:messages layout="list" id="errosH" markerClass="markerError"  >
+					<f:facet name="errorMarker">
+						<h:graphicImage value="img/icons/errorvalidacion.png"	width="16" height="16" style="margin-right:3px; padding-right:3px;" />
+					</f:facet>
+				</rich:messages>
+			</rich:panel>
+			
+		<rich:panel
+			style="width: 300px; text-align: center;">
+			<f:facet name="header">
+				<h:outputText value="#{msg.labelLogin}"></h:outputText>
+			</f:facet>
+			<h:form id="loginForm" prependId="false">
+			
+
+				<h:panelGrid columns="2" width="100%">
+
+					<h:outputText value="#{msg.labelUsername}" />
+					<h:inputText id="j_username" value="#{loginBean.username}" required="true"
+						style=" width : 125px;" label="#{msg.labelUsername}">
+						<f:validateLength minimum="3" maximum="25" />
+					</h:inputText>
+			
+					<h:outputText value="#{msg.labelPassword}" />
+					<h:inputSecret id="j_password" value="#{loginBean.password}" required="true"
+						style=" width : 126px;" label="#{msg.labelPassword}">
+						<f:validateLength minimum="4" maximum="20" />
+					</h:inputSecret>
+
+					  <f:facet name="footer"   >
+					
+						<h:commandButton type="submit" id="login"  rendered="true"
+							action="#{loginBean.doLogin}" value="#{msg.labelButtonLogin}"
+							style="height:22px;width:66px;" />
+
+					</f:facet>
+				</h:panelGrid>
+			</h:form>
+
+
+		</rich:panel>
+		
+		</h:panelGrid>
+		
+		</div>
+		
+
+	</ui:define>
+
+</ui:composition>

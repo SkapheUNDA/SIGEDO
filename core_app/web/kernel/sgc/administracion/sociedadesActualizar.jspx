@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{entidadesBean.cargarDatosModificar}" />
+		</f:metadata>
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formActualizarr">
+			<rich:panel>
+			
+				<h:inputHidden value="#{entidadesBean.idEntidadSelecciona}" />
+				<h:inputHidden value="#{entidadesBean.entidad.entCodigo}" />
+			
+				<f:facet name="header">
+					<h:outputText value="#{msg.entidadesTitulo} - Actualizar"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="4" width="100%">
+
+						<f:facet name="header"></f:facet>
+						
+				
+					<h:outputLabel value="#{msg.conconsociedadesNit}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.conconsociedadesRazonSocial}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.conconsociedadesIdRepresetanteLegal}:"></h:outputLabel>
+						<h:outputLabel value="#{msg.conconsociedadesNombreRepresentanteLegal}:"></h:outputLabel>
+					
+					
+					<h:inputText value="#{entidadesBean.entidad.entNit}" required="true" id="nit" label="#{msg.conconsociedadesNit}">
+						<f:convertNumber/>
+					</h:inputText>
+					<h:inputText value="#{entidadesBean.entidad.entObjetoSocial}" required="true" id="razonSocial"  label="#{msg.conconsociedadesRazonSocial}"></h:inputText>
+					<h:inputText value="#{entidadesBean.entidad.entReprelegal}" required="true" id="idRepresentanteLegal" label="#{msg.conconsociedadesNombreRepresentanteLegal}">
+						<f:convertNumber/>
+					</h:inputText>
+					<h:inputText value="#{entidadesBean.entidad.entNombrelegal}" required="true" id="nombreRepresentanteLegal" label="#{msg.conconsociedadesNombreRepresentanteLegal}">></h:inputText>
+					
+				
+					<h:outputLabel value="#{msg.conconsociedadesDireccion}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.conconsociedadesTelefono}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.conconsociedadesNombreContacto}:"></h:outputLabel>
+					<h:outputLabel value="#{msg.conconsociedadesEmail}:"></h:outputLabel>
+					
+					<h:inputText value="#{entidadesBean.entidad.entDireccion}" required="true" id="direccion" label="#{msg.conconsociedadesEmail}"></h:inputText>
+					<h:inputText value="#{entidadesBean.entidad.entTelefonos}" required="true" id="telefono"  label="#{msg.conconsociedadesTelefono}"></h:inputText>
+					<h:inputText value="#{entidadesBean.entidad.entNombreContacto}" required="true" id="nombreContacto" label="#{msg.conconsociedadesNombreContacto}"></h:inputText>
+					<h:inputText value="#{entidadesBean.entidad.entEmailcontacto}" required="true" id="email" validatorMessage="Formato de email invalido" label="#{msg.conconsociedadesEmail}"> 
+						<f:validateRegex
+		                       pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					</h:inputText>
+					
+					
+					<h:outputLabel value="#{msg.conconsociedadesEstado}:"></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+					
+					<h:selectOneMenu id="estado" value="#{entidadesBean.entidad.entEstado}" style="width:125px" required="true" label="#{msg.conconsociedadesEstado}">
+						<f:selectItem itemLabel="Seleccione" itemValue="" />
+						<f:selectItem itemLabel="Activa" itemValue="1" />
+						<f:selectItem itemLabel="Inactiva" itemValue="0" />						
+					</h:selectOneMenu>
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+					<h:outputLabel></h:outputLabel>
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" width="30%" style="text-align: center;">
+						<h:commandButton value="#{msg.entidadesButtonActualizar}"
+							action="#{entidadesBean.accionActualizar}"
+							onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+						</h:commandButton>
+
+						<h:commandButton value="#{msg.entidadesButtonCancelar}" immediate="true"
+							action="#{entidadesBean.navListado}">
+						</h:commandButton>
+					</h:panelGrid>
+				
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

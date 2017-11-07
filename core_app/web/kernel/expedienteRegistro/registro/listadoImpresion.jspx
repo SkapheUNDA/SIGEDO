@@ -1,0 +1,198 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf" template="internalTemplateImpresion.jspx">
+	<ui:define name="content">
+
+		<h:form style="padding-bottom: 3px;" id="formListado">
+
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{buscadorRegistroBean.cargarEstadoImpresion}" ></f:event>
+			
+		</f:metadata>
+		
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelListado}"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="5" width="100%">
+
+					<h:outputText value="#{msg.expNumRadicacionEntrada}"></h:outputText>
+					<h:outputText value="#{msg.expNumRadicacionSalida}"></h:outputText>
+					<h:outputText value="#{msg.labelRangoFechas}" />
+					<h:outputText value="#{msg.expRegistroIdRegistro}"></h:outputText>
+					<h:outputText value="#{msg.expproNoExpediente}"></h:outputText>
+
+					<h:inputText value="#{buscadorRegistroBean.noRadicacionEntrada}"></h:inputText>
+					<h:inputText value="#{buscadorRegistroBean.noRadicacionSalida}"></h:inputText>
+
+					<h:panelGrid columns="2">
+						<h:outputText value="#{msg.labelDesde}" />
+						<h:outputText value="#{msg.labelHasta}" />
+						<rich:calendar label="#{msg.labelDesde}" inputSize="16" value="#{buscadorRegistroBean.fechaSolicitudIni}" required="false" direction="topRight" datePattern="dd/MM/yyyy">
+
+						</rich:calendar>
+						<rich:calendar label="#{msg.labelHasta}" inputSize="16" value="#{buscadorRegistroBean.fechaSolicitudFin}" required="false" direction="topRight" datePattern="dd/MM/yyyy" />
+					</h:panelGrid>
+
+					<h:inputText value="#{buscadorRegistroBean.noRegistro}"></h:inputText>
+					<h:inputText value="#{buscadorRegistroBean.noExpediente}"></h:inputText>
+
+					<h:outputText value="#{msg.expproNomExpediente}"></h:outputText>
+					<h:outputText value="#{msg.labelSolicitante}"></h:outputText>
+					<h:outputText value="#{msg.expRegistroTipoObra}:"></h:outputText>
+					<h:outputText value="#{msg.expRegistroTipoRadicacion}:"></h:outputText>
+					<h:outputText value="" ></h:outputText>
+
+					<h:inputText value="#{buscadorRegistroBean.nombreExpediente}"></h:inputText>
+					<h:inputText value="#{buscadorRegistroBean.solicitante}"></h:inputText>
+					<h:selectOneMenu value="#{buscadorRegistroBean.idClaseRegistroSeleccionado}" required="false" label="#{msg.labelTramite}" style="width: 200px">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{buscadorRegistroBean.claseRegistroItems}" />
+					</h:selectOneMenu>
+					<h:selectOneMenu value="#{buscadorRegistroBean.idMedioSeleccionada}" required="false" label="#{msg.labelDependenciaREL}" style="width: 200px">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{buscadorRegistroBean.mediosItems}" />
+					</h:selectOneMenu>
+
+					<h:outputText value="" ></h:outputText>
+
+				</h:panelGrid>
+				<div align="center">
+					<h:panelGrid columns="3">
+						<a4j:commandButton value="#{msg.labelBuscar}" action="#{buscadorRegistroBean.cargaListaDataModel}" render="panelresultados" execute="@form"></a4j:commandButton>
+						<h:commandButton value="#{msg.labelLimpiar}" action="registroexpedientes"></h:commandButton>
+						<h:outputText value=" "></h:outputText>
+					</h:panelGrid>
+				</div>
+			</rich:panel>
+
+			<rich:panel id="panelresultados" style="overflow-x:scroll;">
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelResultadosEncontrados}"></h:outputText>
+				</f:facet>
+				<div align="right">
+					<h:panelGrid columns="3">
+					
+						<h:commandButton id="opcGenerarDocumento" value="#{msg.expRegistroGenerarDocumentoRegistros}" action="#{buscadorRegistroBean.guardaFlashRegistroSeleccionadosImprimir}"></h:commandButton>
+					
+						<h:commandLink value="#{msg.labelExportarExcel}">
+							<p:dataExporter type="xls" target="tablaregistros" fileName="registros" />
+						</h:commandLink>
+					</h:panelGrid>
+				</div>
+				<p:dataTable var="registro" id="tablaregistros" paginator="true" rows="15" paginatorPosition="bottom" value="#{buscadorRegistroBean.resultadoRegistros}" lazy="true">
+					<p:ajax event="page" listener="#{buscadorRegistroBean.onPageChange}" update="tablaregistros"/> 
+					<p:column exportable="false" width="105">
+					<f:facet name="header">
+							<p:selectBooleanCheckbox 
+								id="selectBoxHeader" value="#{buscadorRegistroBean.selectAll}"  itemLabel="#{msg.expRegistroRegistrarRegistrosSelectTodos}">
+									<p:ajax event="change" update="tablaregistros" listener="#{buscadorRegistroBean.seleccionar}"/>
+								</p:selectBooleanCheckbox> 
+						</f:facet>
+						<div style="float: left;">
+							<p:selectBooleanCheckbox id="chk" value="#{buscadorRegistroBean.idsRegistrosSeleccionadas[registro.regId]}"></p:selectBooleanCheckbox>
+						</div>
+						<div style="float: left;">
+							<p:commandButton id="opcButton" value="#{msg.labelOpciones}" type="button" />
+							<p:tieredMenu overlay="true" trigger="opcButton" my="left top" at="left bottom" style="width:200px;">
+								
+								<p:menuitem value="#{msg.expRegistroImprimirRegistro}" action="#{buscadorRegistroBean.imprimirRegistroNavigation}" ajax="false" icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{registro.regId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.expRegistroImprimirCertificado}" action="#{buscadorRegistroBean.imprimirCertificadoNavigation}" ajax="false" icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{registro.regId}" />
+								</p:menuitem>
+								<p:menuitem value="#{msg.expRegistroDetalleRegistro}" action="#{buscadorRegistroBean.detalleRegistroNavigation}" ajax="false" icon="ui-icon-extlink">
+									<f:param name="idRegSeleccionado" value="#{registro.regId}" />
+								</p:menuitem>
+															
+							</p:tieredMenu>							
+						</div>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.expRegistroRadicacion}" />
+						</f:facet>
+						<h:outputText value="#{registro.entNen}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.expRegistroTipoObra}" />
+						</f:facet>
+						<h:outputText value="#{registro.creNom}" />
+					</p:column>					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.expRegistroTituloObra}" />
+						</f:facet>
+						<h:outputText value="#{registro.regTor}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelDocumento}" />
+						</f:facet>
+						<h:outputText value="#{registro.perDoc}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelSolicitante}" />
+						</f:facet>
+						<h:outputText value="#{registro.soliciante}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelFecha}" />
+						</f:facet>
+						<h:outputText value="#{registro.expFso}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-05:00" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelFechaRegistro}" />
+						</f:facet>
+						<h:outputText value="#{registro.regFec}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-05:00" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.expRegistroTipoRadicacion}" />
+						</f:facet>
+						<h:outputText value="#{registro.medNom}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.expRegistroIdRegistro}" />
+						</f:facet>
+						<h:outputText value="#{registro.regCod}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.expRegistroStatus}" />
+						</f:facet>
+						<h:outputText value="#{registro.estadoGeneral}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelEtapa}" />
+						</f:facet>
+						<h:outputText value="#{registro.etapa} "></h:outputText>
+					</p:column>					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelUsuario}" />
+						</f:facet>
+						<h:outputText value="#{registro.usuario} "></h:outputText>
+					</p:column>					
+				</p:dataTable>
+			</rich:panel>
+			<p:dialog id="dialogDocumentoRegistro" header="#{msg.labelDocumento}" widgetVar="modalDocumentoRegistro" visible="#{flash.modalDocumentoVisible}" modal="true"  dynamic="#{!flash.modalDocumentoVisible}" width="1200"
+				height="800" resizable="true">
+				<p:media player="pdf" value="#{flash.enlaceArchivo}" width="100%" height="100%" id="docGenerado"></p:media>
+			</p:dialog>
+			
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+

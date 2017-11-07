@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.autorizacionesSubtitulo} - Crear"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="3">
+
+						<f:facet name="header"></f:facet>
+
+						<h:outputLabel value="#{msg.autorizacionesEntidad}"
+							for="listaEntidades" />
+						<h:outputText value="*" style="color : red" />
+						<h:selectOneMenu id="listaEntidades" required="true"
+							value="#{autorizacionesBean.entidadSeleccionada}">
+							<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+							<f:selectItems value="#{autorizacionesBean.listaEntidades}"></f:selectItems>
+						</h:selectOneMenu>
+						
+						<h:outputLabel value="#{msg.autorizacionesFormato}"
+							for="listaFormatos" />
+						<h:outputText value="*" style="color : red" />
+						<h:selectOneMenu id="listaFormatos" required="true"
+							value="#{autorizacionesBean.formatoSeleccionado}">
+							<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+							<f:selectItems value="#{autorizacionesBean.listaFormatos}"></f:selectItems>
+						</h:selectOneMenu>
+
+						<h:outputLabel for="justificacion" style="text-align:right"
+							value="#{msg.autorizacionesJustificacion}" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputTextarea id="justificacion" value="#{autorizacionesBean.justificacion}" cols="48" rows="10" required="true"/>
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" width="30%" style="text-align: center;">
+						<h:commandButton value="#{msg.autorizacionesButtonGuardar}"
+							action="#{autorizacionesBean.accionGuardar}"
+							onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+						</h:commandButton>
+
+						<h:commandButton value="#{msg.autorizaiconesButtonCancelar}"
+							immediate="true" action="#{autorizacionesBean.navListado}">
+						</h:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

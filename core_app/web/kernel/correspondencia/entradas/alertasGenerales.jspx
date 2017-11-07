@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich" xmlns:ccom="http://customcomponents/jsf" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{alertasBean.cargarRegistroDetalleResumen}"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formListado">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelEntrada}"></h:outputText>
+				</f:facet>
+
+				<rich:dataTable style="width: 100%;" rows="10" var="entrada" id="tablaEntrada" value="#{alertasBean.principalDataModel}">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value="#{msg.corresNoRadicacion}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+							</rich:column>							
+							<rich:column>
+								<h:outputText value="#{msg.corresSolicitanteRemitente}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.corresFechaHora}"></h:outputText>
+							</rich:column>							
+							<rich:column>
+								<h:outputText value="#{msg.corresTiemporespuesta}"></h:outputText>
+							</rich:column>							
+							<rich:column>
+								<h:outputText value="#{msg.corresFechaLegalVencimiento}"></h:outputText>
+							</rich:column>							
+							<rich:column>
+								<h:outputText value="#{msg.corresTiempoRestante}"></h:outputText>
+							</rich:column>							
+							<rich:column>
+								<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.corresUsuario}"></h:outputText>
+							</rich:column>
+							
+
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<h:outputText value="#{entrada.entNen}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{entrada.entAsu}"></h:outputText>
+					</rich:column>					
+					<rich:column>
+						<h:outputText value="#{entrada.clasificacion.claNom}"></h:outputText>
+					</rich:column>					
+					<rich:column>
+						<h:outputText value="#{entrada.entNom} #{entrada.entPap} #{entrada.entSap}"></h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<h:outputText value="#{entrada.entFen}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{entrada.entTrt}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{entrada.entFdr}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					
+					<rich:column>
+						<h:outputText value="#{alertasBean.getTiempoRestante(entrada.entFdr)}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{entrada.dependencia.depNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{entrada.usuario.usrLog}"></h:outputText>
+					</rich:column>
+				</rich:dataTable>
+				<div align="center" class="panelBorder">
+					<rich:dataScroller id="ds" maxPages="10" ajaxSingle="true" for="tablaEntrada"></rich:dataScroller>
+				</div>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

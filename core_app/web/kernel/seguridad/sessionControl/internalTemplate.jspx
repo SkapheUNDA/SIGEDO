@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="../../layout/principalTemplate.xhtml">
+	<ui:define name="body">
+		<ccom:tituloModulo titulo="#{msg.labelUsuario}" />
+		<rich:spacer height="5px"></rich:spacer>
+		<ui:insert name="content" />
+	</ui:define>
+</ui:composition>

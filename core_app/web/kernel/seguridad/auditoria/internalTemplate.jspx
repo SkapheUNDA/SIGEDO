@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="../../layout/principalTemplate.xhtml">
+
+	<ui:define name="body">
+	<ccom:tituloModulo titulo="#{msg.labelAuditoria}"/>	
+		<h:form style="padding-bottom: 3px;" id="formToolBar">
+		
+		  <rich:toolbar height="34" itemSeparator="grid" id="toolBar" separatorClass="separator" >
+				<rich:toolbarGroup>
+					<h:panelGroup >
+						<h:commandLink value="#{msg.labelListado}" id="listadoAuditoria"  action="consultarAuditorias" />
+					</h:panelGroup>	
+							
+				</rich:toolbarGroup>			
+			</rich:toolbar>		
+		</h:form>			
+		<ui:insert name="content" />
+		
+	
+	</ui:define>
+
+
+	
+</ui:composition>

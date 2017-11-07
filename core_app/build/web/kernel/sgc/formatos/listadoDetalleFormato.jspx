@@ -1,0 +1,114 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<ui:define name="content">
+		<style>
+.autoSizeRows .rf-edt-hdr-c {
+	border-right: none !important;
+	border-bottom: none !important;
+}
+
+.autoSizeRows .rf-edt-c {
+	height: 100% !important;
+	border-right: none !important;
+	border-bottom: none !important;
+}
+
+.autoSizeRows .rf-edt-cnt td {
+	border-bottom: 1px solid #9FC0E9;
+	border-right: 1px solid #9FC0E9;
+}
+</style>
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formListado">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText
+						value="#{msg.detalleFormatosConfCampos} - Listado Campos Formato: #{detallesFormatoBean.formatoSeleccionado.forNombre}"></h:outputText>
+				</f:facet>
+
+				<rich:extendedDataTable
+					value="#{detallesFormatoBean.listaDetallesFormato}" var="item"
+					style="width:100%;" selectionMode="none"
+					id="tablaDetallesFormatos" rows="10" styleClass="autoSizeRows">
+					<f:facet name="noData">
+						<h:outputText value="No se encontraron registros para mostrar" />
+					</f:facet>
+
+					<rich:column width="230px" 
+						filterValue="#{detallesFormatoBean.filtroNombresCampos}"
+						filterExpression="#{fn:containsIgnoreCase(item.detNombre, detallesFormatoBean.filtroNombreCampos)}">
+						<f:facet name="header">
+							<h:outputText value="#{msg.detalleFormatosNombreCampo}" />
+							<h:inputText value="#{detallesFormatoBean.filtroNombreCampos}"
+								label="Filtro Nombre Formato">
+								<a4j:ajax event="blur" render="tablaFormatos" execute="@this" />
+							</h:inputText>
+						</f:facet>
+						<h:outputText value="#{item.detNombre}" />
+					</rich:column>
+					<rich:column width="470px">
+						<f:facet name="header">#{msg.detalleFormatosDescCampo}</f:facet>
+						<h:outputText value="#{item.detDescripcion}" />
+					</rich:column>
+					<rich:column width="200px">
+						<f:facet name="header">#{msg.detalleFormatosTipoDato}</f:facet>
+						<h:outputText value="#{item.ftdCodigo}" />
+					</rich:column>
+					<rich:column width="152px">
+						<f:facet name="header">#{msg.labelOpciones}</f:facet>
+						<center>
+							<h:panelGroup>
+								<h:commandLink styleClass="no-decor"
+									action="#{detallesFormatoBean.navActualizarCampo}">
+									<h:graphicImage value="/img/icons/actualizar.png"
+										alt="Modificar" title="Modificar" width="25" height="25" />
+									<f:setPropertyActionListener
+										target="#{detallesFormatoBean.detalleSeleccionado}"
+										value="#{item}" />
+									<f:param name="idDetalle" value="#{item.detCodigo}" />
+								</h:commandLink>
+
+								<h:commandLink action="#{detallesFormatoBean.accionEliminar}"
+									onclick="if (!confirm('#{msg.confirmacionFormsEliminar}')) return false">
+									<h:graphicImage value="/img/icons/eliminar.png" alt="Eliminar" title="Eliminar"
+										width="25" height="25" />
+									<f:setPropertyActionListener
+										target="#{detallesFormatoBean.detalleSeleccionado}"
+										value="#{item}" />
+									<f:param name="idDetalle" value="#{item.detCodigo}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</center>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller id="ds" maxPages="5" ajaxSingle="false"
+							for="tablaDetallesFormatos"></rich:dataScroller>
+					</f:facet>
+
+
+				</rich:extendedDataTable>
+
+
+				<h:panelGrid columns="1">
+					<h:commandButton value="Crear Campos"
+						action="#{detallesFormatoBean.navAdicionarCampos()}"
+						disabled="#{detallesFormatoBean.listaDetallesFormato.size() >= detallesFormatoBean.formatoSeleccionado.forTotalCampos}">
+					</h:commandButton>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

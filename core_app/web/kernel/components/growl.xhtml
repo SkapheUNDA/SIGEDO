@@ -1,0 +1,25 @@
+<h:panelGroup xmlns:h="http://java.sun.com/jsf/html">
+
+	<script type="text/javascript" >
+
+	   function showMessage()
+	   {
+		   jQuery.gritter.add({
+				
+				title: '#{title}',
+				time: 20000,
+				text: '#{text}'
+			});
+	   }
+
+   if('#{showOnLoad}' == 'true'){
+	   jQuery(document).ready(function()   {
+		   showMessage();
+		   }
+	   );
+   }
+
+			
+	</script>
+
+</h:panelGroup>

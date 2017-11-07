@@ -1,0 +1,166 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{programacionBean.cargarProgramacionDetalle}" />
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formActualizar">
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.expproDetalleProg}"></h:outputText>
+				</f:facet>
+				<div class="spacer15"></div>
+
+				<!-- Panel de detallle -->
+				<rich:panel>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelProgramacion}" />
+					</f:facet>
+					<h:panelGrid columns="2" width="100%"
+						columnClasses="columnLabelsForm,columnDatosForm">
+
+						<h:outputText value="#{msg.labelInformeDe}:" />
+						<h:outputText
+							value="#{programacionBean.programacionSeleccionada.prgNom}" />
+
+						<h:outputText value="#{msg.labelDependenciaREL}:" />
+						<h:outputText
+							value="#{programacionBean.programacionSeleccionada.depend.depNom}" />
+
+
+						<h:outputText value="#{msg.labelPresentadoa}:" />
+						<h:outputText
+							value="#{programacionBean.programacionSeleccionada.entidad.etdNom}" />
+
+						<h:outputText value="#{msg.labelResolucion}:" />
+						<h:outputText
+							value="#{programacionBean.programacionSeleccionada.prgRes}" />
+
+					</h:panelGrid>
+
+					<div class="spacer15"></div>
+				</rich:panel>
+
+				<div class="spacer15"></div>
+
+				<!-- Panel De Datos -->
+				<rich:panel>
+					<rich:dataTable style="width: 100%;" rows="5" var="detalleProg"
+						value="#{programacionBean.listaDetallesProgramacion}"
+						id="tablaDetalleProg">
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column>
+									<h:outputText value="#{msg.labelDependenciaREL}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.labelResponsable}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.expproNomInforme}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.expproPeriodoInfo}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.labelPorcentaje}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.expproFVLegal}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.expproFEEI}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.labelOpciones}"></h:outputText>
+								</rich:column>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column>
+							<h:outputText value="#{detalleProg.depend.depNom}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText
+								value="#{detalleProg.usuario.usrNom} #{detalleProg.usuario.usrPap} #{detalleProg.usuario.usrSap}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{detalleProg.dprCom}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{detalleProg.dprPrd}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{detalleProg.dprPor}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{detalleProg.dprFve}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{detalleProg.dprFen}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:panelGrid columns="3">
+								<h:commandLink style="color: #FFFFFF;"
+									action="#{programacionBean.actualizarDetalleNavegacion}">
+									<h:graphicImage alt="#{msg.labelActualizar}"
+										title="#{i18n['actualizar']}" url="/img/icons/actualizar.png"></h:graphicImage>
+									<f:param name="idDtlProgSeleccionada"
+										value="#{detalleProg.dprId}" />
+									<f:param name="idProgSeleccionada"
+										value="#{programacionBean.programacionSeleccionada.prgId}" />
+								</h:commandLink>
+								<h:commandLink style="color: #FFFFFF;"
+									action="#{programacionBean.duplicarDetalleNavegacion}">
+									<h:graphicImage alt="#{msg.labelDuplicar}"
+										title="#{msg.labelDuplicar}" url="/img/icons/duplicar.png"></h:graphicImage>
+									<f:param name="idDtlProgSeleccionada"
+										value="#{detalleProg.dprId}" />
+									<f:param name="idProgSeleccionada"
+										value="#{programacionBean.programacionSeleccionada.prgId}" />
+								</h:commandLink>
+								<h:commandLink style="color: #FFFFFF;"
+									action="#{programacionBean.eliminarDetalleNavegacion}">
+									<h:graphicImage alt="#{msg.labelEliminar}"
+										title="#{msg.labelEliminar}" url="/img/icons/eliminar.png"></h:graphicImage>
+									<f:param name="idDtlProgSeleccionada"
+										value="#{detalleProg.dprId}" />
+									<f:param name="idProgSeleccionada"
+										value="#{programacionBean.programacionSeleccionada.prgId}" />
+								</h:commandLink>
+							</h:panelGrid>
+						</rich:column>
+						<f:facet name="footer">
+							<rich:dataScroller id="ds" maxPages="30" for="tablaDetalleProg"></rich:dataScroller>
+						</f:facet>
+					</rich:dataTable>
+
+				</rich:panel>
+				<h:panelGrid columns="2">
+
+					<h:commandButton
+						action="#{programacionBean.agregarDetalleNavegacion}"
+						value="#{msg.labelAgregar}">
+						<f:param name="idProgSeleccionada"
+							value="#{programacionBean.programacionSeleccionada.prgId}" />
+					</h:commandButton>
+
+					<h:commandButton action="#{programacionBean.listadoNavegacion}"
+						value="#{msg.labelCancelar}">
+					</h:commandButton>
+
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+ 
+	
+	<ui:define name="content">
+		
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{generarEtiquetaBean.cargarEtiquetaSalida}"></f:event>
+		</f:metadata>
+		<h:form style="padding-bottom: 3px;" id="formListado">
+
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelListado}"></h:outputText>
+				</f:facet>
+				
+			</rich:panel>
+				 
+	
+				
+		</h:form>
+	</ui:define>
+</ui:composition>

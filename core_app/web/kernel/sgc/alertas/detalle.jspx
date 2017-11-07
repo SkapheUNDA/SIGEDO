@@ -1,0 +1,118 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{alertas.cargarDatosModificar}" />
+		</f:metadata>
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.administrarAlertasTitulo} - Modificar"></h:outputText>
+				</f:facet>
+				
+				<h:inputHidden value="#{alertas.idAlerta}" />
+				<h:inputHidden value="#{alertas.alertaSeleccionada.altCodigo}" />
+				
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="3">
+
+						<f:facet name="header"></f:facet>
+
+						<h:outputLabel value="#{msg.administrarAlertasDescripcion}"
+							for="descripcion" style="text-align:right" />
+						<h:outputText value=":" />
+						<h:outputText value="#{alertas.alertaSeleccionada.altDescripcion}" id="descripcion" />
+
+						<h:outputLabel for="listaFormatosOrigen" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnFormatoOrigen}" />
+						<h:outputText value=":" />
+						<h:outputText id="listaFormatosOrigen" value="#{alertas.alertaSeleccionada.formatoOrigen.forDescripcion}" />
+							
+
+						<h:outputLabel for="listaCorteOrigen" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnCorteInicial}" />
+						<h:outputText value=":" />
+						<h:outputText id="listaCorteOrigen" value="#{alertas.alertaSeleccionada.cortesFormatoOrigen.fcrCorte}" />
+								
+
+						<h:outputLabel for="posicionOrigen" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnPosicionCampoFiltroOrigen}" />
+						<h:outputText value=":" />
+						<h:outputText id="posicionOrigen" value="#{alertas.alertaSeleccionada.detallesFormatoValorOrigen.detPosicion}" />
+						
+
+						<h:outputLabel for="campoValorOrigen" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnCampoValorOrigen}" />
+						<h:outputText value=":" />
+						<h:outputText id="campoValorOrigen" value="#{alertas.alertaSeleccionada.detallesFormatoOrigen.detDescripcion}" />
+
+
+						<h:outputLabel for="valorFiltroOrigen" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnValorFiltroOrigen}" />
+						<h:outputText value=":" />
+						<h:outputText value="#{alertas.alertaSeleccionada.altFiltroO}" id="valorFiltroOrigen" />
+
+						<h:outputLabel for="operadorSeleccionado" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnOperador}" />
+						<h:outputText value=":" />
+						<h:outputText id="operadorSeleccionado" value="#{alertas.alertaSeleccionada.operadores.opeDescripcion}" />
+							
+
+						<h:outputLabel value="#{msg.administrarAlertasValorConstante}"
+							for="valorConstante" style="text-align:right" />
+						<h:outputText value=":" />
+						<h:outputText value="#{alertas.alertaSeleccionada.altValorConstante}" id="valorConstante" />
+							
+						<h:outputLabel for="listaFormatosDestino" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnFormatoDestino}" />
+						<h:outputText value=":" />
+						<h:outputText id="listaFormatosDestino" value="#{alertas.alertaSeleccionada.forCodigoD}" />
+
+						<h:outputLabel for="listaCorteDestino" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnCorteDestino}" />
+						<h:outputText value=":" />
+						<h:outputText id="listaCorteDestino" value="#{alertas.alertaSeleccionada.fcrCodigoD}" />
+								
+
+						<h:outputLabel for="posicionDestino" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnPosicionCampoFiltroDestino}" />
+						<h:outputText value=":" />
+						<h:outputText id="posicionDestino" value="#{alertas.alertaSeleccionada.detCodigoD}" />
+														
+
+						<h:outputLabel for="campoValorDestino" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnCampoValorDestino}" />
+						<h:outputText value=":" />
+						<h:outputText id="campoValorDestino" value="#{alertas.alertaSeleccionada.detCodigoValorD}" />
+
+
+						<h:outputLabel for="valorFiltroDestino" style="text-align:right"
+							value="#{msg.administrarAlertasTableColumnValorFiltroDestino}" />
+						<h:outputText value=":" />
+						<h:outputText value="#{alertas.alertaSeleccionada.altFiltroD}" id="valorFiltroDestino" />
+								
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="3" width="50%" style="text-align: center;">
+
+						<h:commandButton value="#{msg.administrarAlertasButtonAtras}"
+							action="#{alertas.cancelar}">
+						</h:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

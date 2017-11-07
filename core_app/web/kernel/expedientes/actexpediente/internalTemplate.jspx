@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"	
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="../../layout/principalTemplate.xhtml">
+
+	<ui:define name="body">
+		<ccom:tituloModulo titulo="#{msg.expproTituloSeccAct}" />
+		<h:form style="padding-bottom: 3px;" id="formToolBar">
+
+			<rich:toolbar height="34" itemSeparator="grid" id="toolBar"
+				separatorClass="separator">
+				<rich:toolbarGroup>
+					<h:panelGroup> 
+						<h:commandLink value="#{msg.labelListado}" id="listado"		action="#{expedienteBean.listadoNavegacion}"	rendered="#{empty expedienteBean.origen}" />
+						<h:commandLink value="#{msg.labelListado}" id="listadoRegistro" rendered="#{expedienteBean.origen == 'REGISTRO'}" action="#{expedienteBean.listadoRegistrosNavegacion}" />
+							
+					</h:panelGroup>
+				</rich:toolbarGroup>
+				<rich:toolbarGroup>
+					<h:panelGroup>
+						<h:commandLink value="#{msg.expproLblNuevo}" id="agregar" rendered="#{empty expedienteBean.origen}"
+							action="#{expedienteBean.agregarNavegacion}" />
+					</h:panelGroup>
+				</rich:toolbarGroup>
+			</rich:toolbar>
+		</h:form>
+		
+		<ui:insert name="content" />
+
+<t:saveState value="#{expedienteBean.origen}" />
+	</ui:define>
+
+
+
+</ui:composition>

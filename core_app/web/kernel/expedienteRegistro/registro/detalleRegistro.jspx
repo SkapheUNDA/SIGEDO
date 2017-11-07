@@ -1,0 +1,361 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich" xmlns:ccom="http://customcomponents/jsf" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{registroBean.cargarRegistroDetalle}"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formActualizar">
+
+
+			<rich:tabPanel switchType="client" id="tabsDetailForm">
+				<rich:tab header="#{msg.expRegistroDatosObra}">
+					<div align="center">
+						<h:outputText value="#{registroBean.registroSeleccionado.claseregistro.creNom}" style="font-weight: bold;" />
+					</div>
+					<div class="spacer15"></div>
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText value="#{msg.expRegistroIdentificacionregistro}"></h:outputText>
+						</f:facet>
+						<h:panelGrid columns="4">
+							<h:outputText value="#{msg.expRegistroLibro}" />
+							<h:outputText value="#{msg.expRegistroTomo}" />
+							<h:outputText value="#{msg.expRegistroPartida}" />
+							<h:outputText value="#{msg.expRegistroFechaRegistro}" />
+
+							<h:inputText value="#{registroBean.registroSeleccionado.regNo1}" disabled="true" style="color: #000; font-weight: bold;" />
+							<h:inputText value="#{registroBean.registroSeleccionado.regNo2}" disabled="true" style="color: #000; font-weight: bold;" />
+							<h:inputText value="#{registroBean.registroSeleccionado.regNo3}" disabled="true" style="color: #000; font-weight: bold;" />
+							<h:inputText value="#{registroBean.registroSeleccionado.regFec}" disabled="true" style="color: #000; font-weight: bold;">
+								<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+							</h:inputText>
+						</h:panelGrid>
+					</rich:panel>
+
+					<h:panelGroup rendered="#{registroBean.registroSeleccionado.claseregistro.creFrm == 1}">
+						<div class="spacer15"></div>
+						<rich:panel>
+							<f:facet name="header">
+								<h:outputText value="#{msg.expRegistroInformacionBasica}"></h:outputText>
+							</f:facet>
+							<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm">
+								<h:outputLabel for="regSti" value="#{msg.expRegistroSinTitulo}" />
+								<h:selectBooleanCheckbox id="regSti" value="#{registroBean.registroSeleccionado.regSti}" />
+
+								<h:outputLabel for="regTor" value="#{msg.expRegistroTituloOriginal}" />
+								<h:inputTextarea id="regTor" cols="80" rows="5" value="#{registroBean.registroSeleccionado.regTor}" />
+
+								<h:outputLabel for="regTes" value="#{msg.expRegistroTituloEspanol}" />
+								<h:inputText id="regTes" value="#{registroBean.registroSeleccionado.regTes}" size="100" />
+
+								<h:outputLabel for="regFcr" value="#{msg.expRegistroAnioCreacion}" />
+								<h:inputText id="regFcr" value="#{registroBean.registroSeleccionado.regFcr}" size="4" />
+
+								<h:outputLabel for="regObs" value="#{msg.expRegistroObservacionesGenerales}" />
+								<h:inputTextarea id="regObs" cols="80" rows="5" value="#{registroBean.registroSeleccionado.regObs}" />
+							</h:panelGrid>
+						</rich:panel>
+						<div class="spacer15"></div>
+						<rich:panel rendered="#{registroBean.registroObraInfoAdicional}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.expRegistroInformacionAdicional}"></h:outputText>
+							</f:facet>
+							<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm">
+
+								<h:outputLabel for="regDes" value="#{msg.expRegistroDescripcionObra}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLdes}" />
+								<h:inputTextarea id="regDes" cols="80" rows="5" value="#{registroBean.registroSeleccionado.regDes}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLdes}" />
+
+								<h:outputLabel for="regPai" value="#{msg.expRegistroPaisOrigenObra}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLpor}" />
+								<h:selectOneMenu id="regPai" value="#{registroBean.registroSeleccionado.regPai}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLpor}">
+									<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+									<f:selectItems value="#{registroBean.paisesItems}" />
+								</h:selectOneMenu>
+
+								<h:outputLabel for="regDob" value="#{msg.expRegistroDuracionObra}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLdob}" />
+								<h:inputText id="regDob" value="#{registroBean.registroSeleccionado.regDob}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLdob}" />
+
+								<h:outputLabel for="regNed" value="#{msg.expRegistroNumeroEdicion}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLned}" />
+								<h:inputText id="regNed" value="#{registroBean.registroSeleccionado.regNed}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLned}" />
+
+								<h:outputLabel for="regNpg" value="#{msg.expRegistroNumeroPaginas}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLnpg}" />
+								<h:inputText id="regNpg" value="#{registroBean.registroSeleccionado.regNpg}" size="5" rendered="#{registroBean.registroSeleccionado.claseregistro.creLnpg}" />
+
+								<h:outputLabel for="regTir" value="#{msg.expRegistroTiraje}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLtir}" />
+								<h:inputText id="regTir" value="#{registroBean.registroSeleccionado.regTir}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLtir}" />
+
+								<h:outputLabel for="regFte" value="#{msg.expRegistroFechaTerminacion}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLfte}" />
+								<rich:calendar value="#{registroBean.registroSeleccionado.regFte}" id="regFte" inputSize="16" direction="topRight" datePattern="dd/MM/yyyy" rendered="#{registroBean.registroSeleccionado.claseregistro.creLfte}" />
+
+								<h:outputLabel for="regFpp" value="#{msg.expRegistroFechaPrimeraPublicacion}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLfpp}" />
+								<h:inputText value="#{registroBean.registroSeleccionado.regFpp}" id="regFpp" rendered="#{registroBean.registroSeleccionado.claseregistro.creLfpp}" />
+
+								<h:outputLabel for="regNre" value="#{msg.expRegistroNumeroResolucion}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLnre}" />
+								<h:inputText id="regNre" value="#{registroBean.registroSeleccionado.regNre}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLnre}" />
+
+								<h:outputLabel for="regFre" value="#{msg.expRegistroFechaResolucion}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLfre}" />
+								<rich:calendar value="#{registroBean.registroSeleccionado.regFre}" id="regFre" inputSize="16" direction="topRight" datePattern="dd/MM/yyyy" rendered="#{registroBean.registroSeleccionado.claseregistro.creLfre}" />
+
+								<h:outputLabel for="regIsbn" value="#{msg.expRegistroIsbn}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLisbn}" />
+								<h:inputText id="regIsbn" value="#{registroBean.registroSeleccionado.regIsbn}" rendered="#{registroBean.registroSeleccionado.claseregistro.creLisbn}" />
+							</h:panelGrid>
+						</rich:panel>
+					</h:panelGroup>
+					<div class="spacer15"></div>
+					<h:panelGroup rendered="#{registroBean.registroSeleccionado.claseregistro.creFrm == 2}">
+						<rich:panel>
+							<f:facet name="header">
+								<h:outputText value="#{msg.expRegistroInfoContrato}"></h:outputText>
+							</f:facet>
+							<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm" id="datosContrato">
+
+								<h:outputLabel for="regPaiContrato" value="#{msg.expRegistroTipoContrato}" />
+								<h:selectOneMenu id="regPaiContrato" value="#{registroBean.registroSeleccionado.regTco}" required="true">
+									<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+									<f:selectItems value="#{registroBean.tipoContratosItems}" />
+								</h:selectOneMenu>
+
+								<h:outputLabel for="regObj" value="#{msg.expRegistroObjetoContrato}" />
+								<h:inputTextarea id="regObj" cols="80" rows="5" value="#{registroBean.registroSeleccionado.regObj}" />
+
+								<h:outputLabel for="regLvlr" value="#{msg.expRegistroValorContrato}" />
+								<h:panelGrid columns="2" id="panelvalorcontrato">
+									<h:selectOneRadio value="#{registroBean.registroSeleccionado.regLvlr}" id="regLvlr" layout="lineDirection" required="false">
+										<f:selectItem itemLabel="#{msg.expRegistroGratuito}" itemValue="#{false}" noSelectionOption="true" />
+										<f:selectItem itemLabel="#{msg.expRegistroOneroso}" itemValue="#{true}" />
+										<f:ajax render=":formActualizar:panelvalorcontrato" execute="@this"></f:ajax>
+									</h:selectOneRadio>
+
+									<h:selectOneRadio value="#{registroBean.registroSeleccionado.regLcua}" layout="lineDirection" rendered="#{registroBean.registroSeleccionado.regLvlr}" required="false">
+										<f:selectItem itemLabel="#{msg.expRegistroCuantia}" itemValue="#{false}" noSelectionOption="true" />
+										<f:selectItem itemLabel="#{msg.expRegistroporcentaje}" itemValue="#{true}" />
+										<f:ajax render=":formActualizar:datosContrato" execute="@this"></f:ajax>
+									</h:selectOneRadio>
+								</h:panelGrid>
+
+								<h:outputLabel for="regCua" value="#{msg.expRegistroCuantia}" rendered="#{!registroBean.registroSeleccionado.regLcua and registroBean.registroSeleccionado.regLvlr}" />
+								<h:inputTextarea id="regCua" cols="80" rows="5" value="#{registroBean.registroSeleccionado.regCua}" rendered="#{!registroBean.registroSeleccionado.regLcua and registroBean.registroSeleccionado.regLvlr}" />
+
+								<h:outputLabel for="regPor" value="#{msg.expRegistroporcentaje}" rendered="#{registroBean.registroSeleccionado.regLcua and registroBean.registroSeleccionado.regLvlr}" />
+								<h:inputTextarea id="regPor" cols="80" rows="5" value="#{registroBean.registroSeleccionado.regPor}" rendered="#{registroBean.registroSeleccionado.regLcua and registroBean.registroSeleccionado.regLvlr}" />
+
+								<h:outputLabel for="regObsContrato" value="#{msg.expRegistroObservacionesGenerales}" />
+								<h:inputTextarea id="regObsContrato" cols="80" rows="5" value="#{registroBean.registroSeleccionado.regObs}" />
+
+							</h:panelGrid>
+
+						</rich:panel>
+					</h:panelGroup>
+					<div class="spacer15"></div>
+					<h:panelGroup rendered="#{registroBean.registroSeleccionado.claseregistro.creFrm == 3}">
+						<rich:panel>
+							<f:facet name="header">
+								<h:outputText value="#{msg.expRegistroInfoGeneral}"></h:outputText>
+							</f:facet>
+							<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm" id="datosForm3">
+
+								<h:outputLabel for="regTor3" value="#{msg.expRegistroTituloFotograma}" />
+								<h:inputTextarea id="regTor3" cols="80" rows="5" value="#{registroBean.registroSeleccionado.regTor}" required="true" />
+
+								<h:outputLabel for="regPaiOrigen" value="#{msg.expRegistroPaisOrigen}" />
+								<h:selectOneMenu id="regPaiOrigen" value="#{registroBean.registroSeleccionado.regPai}" required="true">
+									<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+									<f:selectItems value="#{registroBean.paisesItems}" />
+								</h:selectOneMenu>
+
+								<h:outputLabel for="regObsF3" value="#{msg.expRegistroObservacionesGenerales}" />
+								<h:inputTextarea id="regObsF3" cols="80" rows="5" value="#{registroBean.registroSeleccionado.regObs}" />
+
+							</h:panelGrid>
+
+						</rich:panel>
+						<div class="spacer15"></div>
+						<rich:panel>
+							<f:facet name="header">
+								<h:outputText value="#{msg.expRegistroClaseIdentificacion}"></h:outputText>
+							</f:facet>
+							<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm">
+
+								<h:outputLabel for="regApf" value="#{msg.expRegistroAnioFijacion}" />
+								<h:inputText id="regApf" value="#{registroBean.registroSeleccionado.regApf}" size="4" />
+
+								<h:outputLabel for="regNum" value="#{msg.expRegistroNumero}" />
+								<h:inputText id="regNum" value="#{registroBean.registroSeleccionado.regNum}" size="10" />
+
+								<h:outputLabel for="regVof" value="#{msg.expRegistrovolumen}" />
+								<h:inputText id="regVof" value="#{registroBean.registroSeleccionado.regVof}" size="10" />
+
+							</h:panelGrid>
+
+						</rich:panel>
+
+					</h:panelGroup>
+					<div class="spacer15"></div>
+					<rich:panel id="panelElementos">
+						<f:facet name="header">
+							<h:outputText value="#{msg.expRegistroOtrasPropiedades}"></h:outputText>
+						</f:facet>
+
+						
+
+						<rich:dataTable var="propiedad" value="#{registroBean.propiedadesSeleccionadas}" style="width:100%;" id="tablaPropiedades">
+							<f:facet name="header">
+								<rich:columnGroup>
+									<rich:column>
+										<h:outputText value="#{msg.expRegistroPropiedad}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.expRegistroDetalle}"></h:outputText>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{msg.labelDescripcion}"></h:outputText>
+									</rich:column>
+								</rich:columnGroup>
+							</f:facet>
+							<rich:column>
+								<h:outputText value="#{propiedad.elemento.propiedad.proNom}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{propiedad.elemento.eleNom}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{propiedad.elrObs}"></h:outputText>
+							</rich:column>
+
+						</rich:dataTable>
+					</rich:panel>
+
+					<div class="spacer15"></div>
+
+					<rich:panel id="panelFirmas" rendered="#{registroBean.registroSeleccionado.claseregistro.creFrm == 2}">
+						<f:facet name="header">
+							<h:outputText value="#{msg.expRegistroFirmas}"></h:outputText>
+						</f:facet>
+
+
+					</rich:panel>
+
+				</rich:tab>
+				<rich:tab header="#{msg.expRegistroOtraInformacion}">
+					<h:panelGroup id="registroPersonasPanel">
+						<rich:panel>
+							<f:facet name="header">
+								<h:outputText value="#{msg.expRegistroPersonas}"></h:outputText>
+							</f:facet>							
+
+							<rich:dataTable var="persona" value="#{registroBean.registropersonas}" style="width:100%;" id="tablaPersonas" iterationStatusVar="it">
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column>
+											<h:outputText value="#{msg.expRegistroTipo}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.expRegistroTipoPersona}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.expRegistroIdentificacion}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.expRegistroPersona}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.expRegistroActividad}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.expRegistroRelacion}"></h:outputText>
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+								<rich:column>
+									<h:outputText value="#{persona.tiporegistropersona.trpNom}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{persona.tipospersona.tpeNom}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{persona.persona.perDoc}" rendered="#{persona.tipospersona.tpeId == 1}"></h:outputText>
+									<h:outputText value="#{persona.entidad.etdIde}" rendered="#{persona.tipospersona.tpeId == 2}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{persona.persona.perNom} #{persona.persona.perPap} #{persona.persona.perSap}" rendered="#{persona.tipospersona.tpeId == 1}"></h:outputText>
+									<h:outputText value="#{persona.entidad.etdNom}" rendered="#{persona.tipospersona.tpeId == 2}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{persona.actividad.actNom}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{persona.relacioncontrato.rcoNom}" />
+								</rich:column>
+
+							</rich:dataTable>
+						</rich:panel>
+					</h:panelGroup>
+					<div class="spacer15"></div>
+					<h:panelGroup id="registroTitulosPanel" rendered="#{registroBean.registroSeleccionado.claseregistro.creFrm == 1}">
+
+						<rich:panel>
+							<f:facet name="header">
+								<h:outputText value="#{msg.expRegistroTitulosAnteriores}"></h:outputText>
+							</f:facet>
+							
+							<rich:dataTable var="titulo" value="#{registroBean.titulosAnteriores}" style="width:100%;" id="tablaTitulos" iterationStatusVar="it">
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column>
+											<h:outputText value="#{msg.labelDescripcion}"></h:outputText>
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+								<rich:column>
+									<h:outputText value="#{titulo.titNom}"></h:outputText>
+								</rich:column>
+
+							</rich:dataTable>
+						</rich:panel>
+					</h:panelGroup>
+					<h:panelGroup id="registroObras" rendered="#{registroBean.registroSeleccionado.claseregistro.creFrm == 2 or registroBean.registroSeleccionado.claseregistro.creFrm == 3}">
+
+						<rich:panel>
+							<f:facet name="header">
+								<h:outputText value="#{msg.expRegistroObras}"></h:outputText>
+							</f:facet>							
+
+							<rich:dataTable var="obra" value="#{registroBean.obrasRelacionadas}" style="width:100%;" id="tablaObras" iterationStatusVar="it">
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column>
+											<h:outputText value="#{msg.expRegistroTipo}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.expRegistroTitulo}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.expRegistroAutores}"></h:outputText>
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+								<rich:column>
+									<h:outputText value="#{msg.expRegistroNoregistrada}" rendered="#{obra.obrTip == 1}"></h:outputText>
+									<h:outputText value="#{msg.expRegistroRegistrada}" rendered="#{obra.obrTip == 2}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{obra.obrTit}" rendered="#{obra.obrTip == 1}"></h:outputText>
+									<h:outputText value="#{obra.registroByObrRgt.regTor}" rendered="#{obra.obrTip == 2}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{obra.obrAut}" rendered="#{obra.obrTip == 1}"></h:outputText>
+								</rich:column>
+							</rich:dataTable>
+						</rich:panel>
+					</h:panelGroup>
+				</rich:tab>
+
+			</rich:tabPanel>
+
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,76 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" template="internalTemplate.jspx"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:cnet="http://customcomponents/jsf">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.conaudTiposAuditoria}"></h:outputText>
+				</f:facet>
+				<div align="left">
+					<h:panelGrid columns="4">
+						<h:outputLabel value="#{msg.conaudNombreTipodeAuditoria}" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:inputText value="#{tipoAuditoriaBean.nombreTipoAuditoria}"
+							id="nombreTipoAuditoria" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+					</h:panelGrid>
+					<div class="spacer15"></div>
+					<div align="center">
+						<h:panelGrid columns="3">
+
+							<p:commandButton value="#{msg.modalPersonasBuscar}"
+								update="dataTablemodalTipoAuditoria"
+								action="#{tipoAuditoriaBean.buscar}" execute="@form"></p:commandButton>
+
+							<h:commandButton value="#{msg.conconpucCrear}"
+								action="#{tipoAuditoriaBean.crearNavigation}"></h:commandButton>
+
+						</h:panelGrid>
+					</div>
+
+				</div>
+			</rich:panel>
+			<h:panelGroup id="dataTablemodalTipoAuditoria">
+				<p:dataTable var="tipoAuditoria" paginator="true" rows="15"
+					paginatorPosition="bottom"
+					value="#{tipoAuditoriaBean.listDatamodel}" lazy="true">
+
+					<p:column style="width:200px"
+						headerText="#{msg.conaudCodigoTipodeAuditoria}">
+						<h:outputText value="#{tipoAuditoria.tauCodigo}">
+							<f:convertNumber />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="#{msg.conaudNombreTipodeAuditoria}">
+						<h:outputText value="#{tipoAuditoria.tauNombre}" />
+					</p:column>
+
+					<p:column style="width:150px">
+						<h:commandLink style="color: #FFFFFF;"
+							action="#{tipoAuditoriaBean.actualizarNavigation}">
+							<h:graphicImage width="16" height="16"
+								alt="#{msg.labelActualizar}" title="#{msg.labelActualizar}"
+								url="/img/icons/actualizar.png"></h:graphicImage>
+							<f:param name="idTipoAuditoriaSeleccionada"
+								value="#{tipoAuditoria.tauCodigo}" />
+						</h:commandLink>
+					</p:column>
+					
+				</p:dataTable>
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+

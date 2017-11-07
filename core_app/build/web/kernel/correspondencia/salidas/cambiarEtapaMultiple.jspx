@@ -1,0 +1,174 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" template="internalTemplate.jspx">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formListado">
+
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.corresCambiarEtapamultiplesSalidas}"></h:outputText>
+				</f:facet>
+
+				<div align="center">
+
+					<h:panelGrid columns="3" width="100%">
+
+						<h:outputText value="#{msg.corresTramite}"></h:outputText>
+						<h:outputText value="#{msg.corresEtapaActual}"></h:outputText>
+
+						<h:outputText value="#{msg.corresFechaHora}"></h:outputText>
+
+						<h:selectOneMenu id="tramite" required="true" value="#{cambiarEtapaMultipleSalidasBean.idTramiteSeleccionado}" label="#{msg.corresTramite}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{cambiarEtapaMultipleSalidasBean.tramitesItems}" />
+							<a4j:ajax render="etapaactual" limitRender="true" execute="@this" event="valueChange" immediate="true"></a4j:ajax>
+						</h:selectOneMenu>
+
+						<h:selectOneMenu id="etapaactual" required="true" value="#{cambiarEtapaMultipleSalidasBean.idEtapaSeleccionada}" label="#{msg.corresEtapaActual}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{cambiarEtapaMultipleSalidasBean.etapasItems}" />
+						</h:selectOneMenu>
+
+						<rich:calendar value="#{cambiarEtapaMultipleSalidasBean.fechaRadicacion}" direction="topRight" datePattern="dd/MM/yyyy"></rich:calendar>
+
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="1" width="100%">
+
+						<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+
+
+						<h:selectOneMenu id="dependencia" value="#{cambiarEtapaMultipleSalidasBean.idDependenciaSeleccionada}" label="#{msg.corresDependencia}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{cambiarEtapaMultipleSalidasBean.dependenciasItems}" />
+							<a4j:ajax render="clasificacion" limitRender="true" execute="@this" event="valueChange" immediate="true"></a4j:ajax>
+						</h:selectOneMenu>
+
+						<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+
+
+						<h:selectOneMenu id="clasificacion" value="#{cambiarEtapaMultipleSalidasBean.idClasificacionSeleccionada}" label="#{msg.corresClasificacion}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{cambiarEtapaMultipleSalidasBean.clasificacionItems}" />
+						</h:selectOneMenu>
+
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="3">
+						<h:commandButton value="#{msg.labelBuscar}" action="#{cambiarEtapaMultipleSalidasBean.cargaFiltrosDataModel}"></h:commandButton>
+						<h:outputText value=" "></h:outputText>
+					</h:panelGrid>
+				</div>
+			</rich:panel>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelResultadosEncontrados}"></h:outputText>
+				</f:facet>
+
+
+				<rich:dataTable style="width: 100%;" rows="10" var="salida" id="tablaSalida" value="#{cambiarEtapaMultipleSalidasBean.principalDataModel}" rowKeyVar="rowKey">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column />
+							<rich:column>
+								<h:outputText value="#{msg.corresNoRadicacion}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.corresFechaHora}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.corresUsuarioResponsable}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.corresObservacionesCambio}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.corresSolicitanteRemitente}"></h:outputText>
+							</rich:column>
+
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column >
+						<h:selectBooleanCheckbox id="chk" value="#{cambiarEtapaMultipleSalidasBean.idsSalidasSeleccionadas[rowKey]}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{salida.salNsa}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{salida.salFsa}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{salida.salAsu}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:selectOneMenu id="usuarios" required="false" value="#{salida.usrCambioEtapa}" label="#{msg.corresUsuario}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{cambiarEtapaMultipleSalidasBean.usuariosItems}" />
+						</h:selectOneMenu>
+					</rich:column>
+					<rich:column>
+						<h:inputText value="#{salida.obsEtapa}" required="false" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{salida.depend.depNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{salida.clasificacion.claNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{salida.salNom} #{salida.salPap} #{salida.salSap}"></h:outputText>
+					</rich:column>
+				</rich:dataTable>
+				<div align="center" class="panelBorder">
+					<rich:dataScroller id="ds" maxPages="10" ajaxSingle="true" for="tablaSalida"></rich:dataScroller>
+				</div>
+
+				<div class="spacer15"></div>
+
+
+
+
+				<rich:panel>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelcambiaEtapa}"></h:outputText>
+					</f:facet>
+
+					<h:panelGrid width="100%">
+						<h:outputText value="#{msg.corresSeleccionarEvento}" style="font-weight: bold;"></h:outputText>
+					</h:panelGrid>
+					<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm">
+						<h:outputText value="#{msg.corresEvento}"></h:outputText>
+						<h:selectOneMenu id="evento" required="false" value="#{cambiarEtapaMultipleSalidasBean.idEventoSeleccionado}" label="#{msg.corresEvento}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{cambiarEtapaMultipleSalidasBean.eventosItems}" />
+						</h:selectOneMenu>
+					</h:panelGrid>
+
+					<div class="spacer15"></div>
+
+					<div align="center">
+						<h:panelGrid columns="1">
+							<h:commandButton value="#{msg.labelcambiaEtapa}" action="#{cambiarEtapaMultipleSalidasBean.actualizar}" />
+						</h:panelGrid>
+					</div>
+
+				</rich:panel>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,31 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:composition>
+	
+		<rich:popupPanel   autosized="true" style="z-index: 10000;"   modal="true" onmaskclick="#{rich:component(id.concat('Modal'))}.hide()" id="#{id}Modal" resizeable="false" moveable="true"   show="#{showWhenRendered}" >
+			<f:facet name="header">
+				<h:outputText value="#{msg.tituloModalErrores}" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>				
+					<h:graphicImage value="/img/icons/closemodal.png" styleClass="hidelink"	id="hidelinkClose#{id}Modal" onclick="#{rich:component(id.concat('Modal'))}.hide()" ></h:graphicImage>
+				</h:panelGroup>
+			</f:facet>
+			
+			<h:panelGrid width="100%" >
+				
+				<h:messages id="messages" layout="table" infoClass="info" fatalClass="fatal" errorClass="error" />
+			</h:panelGrid>
+			
+			<div align="center">
+			<input type="button" value="Aceptar"
+				onclick="#{rich:component(id.concat('Modal'))}.hide()" />
+			</div>
+		</rich:popupPanel>
+	</ui:composition>
+</jsp:root>

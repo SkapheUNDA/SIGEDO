@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+
+	<p:dialog id="dialogTitulos" header="#{msg.modalJuridicaTitulo}"
+		widgetVar="modalCrearPersonaJuridica" modal="true" width="650"
+		dynamic="false" height="260">
+
+		<h:panelGrid columns="2" width="100%" styleClass="panelBorder">
+			<h:outputLabel for="entIde" value="#{msg.corresNoIdentificacion}"></h:outputLabel>
+			<h:outputLabel for="entNom" value="#{msg.corresPersonasNombre}"></h:outputLabel>
+
+			<h:inputText value="#{personaJuridicaBean.juridica.etdIde}"
+				id="entIde"  required="#{personaJuridicaBean.muestrese}" />
+			<h:inputText value="#{personaJuridicaBean.juridica.etdNom}"
+				id="entNom" required="true" styleClass="uppercase" />
+		</h:panelGrid>
+
+		<rich:panel header="#{msg.modalDatosPersonaJuridica}">
+			<h:panelGrid columns="2"
+				columnClasses="columnLabelsForm,columnDatosForm" width="100%">
+				<h:outputLabel for="entDir" value="#{msg.corresDireccion}"></h:outputLabel>
+				<h:inputText value="#{personaJuridicaBean.juridica.etdDir}"
+					id="entDir" styleClass="uppercase" />
+
+				<h:outputLabel for="entTel" value="#{msg.corresTelefono}"></h:outputLabel>
+				<h:inputText value="#{personaJuridicaBean.juridica.etdTl1}"
+					id="entTel" />
+
+				<h:outputLabel for="entFax" value="#{msg.corresFax}"></h:outputLabel>
+				<h:inputText value="#{personaJuridicaBean.juridica.etdFax}"
+					id="entFax" />
+
+				<h:outputLabel for="entCel" value="#{msg.corresCorreoElectronico}"></h:outputLabel>
+				<h:inputText value="#{personaJuridicaBean.juridica.etdCel}"
+					id="entCel"/>
+
+				<h:outputLabel for="entWeb" value="#{msg.corresWeb}"></h:outputLabel>
+				<h:inputText value="#{personaJuridicaBean.juridica.etdWeb}"
+					id="entWeb" />
+			</h:panelGrid>
+		</rich:panel>
+		<h:panelGroup id="buttonGroup">
+			<div class="spacer15"></div>
+			<div align="center">
+
+				<h:commandButton action="#{personaJuridicaBean.createOrReplace}"
+					value="#{msg.labelAgregar}"
+					onclick="if (!confirm('#{msg.confirmacionCrearPersonaJuridica}')) return false">
+					<f:setPropertyActionListener value="400" target="#{scroll}" />
+				</h:commandButton>
+
+			</div>
+
+		</h:panelGroup>
+		<div class="spacer15"></div>
+
+
+	</p:dialog>
+	<p:dialog id="dialogExito" header="Mensaje" widgetVar="modalMensaje"
+		visible="#{personaJuridicaBean.mostrarModal}" modal="true"
+		dynamic="false" width="160" height="100">
+		<h:outputLabel for="messages" value="REGISTRO EXITOSO"></h:outputLabel>
+	</p:dialog>
+
+
+</ui:composition>

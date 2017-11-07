@@ -1,0 +1,64 @@
+<ui:composition 
+xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns:f="http://java.sun.com/jsf/core"  
+xmlns:p="http://primefaces.org/ui" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:a4j="http://richfaces.org/a4j" 
+xmlns:rich="http://richfaces.org/rich" 
+template="internalTemplate.jspx"
+xmlns:ccom="http://customcomponents/jsf"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:cnet="http://customcomponents/jsf">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.conaudAuditores}"></h:outputText>
+				</f:facet>
+				<div align="left">	
+					<h:panelGrid columns="3">
+						<h:outputLabel value="#{msg.conaudCodigoAuditor}"
+							style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{auditorBean.auditores.codigoAuditores}"
+							required="true" id="codigoAuditores" label ="#{msg.conaudCodigoAuditor}"></h:inputText>
+							
+						<h:outputLabel value="#{msg.conaudNombreAuditor}"
+							style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{auditorBean.auditores.nombreAuditores}"
+							required="true" id="nombreAuditores" label ="#{msg.conaudNombreAuditor}"/>
+											
+						<h:outputLabel value="#{msg.conaudEstado}"
+							style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:selectOneMenu id="estadoAuditores"
+							value="#{auditorBean.auditores.estadoAuditores}"
+							style="width:125px" required="true" label="#{msg.conaudEstado}" >
+							<f:selectItem itemLabel="Seleccione" itemValue="" />
+							<f:selectItem itemLabel="Activo" itemValue="1" />
+							<f:selectItem itemLabel="Inactivo" itemValue="0" />
+						</h:selectOneMenu>
+					</h:panelGrid>
+
+					<div align="left">
+					<h:panelGrid columns="3">
+						<h:commandButton 
+							value="#{msg.conconpucCrear}"
+							action="#{auditorBean.createOrReplace}"
+							onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+						</h:commandButton>
+						
+					</h:panelGrid>		
+					</div>
+					
+				</div>
+			</rich:panel>
+
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+											

@@ -1,0 +1,75 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+	<ui:define name="body">
+		<script type="text/javascript">
+			function start() {
+			    statusDialog.show();
+			}
+			
+			function stop() {
+			    statusDialog.hide();
+			}
+        </script>
+		<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+			draggable="false" closable="false" resizable="false">
+			<p:graphicImage value="ajaxLoadingBar.gif" />
+		</p:dialog>
+		<h:form>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Reportes"></h:outputText>
+				</f:facet>
+
+				<rich:panel>
+					<h:panelGrid columns="3" width="100%">
+
+						<h:outputLabel value="#{msg.sociedad}" for="entidad" />		
+						<h:outputText value=""/>				
+						<h:selectOneMenu id="entidad"
+							value="#{reportesBean.idEntidadSeleccionada}">
+							<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+							<f:selectItems value="#{reportesBean.listaEntidades}"></f:selectItems>
+						</h:selectOneMenu>
+						
+						<h:outputLabel value="#{msg.ano}"></h:outputLabel>
+						<h:outputText value="*" style="color : red" />
+					<h:inputText value="#{reportesBean.ano}"
+						label="#{msg.ano}" required="true"></h:inputText>
+
+						<h:outputLabel value="#{msg.trimestre}" for="trimestre" />		
+						<h:outputText value=""/>				
+						<h:selectOneMenu id="trimestre"
+							value="#{reportesBean.trimestre}">
+							<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+							<f:selectItem itemValue="Ene-Mar" itemLabel="Ene-Mar"></f:selectItem>
+							<f:selectItem itemValue="Abr-Jun" itemLabel="Abr-Jun"></f:selectItem>
+							<f:selectItem itemValue="Jul-Sep" itemLabel="Jul-Sep"></f:selectItem>
+							<f:selectItem itemValue="Oct-Dic" itemLabel="Oct-Dic"></f:selectItem>							
+						</h:selectOneMenu>
+
+					</h:panelGrid>
+					<h:panelGrid columns="1" width="100%">
+						<h:commandButton
+							action="#{reportesBean.ejecutarReporte}"
+							value="Consultar" />
+					</h:panelGrid>
+					
+				</rich:panel>
+			</rich:panel>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+

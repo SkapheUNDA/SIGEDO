@@ -1,0 +1,198 @@
+<facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
+	version="2.0">
+	<namespace>http://customcomponents/jsf</namespace>
+	
+	<tag>
+		<tag-name>modalPersonaNaturalCreacion</tag-name>
+		<source>../kernel/components/modales/modalMaestraPersonaCreacion.xhtml</source>
+		<attribute>
+			<description>Objeto donde guarda el valor seleccionado</description>
+			<name>objetoSeleccionado</name>
+			<required>false</required>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<tag-name>modalPersonaJuridicaCreacion</tag-name>
+		<source>../kernel/components/modales/modalMaestraJuridicaCreacion.xhtml</source>
+		<attribute>
+			<description>Objeto donde guarda el valor seleccionado</description>
+			<name>objetoSeleccionado</name>
+			<required>false</required>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<tag-name>modalPucConsultarModificar</tag-name>
+		<source>../kernel/components/modales/modalPucConsultarModificar.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>modalMaestraPersona</tag-name>
+		<source>../kernel/components/modales/modalMaestraPersona.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>modalPersonaNatural</tag-name>
+		<source>../kernel/components/modales/modalPersonaNatural.xhtml</source>
+		<attribute>
+			<description>Objeto donde guarda el valor seleccionado</description>
+			<name>objetoSeleccionado</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<description>Id del componente que se recarga al seleccionar el registro</description>
+			<name>renderPanel</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<description>Id del componente para realizar un resetInput con primefaces</description>
+			<name>resetInput</name>
+			<required>false</required>
+		</attribute>
+	</tag>
+	<tag>
+		<tag-name>modalPersonaJuridica</tag-name>
+		<source>../kernel/components/modales/modalPersonaJuridica.xhtml</source>
+		<attribute>
+			<description>Objeto donde guarda el valor seleccionado</description>
+			<name>objetoSeleccionado</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<description>Id del componente que se recarga al seleccionar el registro</description>
+			<name>renderPanel</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<description>Id del componente para realizar un resetInput con primefaces</description>
+			<name>resetInput</name>
+			<required>false</required>
+		</attribute>
+	</tag>
+	<tag>
+		<tag-name>modalRegistro</tag-name>
+		<source>../kernel/components/modales/modalRegistro.xhtml</source>
+		<attribute>
+			<description>Objeto donde guarda el valor seleccionado</description>
+			<name>objetoSeleccionado</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<description>Id del componente que se recarga al seleccionar el registro</description>
+			<name>renderPanel</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<description>Id del componente para realizar un resetInput con primefaces</description>
+			<name>resetInput</name>
+			<required>false</required>
+		</attribute>
+	</tag>
+	<tag>
+		<tag-name>modalSalidas</tag-name>
+		<source>../kernel/components/modales/modalSalidas.xhtml</source>
+		<attribute>
+			<description>Objeto donde guarda el valor seleccionado</description>
+			<name>objetoSeleccionado</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<description>Id del componente que se recarga al seleccionar el registro</description>
+			<name>renderPanel</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<description>Id del componente para realizar un resetInput con primefaces</description>
+			<name>resetInput</name>
+			<required>false</required>
+		</attribute>
+	</tag>
+	<tag>
+		<tag-name>modalEntradas</tag-name>
+		<source>../kernel/components/modales/modalEntradas.xhtml</source>
+		<attribute>
+			<description>Objeto donde guarda el valor seleccionado</description>
+			<name>objetoSeleccionado</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<description>Id del componente que se recarga al seleccionar el registro</description>
+			<name>renderPanel</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<description>Id del componente para realizar un resetInput con primefaces</description>
+			<name>resetInput</name>
+			<required>false</required>
+		</attribute>
+	</tag>	
+	<tag>
+		<tag-name>modalDetalleExpediente</tag-name>
+		<source>../kernel/components/modales/modalDetalleExpediente.xhtml</source>
+		<attribute>
+			<description>Objeto expediente</description>
+			<name>objetoDetalle</name>
+			<required>true</required>
+		</attribute>
+	</tag>
+	<tag>
+		<tag-name>statusAjax</tag-name>
+		<source>../kernel/components/statusAjax.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>modalErrores</tag-name>
+		<source>../kernel/components/modalErrores.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>message</tag-name>
+		<source>../kernel/components/messages.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>growl</tag-name>
+		<source>../kernel/components/growl.xhtml</source>
+	</tag>
+
+
+	<tag>
+		<tag-name>tituloModulo</tag-name>
+		<source>../kernel/components/tituloModulo.xhtml</source>
+
+	</tag>
+
+	<tag>
+		<tag-name>header</tag-name>
+		<source>../kernel/layout/header.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>verticalmenu</tag-name>
+		<source>../kernel/layout/vertical_menu.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>headermenu</tag-name>
+		<source>../kernel/layout/header_menu.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>footer</tag-name>
+		<source>../kernel/layout/footer.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>formPpal</tag-name>
+		<source>../kernel/componentesnetco/formPpal.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>tablaPpal</tag-name>
+		<source>../kernel/componentesnetco/tablaPpal.xhtml</source>
+	</tag>
+	
+	<tag>
+		<tag-name>arbolArchivos</tag-name>
+		<source>../kernel/documentos/arbol.xhtml</source>
+	</tag>
+
+</facelet-taglib>

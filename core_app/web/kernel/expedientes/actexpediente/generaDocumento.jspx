@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="detalleTemplate.jspx">
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event listener="#{expedienteBean.cargaParametros}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+
+		<h:form style="padding-bottom: 3px;" id="formGenerar">
+
+			<h:inputHidden value="#{expedienteBean.idExpedienteSeleccionado}" />
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelActualizar}"></h:outputText>
+				</f:facet>
+
+				<div align="center">
+					<h:panelGrid columns="2" width="100%">
+
+						<h:selectBooleanCheckbox value="#{expedienteBean.boleanoUno}" />
+						<h:outputText value="#{msg.expproInfoExpediente}" />
+
+						<h:selectBooleanCheckbox value="#{expedienteBean.boleanoDos}" />
+						<h:outputText value="#{msg.expproInfoSolicitante}" />
+
+						<h:selectBooleanCheckbox value="#{expedienteBean.boleanoTres}" />
+						<h:outputText value="#{msg.expproInfoSolicitante} (otros)" />
+
+						<h:selectBooleanCheckbox value="#{expedienteBean.boleanoCuatro}" />
+						<h:outputText value="#{msg.expproInfoCorresp}" />
+
+						<h:selectBooleanCheckbox value="#{expedienteBean.boleanoCinco}" />
+						<h:outputText value="#{msg.expproInfoHistorial}" />
+
+						<h:selectBooleanCheckbox value="#{expedienteBean.boleanoSeis}" />
+						<h:outputText value="#{msg.expproInfoEtapaAct}" />
+
+					</h:panelGrid>
+					<div class="spacer15"></div>
+					<h:panelGrid columns="1" width="100%">
+						<h:outputText value="#{msg.expproAggObs}:" />
+						<h:inputText value="#{expedienteBean.observacionGeneric}" />
+					</h:panelGrid>
+
+				</div>
+				<div class="spacer15"></div>
+				<div align="center">
+					<h:panelGrid columns="2">
+						<h:commandButton action="#{expedienteBean.actualizarExpediente}"
+							value="#{msg.labelActualizar}">
+						</h:commandButton>
+
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+			<t:saveState value="#{expedienteBean.idExpedienteSeleccionado}"></t:saveState>
+			<t:saveState value="#{expedienteBean.expedienteSeleccionado}"></t:saveState>
+		</h:form>
+	</ui:define>
+</ui:composition>

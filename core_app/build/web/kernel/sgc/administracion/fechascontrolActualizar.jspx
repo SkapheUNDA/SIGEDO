@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Fechas Control Actualizar"></h:outputText>
+				</f:facet>
+				<f:metadata>
+					<f:event type="preRenderView" listener="#{fechasControlBean.cargarDatosModificar}" />
+				</f:metadata>
+				<h:panelGrid columns="4" width="100%">
+						<h:outputText value="#{msg.conconfechascontrolVencimiento}:"></h:outputText>
+						<h:outputText value="#{msg.conconfechascontrolPeriodo}:"></h:outputText>
+						<h:outputText value="#{msg.anio}:"></h:outputText>
+						<h:outputText value="#{msg.labelEstado}:"></h:outputText>
+						<rich:calendar value="#{fechasControlBean.fcrCorteDate}"
+						direction="topRight" datePattern="dd/MM/yyyy"  required="true" label="#{msg.conconfechascontrolVencimiento}"></rich:calendar>
+						<h:selectOneMenu id="peridoo" value="#{fechasControlBean.cortesFormato.fcrPeriodo}" style="width:125px" required="true"  label="#{msg.conconfechascontrolPeriodo}">
+						<f:selectItem itemLabel="Seleccione" itemValue="" />
+						<f:selectItem itemLabel="#{msg.eneromarzo}" itemValue="#{msg.eneromarzo}" />
+						<f:selectItem itemLabel="#{msg.abriljunio}" itemValue="#{msg.abriljunio}" />
+						<f:selectItem itemLabel="#{msg.juliosep}" itemValue="#{msg.juliosep}" />
+						<f:selectItem itemLabel="#{msg.octdiciem}" itemValue="#{msg.octdiciem}" />				
+					    </h:selectOneMenu>
+						<h:inputText value="#{fechasControlBean.cortesFormato.ano}" required="true" label="#{msg.anio}"></h:inputText>
+						<h:selectOneMenu value="#{fechasControlBean.cortesFormato.fcrActivo}"
+						label="#{msg.labelEstado}"  required="true" >
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItem itemLabel="#{msg.conconpucEstadoActivo}"
+							itemValue="true" />
+						<f:selectItem itemLabel="#{msg.conconpucEstadoInactivo}"
+							itemValue="false" />
+					</h:selectOneMenu>
+					</h:panelGrid>
+				<div align="center">
+					<h:panelGrid columns="3">
+						<h:commandButton value="#{msg.conconpucModificar}"
+							action="#{fechasControlBean.actualizar}"
+							onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+						</h:commandButton>
+
+					
+					</h:panelGrid>	
+			</div>
+			</rich:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

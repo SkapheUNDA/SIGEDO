@@ -1,0 +1,88 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" template="internalTemplate.jspx"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:cnet="http://customcomponents/jsf">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.prograauAuditorias}"></h:outputText>
+				</f:facet>
+				<div align="left">
+					<h:panelGrid columns="2">
+						<h:outputLabel value="#{msg.prograAnoConsulta}" />
+						<h:inputText value="#{auditoriasBean.anoActual}"
+							id="nombreTipoAuditoria" />
+					</h:panelGrid>
+					<div class="spacer15"></div>
+					<div align="center">
+						<h:panelGrid columns="2">
+							<p:commandButton value="#{msg.modalPersonasBuscar}"
+								update="dataTablemodalAuditorias"
+								action="#{auditoriasBean.buscar}" execute="@form"></p:commandButton>
+						</h:panelGrid>
+					</div>
+
+				</div>
+			</rich:panel>
+			<h:panelGroup id="dataTablemodalAuditorias">
+				<p:dataTable var="auditorias" id="radioDT" paginator="true"
+					rows="15" paginatorPosition="bottom"
+					value="#{auditoriasBean.listDatamodel}" lazy="true">
+
+					<p:column headerText="#{msg.prograauPeriodo}">
+						<h:outputText value="#{auditorias.audPeriodo}" />
+					</p:column>
+
+					<p:column headerText="#{msg.prograauSociedad}">
+						<h:outputText value="#{auditorias.audSociedad.entObjetoSocial}" />
+					</p:column>
+
+					<p:column headerText="#{msg.prograauTipo}">
+						<h:outputText value="#{auditorias.audTipo.tauNombre}" />
+					</p:column>
+
+					<p:column headerText="#{msg.prograFechaOficio}">
+						<h:outputText value="#{auditorias.audFechaEnvioOficio}" />
+					</p:column>
+
+					<p:column headerText="#{msg.prograFechaTrabajoCampo}">
+						<h:outputText value="#{auditorias.audFechaTrabajoCampo}" />
+					</p:column>
+
+					<p:column headerText="#{msg.prograauFechaEntregaInforme}">
+						<h:outputText value="#{auditorias.audFechaInforme}" />
+					</p:column>
+
+					<p:column exportable="false" width="105">
+
+						<p:commandButton id="opcButton" value="#{msg.labelOpciones}"
+							type="button" />
+						<p:tieredMenu overlay="true" trigger="opcButton" my="left top"
+							at="left bottom">
+							<p:menuitem value="#{msg.labelActualizar}"
+								action="#{auditoriasBean.navModificarAuditoria}" ajax="false"
+								icon="ui-icon-disk">
+								<f:param name="idAuditoriaSeleccionada"
+									value="#{auditorias.audId}" />
+							</p:menuitem>
+							<p:menuitem value="#{msg.prograauRegistrarHallazgo}"
+								action="#{auditoriasBean.navListadoHallazgo}" ajax="false"
+								icon="ui-icon-disk">
+								<f:param name="idAuditoriaSeleccionada"
+									value="#{auditorias.audId}" />
+							</p:menuitem>
+						</p:tieredMenu>
+					</p:column>
+
+				</p:dataTable>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

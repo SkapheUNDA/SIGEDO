@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Fechas Control Listado"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="3" width="100%">
+						<h:outputText value="#{msg.conconfechascontrolVencimiento}:"></h:outputText>
+						<h:outputText value="#{msg.conconfechascontrolPeriodo}:"></h:outputText>
+						<h:outputText value="#{msg.anio}:"></h:outputText>
+			
+						
+						<rich:calendar value="#{fechasControlBean.fcrCorteDate}"
+						direction="topRight" datePattern="dd/MM/yyyy"></rich:calendar>
+						<h:selectOneMenu id="peridoo" value="#{fechasControlBean.fcrPeriodo	}" style="width:125px">
+						<f:selectItem itemLabel="Seleccione" itemValue="" />
+						<f:selectItem itemLabel="#{msg.eneromarzo}" itemValue="#{msg.eneromarzo}" />
+						<f:selectItem itemLabel="#{msg.abriljunio}" itemValue="#{msg.abriljunio}" />
+						<f:selectItem itemLabel="#{msg.juliosep}" itemValue="#{msg.juliosep}" />
+						<f:selectItem itemLabel="#{msg.octdiciem}" itemValue="#{msg.octdiciem}" />					
+					    </h:selectOneMenu>
+						<h:inputText value="#{fechasControlBean.ano}"></h:inputText>
+						
+					</h:panelGrid>
+				<div align="center">
+						<p:commandButton value="#{msg.modalPersonasBuscar}"
+							update="dataTableFechaControl"
+							action="#{fechasControlBean.buscar}" execute="@form"></p:commandButton>
+				
+					<h:commandButton value="Crear"
+							action="#{fechasControlBean.agregarNavigation}"
+							></h:commandButton>
+				</div>
+			</rich:panel>
+
+			<h:panelGroup id="dataTableFechaControl">
+				<p:dataTable var="fechaControl" paginator="true" rows="15"
+					paginatorPosition="bottom" value="#{fechasControlBean.listDatamodel}"
+					lazy="true">
+					
+					<p:column headerText="#{msg.conconfechascontrolVencimiento}">
+						<h:outputText value="#{fechaControl.fcrCorte}" />
+					</p:column>
+					<p:column headerText="#{msg.conconfechascontrolPeriodo}">
+						<h:outputText value="#{fechaControl.fcrPeriodo}" />
+					</p:column>
+					<p:column headerText="#{msg.anio}">
+						<h:outputText value="#{fechaControl.ano}" />
+					</p:column>
+					<p:column headerText="#{msg.conaudEstado}">
+						<h:outputText value="#{fechaControl.fcrActivo == true ? 'Activo' : 'Inactivo'}" />
+					</p:column>
+					
+					<p:column>
+						<h:commandLink style="color: #FFFFFF;"
+							action="#{fechasControlBean.editarNavigation}">
+							<h:graphicImage width="16" height="16"
+								alt="#{msg.labelActualizar}" title="#{msg.labelActualizar}"
+								url="/img/icons/actualizar.png"></h:graphicImage>
+							<f:param name="idFechaControlSeleccionada" value="#{fechaControl.fcrCodigo}" />
+						</h:commandLink>
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

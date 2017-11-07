@@ -1,0 +1,135 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formActualizar" enctype="multipart/form-data">
+<f:metadata>
+  <f:event type="preRenderView" listener="#{usuariosBean.cargarRegistro}"/>
+</f:metadata>
+
+<h:inputHidden value="#{usuariosBean.usuarioSeleccionado.usrId}"></h:inputHidden>
+<h:inputHidden value="#{usuariosBean.usuarioSeleccionado.usrLog}"></h:inputHidden>
+<h:inputHidden value="#{usuariosBean.usuarioSeleccionado.usrFreg}"></h:inputHidden>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelActualizar}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%">
+
+					<h:panelGrid columns="2" width="100%"
+						columnClasses="columnLabelsDetalleSolicitud,columnDatosDetalleSolicitud">
+				
+						<h:outputText value="#{msg.labelNombres}" />
+						<h:panelGroup>
+							<h:inputText id="primerNombrePeticionario"
+									value="#{usuariosBean.usuarioSeleccionado.usrNom}"
+									label="#{msg.labelNombres}" required="true" />
+						</h:panelGroup>
+
+						<h:outputText value="#{msg.labelApellidos}" />
+						<h:panelGroup>
+							<h:panelGrid columns="2">
+								<h:inputText id="primerApellidoPeticionario"
+									value="#{usuariosBean.usuarioSeleccionado.usrPap}"
+									label="#{msg.labelPrimerApellido}" required="true" />
+								<h:inputText id="segundoApellidoPeticionario"
+									value="#{usuariosBean.usuarioSeleccionado.usrSap}"
+									label="#{msg.labelSegundoApellido}" />
+							</h:panelGrid>
+						</h:panelGroup>
+
+						<h:outputText value="#{msg.labelNombreUsuario}" />
+						<h:inputText value="#{usuariosBean.nombre_usuario}" required="true" autocomplete="off"
+							label="#{msg.labelNombreUsuario}" id="username">
+						</h:inputText>
+
+
+						<h:outputText value="#{msg.labelClave}" />
+						<h:inputSecret value="#{usuariosBean.clave}" redisplay="true" required="true"  autocomplete="off" 
+							label="#{msg.labelClave}" id="clave">
+						</h:inputSecret>
+
+						<h:outputText value="#{msg.labelEstadoUsuario}" />
+
+						<h:selectOneMenu id="estadoUsaurio"
+							value="#{usuariosBean.usuarioSeleccionado.usrLact}"
+							required="true" label="#{msg.labelEstadoUsuario}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItem itemLabel="#{msg.labelActivo}" itemValue="true" />
+							<f:selectItem itemLabel="#{msg.labelBloqueado}" itemValue="false" />
+						</h:selectOneMenu>
+					</h:panelGrid>
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<h:outputText value="#{msg.labelSubirFirma}"></h:outputText>
+					<h:outputText value="#{msg.labelTieneFirma}" rendered="#{usuariosBean.tieneUsuarioFirma}"></h:outputText>
+					<p:fileUpload value="#{usuariosBean.firmaArchivo}" mode="simple" skinSimple="true"  allowTypes="/(\.|\/)(jpg|png|gif)$/" sizeLimit="4194304"/>
+				</h:panelGrid>
+				
+				
+			<br/>
+			
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelRelacionarPerfiles}"></h:outputText>
+				</f:facet>				
+				
+				<h:panelGrid columns="2" width="100%">
+					<t:selectManyPicklist  value="#{usuariosBean.perfilesUsuario}">
+						<f:selectItems value="#{usuariosBean.perfilesItems}" />
+					</t:selectManyPicklist>
+				</h:panelGrid>
+
+			</rich:panel>
+				
+			<br/>
+			
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelRelacionarGrupos}"></h:outputText>
+				</f:facet>				
+				
+				<h:panelGrid columns="2" width="100%">
+					<t:selectManyPicklist  value="#{usuariosBean.gruposUsuario}">
+						<f:selectItems value="#{usuariosBean.gruposItems}" />
+					</t:selectManyPicklist>
+				</h:panelGrid>
+
+			</rich:panel>
+			
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelRelacionarEntidades}"></h:outputText>
+				</f:facet>				
+				
+				<h:panelGrid columns="2" width="100%">
+					<t:selectManyPicklist  value="#{usuariosBean.entidadesUsuario}">
+						<f:selectItems value="#{usuariosBean.entidadesItems}" />
+					</t:selectManyPicklist>
+				</h:panelGrid>
+
+			</rich:panel>					
+				
+				<div align="center"><h:commandButton
+					action="#{usuariosBean.actualizarUsuario}"
+					value="#{msg.labelActualizar}"
+					onclick="if (!confirm('#{msg.confirmacionAcualizarUsuario}')) return false">
+					<f:setPropertyActionListener value="400" target="#{scroll}" />
+				</h:commandButton></div>
+				
+			</rich:panel>
+			<t:saveState value="#{usuariosBean.usuarioSeleccionado}"></t:saveState>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+

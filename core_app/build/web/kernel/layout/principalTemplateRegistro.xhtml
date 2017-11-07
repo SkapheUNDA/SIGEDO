@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:f="http://java.sun.com/jsf/core"
+	 xmlns:a4j="http://richfaces.org/a4j"
+         xmlns:ccom="http://customcomponents/jsf" xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html" encoding="iso-8859-1">    	
+        <h:head>
+            <meta charset="iso-8859-1" />
+            <title>Sistema Funcionarios</title>
+            <h:outputScript library="javascript" name="funciones.js"></h:outputScript>
+            <h:outputScript library="javascript" name="viz.js" target="head" />
+                    <h:outputScript library="javascript" name="flujo.js" target="head" />
+            <h:outputStylesheet library="css" name="estilosModulos.css" />
+        </h:head>
+        <h:body>
+            <div class="headerTemplate">
+                    <h:panelGrid width="100%" cellspacing="0" cellpadding="0">
+                            <ccom:header />
+                            <ccom:headermenu />
+                    </h:panelGrid>
+            </div>
+            <br />	
+            <div class="sidebarTemplate">
+                <h:form id="form_menu">
+                    <p:menu  style="width: 99%;">
+                        <p:submenu label="Ajax">
+                            <p:menuitem value="Save" icon="ui-icon-disk" />
+                            <p:menuitem value="Update" icon="ui-icon-arrowrefresh-1-w"/>
+                        </p:submenu>
+                        <p:submenu label="Non-Ajax">
+                            <p:menuitem value="Delete" icon="ui-icon-close"/>
+                        </p:submenu>
+                        <p:submenu label="Navigations">
+                            <p:menuitem value="registroexpedientes" action="registroexpedientes" icon="ui-icon-home"/>
+                            <p:menuitem value="index2" action="index2" icon="ui-icon-star"/>
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </div>
+
+            <div class="bodyTemplate"><ui:insert name="body" /></div>
+
+            <div class="footerTemplate">
+
+            </div>
+
+
+
+            <ui:insert name="script" />
+
+            <ccom:statusAjax id="allStatus" />
+            <a4j:outputPanel id="erroresValidacionPanel">
+                    <ccom:modalErrores id="erroresValidacion" showWhenRendered="#{!empty facesContext.maximumSeverity}" />
+            </a4j:outputPanel>
+
+            <ui:include src="cambioClave.xhtml" />
+
+            <ui:debug hotkey="x" ></ui:debug>
+        </h:body>
+    </f:view>
+</html>

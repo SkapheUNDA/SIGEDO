@@ -1,0 +1,118 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formDetalle">
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelDetalle}"></h:outputText>
+				</f:facet>
+
+				
+	<t:fieldset legend="#{msg.labelInfoAuditoria}">
+		<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsDetalleSolicitud,columnDatosDetalleSolicitud">
+		
+		<h:outputText value="#{msg.labelModulo}"></h:outputText>
+		<h:outputText value="#{auditoriaBean.auditoriaSeleccionada.entidadAuditada.nombreModulo}"></h:outputText>
+		
+		<h:outputText value="#{msg.labelObjeto}"></h:outputText>
+		<h:outputText value="#{auditoriaBean.auditoriaSeleccionada.entidadAuditada.entityClass}"></h:outputText>
+		
+		<h:outputText value="#{msg.labelOperacion}"></h:outputText>
+		<h:outputText value="#{auditoriaBean.auditoriaSeleccionada.operacion}"></h:outputText>
+		
+		
+		</h:panelGrid>
+	</t:fieldset>
+				
+
+
+	<t:fieldset legend="#{msg.labelInfoRegistroAuditoria}">
+		<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsDetalleSolicitud,columnDatosDetalleSolicitud">
+		
+		<h:outputText value="#{msg.labelFechaRegistro}"></h:outputText>
+		<h:outputText value="#{auditoriaBean.auditoriaSeleccionada.fechaRegistro}">
+			<f:convertDateTime pattern="dd/MM/yyyy hh:mm a"	timeZone="GMT-05:00" />
+		</h:outputText>
+	
+		
+		<h:outputText value="#{msg.labelIpHost}"></h:outputText>
+		<h:outputText value="#{auditoriaBean.auditoriaSeleccionada.ipHost}"></h:outputText>
+		
+		<h:outputText value="#{msg.labelNombreHost}"></h:outputText>
+		<h:outputText value="#{auditoriaBean.auditoriaSeleccionada.nombreHost}"></h:outputText>
+		
+		<h:outputText value="#{msg.labelUserAgent}"></h:outputText>
+		<h:outputText value="#{auditoriaBean.auditoriaSeleccionada.userAgent}"></h:outputText>
+		
+		<h:outputText value="#{msg.labelNombreUsuario}"></h:outputText>
+		<h:outputText value="#{auditoriaBean.auditoriaSeleccionada.username}"></h:outputText>
+		
+		<h:outputText value="#{msg.labelPropiedadID}"></h:outputText>
+		<h:outputText value="#{auditoriaBean.auditoriaSeleccionada.propiedadID}"></h:outputText>
+	
+		<h:outputText value="#{msg.labelValorID}"></h:outputText>
+		<h:outputText value="#{auditoriaBean.auditoriaSeleccionada.valueID}"></h:outputText>
+	
+		
+		</h:panelGrid>
+	</t:fieldset>
+
+
+	<t:fieldset legend="#{msg.labelPropiedadesValoresObjeto}">
+		
+			<a4j:repeat value="#{auditoriaBean.propiedadesObjetoAuditado}" var="objetoAuditado">
+				<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsDetalleSolicitud,columnDatosDetalleSolicitud">
+				<h:outputText value="#{objetoAuditado.propiedad}"></h:outputText>
+				<h:outputText value="#{objetoAuditado.valor}"></h:outputText>	
+				</h:panelGrid>		
+			</a4j:repeat>
+	</t:fieldset>
+
+	<t:fieldset legend="#{msg.labelMasAcciones}">
+	
+	  <rich:dataTable width="100%" id="tablaOtrasAuditoras" rows="0" var="auditorias" value="#{auditoriaBean.auditoriasRelacionadas}">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column width="5%">
+								<h:outputText value="#{msg.labelId}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelFechaRegistro}"></h:outputText>
+							</rich:column>
+							<rich:column >
+								<h:outputText value="#{msg.labelOperacion}"></h:outputText>
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column >
+						<h:outputText value="#{auditorias.id}"></h:outputText>
+					</rich:column>
+					<rich:column >
+						<h:outputText value="#{auditorias.fechaRegistro}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a"
+								timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column >
+						<h:outputText value="#{auditorias.operacion}"></h:outputText>
+					</rich:column>					
+					
+					
+				</rich:dataTable>
+	  
+	
+	</t:fieldset>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

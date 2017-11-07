@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.detalleFormatosConfCampos} - Crear"></h:outputText>
+				</f:facet>
+
+				<rich:dataGrid value="#{detallesFormatoBean.detallesFormato}" var="field"
+					columns="1" width="100%" border="0">
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText value="Campo N"></h:outputText>
+						</f:facet>
+							<h:panelGrid columns="6" width="100%">
+
+								<h:outputLabel value="#{msg.detalleFormatosNombreCampo}"
+									for="nombreCampo" style="text-align:right" />
+								<h:outputText value="*" style="color : red" />
+								<h:inputText value="#{field.nombreCampo}" 
+									id="nombreCampo"></h:inputText>
+
+								<h:outputLabel value="#{msg.detalleFormatosDescCampo}"
+									for="descCampo" style="text-align:right" />
+								<h:outputText value="*" style="color : red" />
+								<h:inputText value="#{field.descipcionCampo}" 
+									id="descCampo" />
+
+								<h:outputLabel value="#{msg.detalleFormatosTipoDato}"
+									for="tiposDato" style="text-align:right" />
+								<h:outputText value="*" style="color : red" />
+								<h:selectOneMenu value="#{field.tipoDatoSeleccionado}" id="tiposDato" 
+									valueChangeListener="#{detallesFormatoBean.cargarFormatoTiposDato}"
+									onchange="this.form.submit()"
+									immediate="true">
+									<f:selectItem itemValue="" itemLabel="-- Seleccione --"/>
+									<f:selectItems value="#{field.itemsTiposDato}" />
+									<f:param value="#{field.index}" name="filaCombo" />									
+								</h:selectOneMenu>
+
+								<h:outputLabel for="formatosTiposDato" style="text-align:right"
+									value="#{msg.detalleFormatosFormatoTipoDato}" />
+								<h:outputText value="*" style="color : red" />
+								<h:selectOneMenu id="formatosTiposDato" 
+									value="#{field.formatoTipoDato}">
+									<f:selectItem itemValue="" itemLabel="-- Seleccione --"/>
+									<f:selectItems value="#{field.itemsFormatosTiposDato}"></f:selectItems>
+								</h:selectOneMenu>
+								
+								<h:outputLabel value="#{msg.detalleFormatosCampoRequerido}"
+									for="requerido" style="text-align:right" />
+								<h:outputText value="" />
+								<h:selectBooleanCheckbox value="#{field.requerido}"	id="requerido" />
+
+							</h:panelGrid>
+					</rich:panel>
+				</rich:dataGrid>
+
+				<h:panelGrid columns="2" width="30%" style="text-align: center;">
+					<h:commandButton value="#{msg.formatosButtonGuardar}" action="#{detallesFormatoBean.accionGuardar}"						
+						onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+					</h:commandButton>
+
+					<h:commandButton value="#{msg.formatosButtonCancelar}"
+						immediate="true" action="#{detallesFormatoBean.navListadoCampos}">
+					</h:commandButton>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

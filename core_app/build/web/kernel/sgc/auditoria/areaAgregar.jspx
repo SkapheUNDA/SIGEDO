@@ -1,0 +1,56 @@
+<ui:composition 
+xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns:f="http://java.sun.com/jsf/core"  
+xmlns:p="http://primefaces.org/ui" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:a4j="http://richfaces.org/a4j" 
+xmlns:rich="http://richfaces.org/rich" 
+template="internalTemplate.jspx"
+xmlns:ccom="http://customcomponents/jsf"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:cnet="http://customcomponents/jsf">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.conaudArea}"></h:outputText>
+				</f:facet>
+
+				<div align="left">
+
+										
+					<h:panelGrid columns="3">
+
+												
+						<h:outputLabel value="#{msg.conaudCodigoArea}" style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{areaBean.area.codigoArea}" required="true" id="codigoArea" label="#{msg.conaudCodigoArea}"></h:inputText>
+	
+						
+						<h:outputLabel value="#{msg.conaudDescripcion}"  style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText value="#{areaBean.area.descripcionArea}" required="true" id="descripcionArea" label="#{msg.conaudDescripcion}"/>																				
+					
+					</h:panelGrid>
+
+					<div align="center">
+					<h:panelGrid columns="3">
+						<h:commandButton 
+							value="#{msg.conconpucCrear}"
+							action="#{areaBean.createOrReplace}"
+							onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+						</h:commandButton>
+						
+					</h:panelGrid>		
+					</div>
+					
+				</div>
+			</rich:panel>
+
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+

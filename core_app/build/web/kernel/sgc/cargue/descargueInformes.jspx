@@ -1,0 +1,115 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+	<ui:define name="body">
+		<div class="spacer15"></div>
+		<h:form id="formCargue">
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.sgcDescargueFormatos}"></h:outputText>
+				</f:facet>
+			
+				<h:panelGrid columns="2" width="100%">
+
+					<h:outputLabel value="#{msg.sgcEntidad}" for="entidad" />
+					<h:outputLabel value="#{msg.sgcFormato}" for="formato" />
+
+					<h:selectOneMenu id="entidad"
+						value="#{descargueSGCBean.idEntidadSeleccionada}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+						<f:selectItems value="#{descargueSGCBean.entidadesItems}"></f:selectItems>
+					</h:selectOneMenu>
+					<h:selectOneMenu id="formato"
+						value="#{descargueSGCBean.idFormatoSeleccionado}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+						<f:selectItems value="#{descargueSGCBean.formatosItems}"></f:selectItems>
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="#{msg.trimestre}" for="trimestre" />
+					<h:outputLabel value="#{msg.sgcAno}" for="anos" />
+																
+						<h:selectOneMenu id="trimestre"
+							value="#{descargueSGCBean.periodo}">
+							<f:selectItem itemValue="" itemLabel="#{msg.labelSeleccione}"></f:selectItem>
+							<f:selectItem itemValue="Ene-Mar" itemLabel="Ene-Mar"></f:selectItem>
+							<f:selectItem itemValue="Abr-Jun" itemLabel="Abr-Jun"></f:selectItem>
+							<f:selectItem itemValue="Jul-Sep" itemLabel="Jul-Sep"></f:selectItem>
+							<f:selectItem itemValue="Oct-Dic" itemLabel="Oct-Dic"></f:selectItem>							
+						</h:selectOneMenu>
+
+					
+					<h:selectOneMenu id="anos"
+						value="#{descargueSGCBean.anoSeleccionado}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue=""></f:selectItem>
+						<f:selectItems value="#{descargueSGCBean.anosItems}"></f:selectItems>
+					</h:selectOneMenu>
+
+				</h:panelGrid>
+				<h:panelGrid columns="1" width="100%">
+					<div align="center">
+						<h:commandButton					
+						action="#{descargueSGCBean.cargaFiltrosDM}"	reRender="formCargue"
+							value="#{msg.sgcBuscarArchivo}" />
+					</div>
+				</h:panelGrid>
+
+			</rich:panel>
+
+			<div class="spacer15"></div>
+
+			<rich:panel id="panelArchivosSGC">
+				<f:facet name="header">
+					<h:outputText value="#{msg.sgcArchivosAdj}"></h:outputText>
+				</f:facet>
+				<rich:dataTable var="archivo" id="tablaArchivosSGC" rows="30"
+					value="#{descargueSGCBean.listaArchivosSGC}" style="width:80%;">
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.sgcEntidad}" />
+						</f:facet>
+						<h:outputText value="#{archivo.entidades.entObjetoSocial}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Formato" />
+						</f:facet>
+						<h:outputText value="#{archivo.formatos.forNombre}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Periodo" />
+						</f:facet>
+						<h:outputText value="#{archivo.periodo} - #{archivo.ano}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelFechaRegistro}" />
+						</f:facet>
+						<h:outputText value="#{archivo.fechaRegistro}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm a"
+								timeZone="GMT-05:00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column width="10%">
+						<p:commandButton value="#{msg.labelDescargarArchivo}" ajax="false"
+							icon="ui-icon-arrowthick-1-s">
+							<p:fileDownload value="#{descargueSGCBean.descargar(archivo.id)}" />
+						</p:commandButton>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller id="ds" maxPages="5" for="tablaArchivosSGC"></rich:dataScroller>
+					</f:facet>
+				</rich:dataTable>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

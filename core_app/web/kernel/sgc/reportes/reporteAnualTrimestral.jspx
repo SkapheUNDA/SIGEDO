@@ -1,0 +1,45 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="body">
+
+		<h:form>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Reporte Anual Trimestral"></h:outputText>
+				</f:facet>
+
+				<rich:panel>
+					<h:panelGrid columns="3" width="100%">
+						
+						<h:outputLabel value="A&#241;o"
+							for="anio" />
+						<h:outputText value="*" style="color : red" />
+						<h:selectOneMenu id="anio" required="true"
+							value="#{reportesBean.trimestreInicialSeleccionado}">
+							<f:selectItem itemValue="" itemLabel="-- Seleccione --"></f:selectItem>
+							<f:selectItems value="#{reportesBean.listaAnios}"></f:selectItems>
+						</h:selectOneMenu>
+						
+					</h:panelGrid>
+					<h:panelGrid columns="1" width="100%">						
+						<h:commandButton action="#{reportesBean.ejecutarReporteAnualTrimestral}" value="Consultar" />						
+					</h:panelGrid>
+				</rich:panel>
+			</rich:panel>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+

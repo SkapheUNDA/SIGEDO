@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dnda-trimestral" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="3.8906136901500052"/>
+	<property name="ireport.x" value="263"/>
+	<property name="ireport.y" value="551"/>
+	<parameter name="PARAM_CONCEPTOUNO" class="java.lang.String"/>
+	<parameter name="PARAM_CONCEPTODOS" class="java.lang.String"/>
+	<parameter name="PARAM_CONCEPTOTRES" class="java.lang.String"/>
+	<parameter name="PARAM_CONCEPTOCUATRO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT RGC_Id_Registro
+      ,RGC_Nom_Entidad
+      ,RGC_Valor_ConceptoCuatro
+      ,RGC_Valor_ConceptoDos
+      ,RGC_Valor_ConceptoTres
+      ,RGC_Valor_ConceptoUno
+  FROM SGC.Reporte_Gerencial_Consolidado]]>
+	</queryString>
+	<field name="RGC_Id_Registro" class="java.lang.Integer"/>
+	<field name="RGC_Nom_Entidad" class="java.lang.String"/>
+	<field name="RGC_Valor_ConceptoCuatro" class="java.lang.String"/>
+	<field name="RGC_Valor_ConceptoDos" class="java.lang.String"/>
+	<field name="RGC_Valor_ConceptoTres" class="java.lang.String"/>
+	<field name="RGC_Valor_ConceptoUno" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="21" width="555" height="30"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORME GERENCIAL CONSOLIDADO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="57" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<line>
+				<reportElement x="98" y="-1" width="447" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="98" y="0" width="111" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PARAM_CONCEPTOUNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="0" width="111" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PARAM_CONCEPTODOS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="434" y="0" width="111" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PARAM_CONCEPTOCUATRO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="0" width="111" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PARAM_CONCEPTOTRES}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="97" y="1" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="209" y="1" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="321" y="1" width="1" height="27"/>
+			</line>
+			<line>
+				<reportElement x="433" y="0" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="545" y="1" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="98" y="28" width="447" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="434" y="1" width="111" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RGC_Valor_ConceptoCuatro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="98" y="1" width="111" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RGC_Valor_ConceptoUno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="96" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RGC_Nom_Entidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="1" width="111" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RGC_Valor_ConceptoDos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="1" width="111" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RGC_Valor_ConceptoTres}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="16" width="545" height="1"/>
+			</line>
+			<line>
+				<reportElement x="97" y="1" width="1" height="15"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="67" splitType="Stretch">
+			<textField>
+				<reportElement x="379" y="45" width="136" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="45" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="45" width="205" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

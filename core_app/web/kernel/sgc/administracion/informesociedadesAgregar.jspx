@@ -1,0 +1,87 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.conconInformeSociedades} "></h:outputText>
+				</f:facet>
+
+			<h:panelGrid columns="3">
+
+					<h:outputLabel value="#{msg.conconinformesociedadesCodigoSociedad}"
+						for="codSociedad" style="text-align:right" />
+					<h:outputText value="*" style="color : red" />
+					<h:selectOneMenu id="idCodSociedad"
+						value="#{informeEntidadBean.idSociedad}"
+						 required="true" label="#{msg.conconinformesociedadesCodigoSociedad}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{informeEntidadBean.tiposSociedadesItems}" />
+					</h:selectOneMenu>
+
+
+					<h:outputLabel value="#{msg.conconinformesociedadesCodigoInforme}"
+						for="personeria" style="text-align:right" />
+					<h:outputText value="*" style="color : red" />
+					<h:selectOneMenu id="idCodInforme"
+						value="#{informeEntidadBean.idInforme}" required="true" label="#{msg.conconinformesociedadesCodigoInforme}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{informeEntidadBean.tiposInformes}" />
+					</h:selectOneMenu>
+
+					<h:outputLabel value="#{msg.conconinformesociedadObligatorio}"
+						for="autorizacion" style="text-align:right" />
+					<h:outputText value="*" style="color : red" />
+					<h:selectOneMenu id="obligatorio" value="#{informeEntidadBean.informeEntidad.obligatorio}" valueChangeListener="#{informeEntidadBean.validarObligatoriedad}"
+						label="#{msg.cconOpcional}"  required="true" >
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItem itemLabel="#{msg.conconinformersociedadesSi}"
+							itemValue="true" />
+						<f:selectItem itemLabel="#{msg.conconinformesociedadesNo}"
+							itemValue="false" />
+						<a4j:ajax event="valueChange" render="opcional" execute="@this" />							
+					</h:selectOneMenu>
+
+					<h:outputLabel value="#{msg.conconinformesociedadesOpcional}"
+						for="autorizacion" style="text-align:right" />
+					<h:outputText value="*" style="color : red" />
+					<h:selectOneMenu id="opcional" value="#{informeEntidadBean.informeEntidad.opcional}" valueChangeListener="#{informeEntidadBean.validarOpcional}"
+						label="#{msg.cconObligatorio}"  required="true" >
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItem itemLabel="#{msg.conconinformersociedadesSi}"
+							itemValue="true" />
+						<f:selectItem itemLabel="#{msg.conconinformesociedadesNo}"
+							itemValue="false" />
+						<a4j:ajax event="valueChange" render="obligatorio" execute="@this" />	
+					</h:selectOneMenu>
+				</h:panelGrid>
+
+				<div align="left">
+					<h:panelGrid columns="3">
+						<h:commandButton value="#{msg.conconpucCrear}"
+							action="#{informeEntidadBean.createOrReplace}"
+							onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+						</h:commandButton>
+
+					
+					</h:panelGrid>	
+				</div>
+			</rich:panel>
+	
+		</h:form>
+	</ui:define>
+</ui:composition>

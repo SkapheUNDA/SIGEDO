@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelCrearTipoDeAuditoria}"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="2" width="100%">
+						<h:outputLabel value="#{msg.conaudCodigoTipodeAuditoria}:"></h:outputLabel>
+
+						<h:inputText value="#{tipoAuditoriaBean.tipoauditoria.tauCodigo}"
+							required="true" id="Codigo"
+							label="#{msg.conaudCodigoTipodeAuditoria}">
+							<f:convertNumber />
+						</h:inputText>
+
+						<h:outputLabel value="#{msg.conaudNombreTipodeAuditoria}:"></h:outputLabel>
+
+						<h:inputText value="#{tipoAuditoriaBean.tipoauditoria.tauNombre}"
+							required="true" id="Nombre"
+							label="#{msg.conaudNombreTipodeAuditoria}"></h:inputText>
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" width="30%" style="text-align: center;">
+						<h:commandButton value="#{msg.conaudCrear}"
+							action="#{tipoAuditoriaBean.createOrReplace}"
+							onclick="if (!confirm('#{msg.conaudConfirmacionTipoAud}')) return false">
+							<f:setPropertyActionListener value="400" target="#{scroll}" />
+						</h:commandButton>
+
+						<h:commandButton value="#{msg.conaudCancelar}" immediate="true"
+							action="#{tipoAuditoriaBean.navListado}">
+						</h:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,10 @@
+
+.ui-dialog {
+	z-index: 99999 !important;
+}
+
+.uppercase  {
+  text-transform: uppercase !important;
+  }
+
+  

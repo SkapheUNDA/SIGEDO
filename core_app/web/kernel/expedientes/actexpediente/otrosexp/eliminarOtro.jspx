@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="../internalTemplate.jspx">
+	<ui:define name="content">
+
+		<div class="spacer15"></div>
+
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+
+			<h:inputHidden value="#{expedienteBean.idExpedienteSeleccionado}" />
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{ msg.labelAgregar}  #{msg.labelAnotaciones}"></h:outputText>
+				</f:facet>
+				<div align="center">
+					<h:panelGrid columns="2" width="100%"
+						columnClasses="columnLabelsForm,columnDatosForm">
+
+						<h:outputText value="#{msg.expproNomAnotacion}:" />
+						<h:inputText value="#{expedienteBean.nombreGeneric}" />
+						<h:outputText value="#{msg.expproAnotacion}:" />
+						<h:inputTextarea value="#{expedienteBean.observacionGeneric}"
+							style="width: 402px;height: 82px" />
+						<h:outputText value="#{msg.expproFechaCreacion}:" />
+						<rich:calendar value="#{expedienteBean.fechaUnoGeneric}"
+							datePattern="dd/MM/yyyy hh:mm a"></rich:calendar>
+						<h:outputText value="#{msg.expproFechaVec}:" />
+						<rich:calendar value="#{expedienteBean.fechaDosGeneric}"
+							datePattern="dd/MM/yyyy hh:mm a"></rich:calendar>
+					</h:panelGrid>
+					<div class="spacer15"></div>
+				</div>
+				<div align="center">
+					<h:panelGrid columns="2">
+						<h:commandButton action="#{expedienteBean.anotacionesExpAgregar}"
+							value="#{msg.labelGuardar}">
+						</h:commandButton>
+						<h:commandButton
+							action="#{expedienteBean.infoExpedienteNavegacion}"
+							value="#{msg.labelCancelar}">
+						</h:commandButton>
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+			<t:saveState value="#{expedienteBean.idExpedienteSeleccionado}"></t:saveState>
+			<t:saveState value="#{expedienteBean.expedienteSeleccionado}" />
+		</h:form>
+	</ui:define>
+</ui:composition>

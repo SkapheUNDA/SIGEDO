@@ -1,0 +1,128 @@
+<h:panelGroup
+	xmlns="http://www.w3.org/1999/xhtml"    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    <h:form id="documentMainForm">
+    	<h:outputText value="Falta configurar" style="display: #{treeBean.configurado ? 'none' : 'block'}"></h:outputText>
+    	<p:messages id="treeMessages" showDetail="true" autoUpdate="true" closable="true" />
+    	<h:panelGrid columns="2" style="margin-top: 10px">
+		    <p:commandButton id="movieBtn" value="#{treeBean.selectedNodePath}" type="button" />
+		    <p:inputText id="archivoNombre" value="#{treeBean.archivoNombre}" label="NombreArchivo" />
+	    </h:panelGrid>
+	    <p:overlayPanel id="moviePanel" for="movieBtn" hideEffect="fade" dynamic="true" widgetVar="treeover"
+	    style="width:600px;height:300px">
+	    	<h:panelGrid columns="1" style="width:600px;height:300px;">
+		    	<p:panel id="treeBasic" header="Carpetas del servidor" style="width:100%;height:250px;overflow: auto;display: block;">
+				    <p:tree id="treePanel1" value="#{treeBean.root}" var="node" dynamic="true" 
+				    selectionMode="single" selection="#{treeBean.selectedNode}" style="width: 100%;height: auto;">
+				    	<p:ajax event="expand" listener="#{treeBean.onNodeExpand}" />
+				    	<p:ajax event="select" update="treePanel1" listener="#{treeBean.onNodeSelect}" />
+				    	<p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+				            <h:outputText value="#{node.name}"/>
+				        </p:treeNode>
+				        <p:treeNode type="file" icon="ui-icon-document">
+				            <h:outputText value="#{node.name}" />
+				        </p:treeNode>
+				    </p:tree>
+			    </p:panel>
+			    <h:panelGrid columns="2" style="margin-top: 10px">
+			    	<p:commandButton value="Aceptar" actionListener="#{treeBean.aceptar}" oncomplete="treeover.hide();" update="movieBtn" />
+		    		<p:commandButton value="Cancelar" oncomplete="treeover.hide();" />
+		    	</h:panelGrid>
+		    </h:panelGrid>
+	    </p:overlayPanel>
+	    <p:editor id="editor" widgetVar="editorWidget" value="#{treeBean.cuerpoDocumento}" 
+	    controls="bold italic underline strikethrough alignleft center alignright justify bullets numbering indent outdent source undo redo"
+	    width="650" height="400" />
+	    <h:panelGrid columns="6" style="margin-top: 10px">
+	        <p:commandButton rendered="#{!treeBean.entrada.entLcon}" value="Guardar" actionListener="#{treeBean.guardar(0)}" update="editor" icon="ui-icon-disk" />
+	        <p:commandButton rendered="#{buscadorEntradasBean.grupoAdminTemplate}" value="#{msg.corresBtnNuevoTempl}" onclick="dlgTemplate.show();" update="editor" icon="ui-icon-heart" />
+	        <p:commandButton rendered="#{!treeBean.entrada.entLcon}" value="#{msg.corresBtnUsarTempl}" actionListener="#{treeBean.actualizarListaTemplates}" oncomplete="dlgTemplateOpen.show();" update="dialogoListaTemplates,editor" icon="ui-icon-folder-open" />
+	        <p:commandButton rendered="#{buscadorEntradasBean.grupoFirmante and !treeBean.entrada.entLcon}" value="Firmar" actionListener="#{treeBean.firmar}" update="editor" icon="ui-icon-check" />
+	        <p:commandButton rendered="#{!treeBean.entrada.entLcon}" value="Pdf" ajax="false" actionListener="#{treeBean.generarPdf}" update="editor" icon="ui-icon-document">
+		        <p:fileDownload value="#{treeBean.archivoPdf}" />
+		    </p:commandButton>
+
+			<p:commandButton rendered="#{buscadorEntradasBean.grupoFirmante and !treeBean.entrada.entLcon}" actionListener="#{treeBean.comenzarSalida}" 
+			value="Generar salida" icon="ui-icon-mail-closed" oncomplete="confirmDialog2.show()" update="entradasDeSalida"/>
+	    </h:panelGrid>
+	    
+        <p:dialog header="#{msg.corresTit2Template}" widgetVar="dlgTemplate" minHeight="40" width="650" resizable="false">
+		    <h:panelGrid columns="1" style="margin-top: 10px; width: 100%;">
+			    <h:outputText value="#{msg.corresInfoGuardarTempl}" style="width:100%;" />
+			    <p:inputText value="#{treeBean.archivoNombreTemplate}" label="NombreArchivo" style="width: 100%;" />
+		    	<p:commandButton value="Guardar" actionListener="#{treeBean.copiarTemplate(false)}" icon="ui-icon-disk" />
+		    </h:panelGrid>
+		</p:dialog>
+		
+		<p:dialog header="Reescribir?" widgetVar="dlgReescribir" minHeight="40" resizable="false" width="300">
+			 <h:outputText value="#{msg.corresMsgReescribir}" style="width:100%;" />
+			 <h:panelGrid columns="2" style="margin-top: 10px">
+			 	<p:commandButton value="Aceptar" actionListener="#{treeBean.copiarTemplate(true)}"
+			 	 icon="ui-icon-disk" oncomplete="dlgReescribir.hide()"/>
+			 	<p:commandButton value="Cancelar" onclick="dlgReescribir.hide()" icon="ui-icon-disk" />
+			 </h:panelGrid>
+		</p:dialog>
+		
+		<p:dialog
+			header="#{msg.corresGestDocConfirmTit}"
+			widgetVar="confirmDialog2" resizable="false">
+			<h:panelGrid columns="1" style="margin-top: 10px">
+				<h:outputText value="#{msg.corresGestDocConfirm}" />
+				<h:outputText id="msgMultipleEntrada" value="#{treeBean.msgMultipleEntrada}" style="font-weight: bold;" />
+				<p:inputText value="#{treeBean.textoBuscEntNen}" style="width: 100%;" />
+				<h:panelGrid columns="2" style="margin-top: 10px">
+					<p:commandButton value="Agregar Entrada" actionListener="#{treeBean.agregarEntrada}" update="entradasDeSalida,msgMultipleEntrada" />
+					<p:commandButton value="Borrar Seleccionadas" actionListener="#{treeBean.borrarEntradas}" update="entradasDeSalida,msgMultipleEntrada" />
+				</h:panelGrid>				
+				
+				<h:selectManyMenu id="entradasDeSalida" value="#{treeBean.entradasParaSalSel}" style="height:100px; width: 100%;" >
+			        <f:selectItems value="#{treeBean.entradasParaSalida}" var="entSal"
+			                itemValue="#{entSal.value}" itemLabel="#{entSal.label}">
+			        </f:selectItems>
+			    </h:selectManyMenu>
+				
+				<h:panelGrid columns="2" style="margin-top: 10px">
+					<p:commandButton value="#{msg.corresGestDocConfirmSi}"
+						actionListener="#{treeBean.generarSalida}" update="treeMessages"
+						oncomplete="confirmDialog2.hide()">
+						<f:actionListener binding="#{entradasBean.actualizarListaSalidas()}" />
+					</p:commandButton>
+					<p:commandButton value="No" onclick="confirmDialog2.hide();" type="button" />
+				</h:panelGrid>
+			</h:panelGrid>
+		</p:dialog>
+		
+		<p:dialog id="dialogoListaTemplates" header="#{msg.corresTitTemplate}" 
+		widgetVar="dlgTemplateOpen" minHeight="40" width="650" resizable="false">
+			<h:panelGrid columns="1" style="margin-top: 10px; width: 100%;">
+				<h:outputText value="#{msg.corresInfoTemplate}" />
+				<h:outputText style="font-weight: bold;" value="#{msg.corresAdvTemplate}" />
+				<p:panel id="templatesContainer" style="width:100%;height:200px;overflow: auto;display: block;">
+					<p:selectOneListbox id="basicListTemplates" value="#{treeBean.templateSeleccionado}" 
+					converter="themeConverter" var="t" filter="true" filterMatchMode="contains"
+					style="width:100%;">
+						<f:selectItems value="#{treeBean.templates}" var="theme" itemLabel="#{theme}" itemValue="#{theme}" />
+						
+						<p:column>
+			                <h:outputText value="#{t}" />
+			            </p:column>
+			        </p:selectOneListbox>
+		        </p:panel>
+				<p:commandButton value="Cargar" actionListener="#{treeBean.cargarTemplate}" icon="ui-icon-disk" update="editor" />
+			</h:panelGrid>
+		</p:dialog>
+		
+		<p:dialog id="dialogoConfirmarRemplazar" header="#{msg.corresTitConfRemp}" 
+		widgetVar="dlgTemplateConfRemp" minHeight="40" width="300" resizable="false">
+			<h:panelGrid columns="2" style="margin-top: 10px; width: 100%;">
+				<h:outputText value="#{msg.corresMsgConfRemp}" />
+				<h:outputText value=" " />
+				<p:commandButton rendered="#{!treeBean.entrada.entLcon}" value="Sí" actionListener="#{treeBean.guardar(1)}" update="editor" icon="ui-icon-disk" />
+				<p:commandButton value="No" onclick="dlgTemplateConfRemp.hide();" type="button" />
+			</h:panelGrid>
+		</p:dialog>
+		
+	</h:form> 
+</h:panelGroup>

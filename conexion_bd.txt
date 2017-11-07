@@ -1,0 +1,12 @@
+
+<Resource name="jdbc/AUTOR" auth="Container" type="javax.sql.DataSource"
+		maxActive="100" maxIdle="30" maxWait="10000"
+		username="sa" password="sqlserver"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://192.168.0.15\sql:50135;databaseName=AUTOR"/> 
+
+	<Resource name="jdbc/principalDB" auth="Container" type="javax.sql.DataSource"
+		maxActive="100" maxIdle="30" maxWait="10000"
+		username="sa" password="sqlserver"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://192.168.0.15\sql:50135;databaseName=AUTOR_PRODUCCION"/>

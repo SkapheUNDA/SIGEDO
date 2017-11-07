@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event listener="#{cambiaEtapaExpBean.cargaParametros}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+
+		
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.expproTituloEtapa}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%"
+					columnClasses="columnLabelsForm,columnDatosForm">
+					<h:outputText value="#{msg.expproNoExpediente}" />
+					<h:outputText
+						value="#{cambiaEtapaExpBean.expedienteSeleccionado.expCod}" />
+					<h:outputText value="#{msg.expproNomExpediente}" />
+					<h:outputText
+						value="#{cambiaEtapaExpBean.expedienteSeleccionado.expNom}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" width="100%"
+					columnClasses="columnLabelsForm,columnDatosForm">
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelInfoActual}" />
+					</f:facet>
+					<h:outputText value="#{msg.labelEtapaActual}" />
+					<h:outputText
+						value="#{cambiaEtapaExpBean.expedienteSeleccionado.estado.estNom}" />
+					<h:outputText value="#{msg.labelUsuario}" />
+					<h:outputText
+						value="#{cambiaEtapaExpBean.expedienteSeleccionado.usuarioTemp.usrNom}   #{cambiaEtapaExpBean.expedienteSeleccionado.usuarioTemp.usrPap}  #{cambiaEtapaExpBean.expedienteSeleccionado.usuarioTemp.usrSap}" />
+				</h:panelGrid>
+
+				<div class="spacer15"></div>
+
+				<h:panelGrid columns="2" width="100%"
+					columnClasses="columnLabelsForm,columnDatosForm">
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelInfoActual}" />
+					</f:facet>
+
+					<h:outputText value="#{msg.labelEvento}" />
+					<h:selectOneMenu value="#{cambiaEtapaExpBean.idEventoSeleccionado}"
+						required="false" label="#{msg.labelEvento}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{cambiaEtapaExpBean.eventoItems}" />
+					</h:selectOneMenu>
+					<h:outputText value="#{msg.labelUsuario}" />
+					<h:selectOneMenu value="#{cambiaEtapaExpBean.idUsuarioSeleccionado}"
+						required="false" label="#{msg.labelUsuario}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+						<f:selectItems value="#{cambiaEtapaExpBean.usuariosItems}" />
+					</h:selectOneMenu>
+					<h:outputText value="#{msg.labelObservaciones}" />
+					<h:inputTextarea value="#{cambiaEtapaExpBean.observacionGeneric}"
+						style=" width : 228px;" />
+				</h:panelGrid>
+				<div class="spacer15"></div>
+				<div align="center">
+					<h:panelGrid columns="2">
+						<h:commandButton action="#{cambiaEtapaExpBean.cambioEtapaExpediente}"
+							value="#{msg.labelcambiaEtapa}" />
+						<h:commandButton action="#{expedienteBean.infoExpedienteNavegacion}"
+							value="#{msg.labelCancelar}" />
+					</h:panelGrid>
+				</div>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

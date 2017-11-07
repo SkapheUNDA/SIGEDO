@@ -1,0 +1,306 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich" xmlns:ccom="http://customcomponents/jsf" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{entradasBean.cargarRegistroActualizar}"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formActualizar">
+
+			<rich:panel>
+
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelActualizar}"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm" styleClass="panelBorder">
+
+					<h:outputText value="#{msg.corresNoRadicacion}" />
+					<h:outputText value="#{entradasBean.entradaSeleccionada.entNen}" />
+
+
+					<h:outputText value="#{msg.corresFechaHoraRad}" />
+					<h:outputText value="#{entradasBean.entradaSeleccionada.entFen}">
+						<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+					</h:outputText>
+
+				</h:panelGrid>
+
+				<div class="spacer15"></div>
+
+				<h:panelGrid columns="2" width="100%">
+
+					<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm">
+
+
+						<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+						<h:selectOneMenu id="dependencia" required="true" value="#{entradasBean.idDependenciaSeleccionada}" label="#{msg.corresDependencia}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{entradasBean.dependenciasItems}" />
+							<a4j:ajax render="clasificacion" immediate="true" limitRender="true" execute="@this" event="valueChange"></a4j:ajax>
+						</h:selectOneMenu>
+
+
+						<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+						<h:selectOneMenu id="clasificacion" required="true" disabled="#{empty entradasBean.idDependenciaSeleccionada}" value="#{entradasBean.idClasificacionSeleccionada}" label="#{msg.corresClasificacion}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{entradasBean.clasificacionItems}" />
+							<p:ajax update=":formActualizar:panelContainerTabPanel" process="@this" partialSubmit="true" listener="#{entradasBean.cargarConfiguracionCampos}"></p:ajax>
+							<a4j:ajax render="estado" immediate="true" limitRender="true" execute="@this" event="valueChange"></a4j:ajax>
+						</h:selectOneMenu>
+						
+						<h:outputText value="#{msg.corresEstado}"></h:outputText>
+						<h:selectOneMenu id="estado" required="true" disabled="#{empty entradasBean.idClasificacionSeleccionada}" value="#{entradasBean.idEstadoSeleccionado}" label="#{msg.corresEstado}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{entradasBean.estadosItems}" />
+						</h:selectOneMenu>
+
+						<h:outputLabel for="recibidapor" value="#{msg.corresRecibidaPor}"></h:outputLabel>
+						<h:selectOneMenu id="recibidapor" value="#{entradasBean.idMedioSeleccionada}" required="true">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" itemValue="#{null}" />
+							<f:selectItems value="#{entradasBean.mediosItems}" />
+						</h:selectOneMenu>
+
+						<h:outputLabel for="corresAsunto" value="#{msg.corresAsunto}"></h:outputLabel>
+						<h:inputTextarea id="corresAsunto" cols="80" rows="5" value="#{entradasBean.entradaSeleccionada.entAsu}" />
+
+
+					</h:panelGrid>
+				</h:panelGrid>
+				<div class="spacer15"></div>
+				<h:panelGroup id="panelContainerTabPanel">
+
+					<rich:tabPanel switchType="client" id="tabsDetailForm" rendered="#{!empty entradasBean.idClasificacionSeleccionada}">
+						<rich:tab header="#{msg.corresDatosSolicitanteRemitente}">
+							<h:panelGrid columns="2" width="100%" columnClasses="columnLeftTop,columnRigthTop">
+								<h:panelGrid columns="1" width="100%">
+
+
+									<h:outputLink onclick="modalPersonaNatural.show();" value="#">BUSCAR PERSONA NATURAL</h:outputLink>
+
+									<h:panelGroup id="panelSolicitante">
+										<h:panelGrid columns="3" width="100%" styleClass="panelBorder">
+
+											<h:outputLabel for="idTipoDocumentoSol" value="#{msg.corresTipoDocumento}"></h:outputLabel>
+											<h:outputLabel for="entNdo" value="#{msg.corresNoIdentificacion}"></h:outputLabel>
+											<h:outputLabel for="nacionalidad" value="#{msg.corresNacionalidad}"></h:outputLabel>
+
+
+											<h:selectOneMenu id="idTipoDocumentoSol" value="#{entradasBean.idTipoDocumentoSol}" required="true">
+												<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+												<f:selectItems value="#{entradasBean.tiposDocumentosItems}" />
+											</h:selectOneMenu>
+
+											<h:inputText value="#{entradasBean.entradaSeleccionada.entNdo}" id="entNdo"	required="true" />
+
+											<h:selectOneMenu id="nacionalidad" value="#{entradasBean.idPaisSeleccionado}" label="#{msg.corresNacionalidad}"	required="true">
+												<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+												<f:selectItems value="#{entradasBean.paisesItems}" />
+											</h:selectOneMenu>
+
+											<h:outputLabel for="entNom" value="#{msg.corresPersonasNombres}"></h:outputLabel>
+											<h:outputLabel for="entPap" value="#{msg.corresPersonasPrimerApellido}"></h:outputLabel>
+											<h:outputLabel for="entSap" value="#{msg.corresPersonasSegundoApellido}"></h:outputLabel>
+
+											<h:inputText value="#{entradasBean.entradaSeleccionada.entNom}" id="entNom" required="true" />
+											<h:inputText value="#{entradasBean.entradaSeleccionada.entPap}" id="entPap" required="true" />
+											<h:inputText value="#{entradasBean.entradaSeleccionada.entSap}" id="entSap" required="false" />
+
+
+										</h:panelGrid>
+
+										<rich:panel header="#{msg.corresDomicilioCorrespondencia}">
+											<h:panelGrid columns="2" columnClasses="columnLabelsForm,columnDatosForm" width="100%">
+												<h:outputLabel for="entDir" value="#{msg.corresDireccion}"></h:outputLabel>
+												<h:inputText value="#{entradasBean.entradaSeleccionada.entDir}" id="entDir" disabled="#{not entradasBean.configuracionFormulario[cmpCorrespondencia.DIRECCION].disabled}"
+													required="#{entradasBean.configuracionFormulario[cmpCorrespondencia.DIRECCION].required}" />
+
+												<h:outputLabel for="lugar" value="#{msg.corresCiudad}"></h:outputLabel>
+												<h:selectOneMenu value="#{entradasBean.idLugarSeleccionado}" label="#{msg.corresCiudad}" id="lugar" disabled="#{not entradasBean.configuracionFormulario[cmpCorrespondencia.CIUDAD].disabled}"
+													required="#{entradasBean.configuracionFormulario[cmpCorrespondencia.CIUDAD].required}">
+													<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+													<f:selectItems value="#{entradasBean.lugaresItems}" />
+												</h:selectOneMenu>
+
+												<h:outputLabel for="entTel" value="#{msg.corresTelefono}"></h:outputLabel>
+												<h:inputText value="#{entradasBean.entradaSeleccionada.entTel}" id="entTel" disabled="#{not entradasBean.configuracionFormulario[cmpCorrespondencia.TELEFONO].disabled}"
+													required="#{entradasBean.configuracionFormulario[cmpCorrespondencia.TELEFONO].required}" />
+
+												<h:outputLabel for="entFax" value="#{msg.corresFax}"></h:outputLabel>
+												<h:inputText value="#{entradasBean.entradaSeleccionada.entFax}" id="entFax" disabled="#{not entradasBean.configuracionFormulario[cmpCorrespondencia.FAX].disabled}"
+													required="#{entradasBean.configuracionFormulario[cmpCorrespondencia.FAX].required}" />
+
+												<h:outputLabel for="entCel" value="#{msg.corresCorreoElectronico}"></h:outputLabel>
+												<h:inputText value="#{entradasBean.entradaSeleccionada.entCel}" id="entCel" disabled="#{not entradasBean.configuracionFormulario[cmpCorrespondencia.EMAIL].disabled}"
+													required="#{entradasBean.configuracionFormulario[cmpCorrespondencia.EMAIL].required}" />
+											</h:panelGrid>
+										</rich:panel>
+									</h:panelGroup>
+								</h:panelGrid>
+								<h:panelGrid columns="1" width="100%">
+
+									<div class="spacer15"></div>
+									<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm" styleClass="panelBorder">
+
+										<h:outputLabel for="tipoPersona" value="#{msg.corresPersona}"></h:outputLabel>
+										<h:selectOneMenu id="tipoPersona" required="true" value="#{entradasBean.idTiposPersonaSeleccionado}">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+											<f:selectItems value="#{entradasBean.tiposPersonaItems}" />
+											<p:ajax update=":formActualizar:panelGroupPersonaJuridica" process="@this" partialSubmit="true" event="valueChange"></p:ajax>
+										</h:selectOneMenu>
+
+										<h:outputLabel for="calidadrepresentante" value="#{msg.corresEnCalidadde}"></h:outputLabel>
+										<h:selectOneMenu id="calidadrepresentante" required="true" value="#{entradasBean.idCalidadRepreSeleccionado}" label="#{msg.corresEnCalidadde}">
+											<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+											<f:selectItems value="#{entradasBean.calidadRepresentanteItems}" />
+										</h:selectOneMenu>
+
+									</h:panelGrid>
+									<h:panelGroup id="panelGroupPersonaJuridica">
+										<rich:panel header="#{msg.corresPersonaJuridica}" id="panelPersonaJuridica" rendered="#{entradasBean.idTiposPersonaSeleccionado == 2}">
+											<h:outputLink onclick="modalPersonaJuridica.show();" value="#">BUSCAR PERSONA JURIDICA</h:outputLink>
+											<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm">
+												<h:outputLabel for="entIde" value="#{msg.corresNoIdentificacion}"></h:outputLabel>
+												<h:inputText value="#{entradasBean.entradaSeleccionada.entIde}" id="entIde" disabled="#{not entradasBean.configuracionFormulario[cmpCorrespondencia.ID_ENTIDAD].disabled}"
+													required="#{entradasBean.configuracionFormulario[cmpCorrespondencia.ID_ENTIDAD].required}" />
+
+												<h:outputLabel for="entEnt" value="#{msg.corresPersonaJuridica}"></h:outputLabel>
+												<h:inputText value="#{entradasBean.entradaSeleccionada.entEnt}" id="entEnt" disabled="#{not entradasBean.configuracionFormulario[cmpCorrespondencia.ENTIDAD].disabled}"
+													required="#{entradasBean.configuracionFormulario[cmpCorrespondencia.ENTIDAD].required}" />
+
+												<h:outputLabel for="entCar" value="#{msg.corresCargo}"></h:outputLabel>
+												<h:inputText value="#{entradasBean.entradaSeleccionada.entCar}" id="entCar" />
+											</h:panelGrid>
+										</rich:panel>
+									</h:panelGroup>
+								</h:panelGrid>
+							</h:panelGrid>
+						</rich:tab>
+						<rich:tab header="#{msg.corresAnexosOtros}">
+							<h:panelGrid columns="2" width="100%" columnClasses="columnLeftTop,columnRigthTop">
+								<h:panelGroup>
+									<h:outputText value="#{msg.corresListadoAnexos}"></h:outputText>
+									<rich:dataTable var="anexo" value="#{entradasBean.anexosClasificacion}" style="width:100%;">
+										<rich:column>
+											<f:facet name="header">
+												<h:outputText value="#{msg.labelAnexo}" />
+											</f:facet>
+											<h:outputText value="#{anexo.anxNom}" />
+										</rich:column>
+										<rich:column style="width: 5%;">
+											<f:facet name="header">
+												<h:outputText value="#{msg.labelFolios}" />
+											</f:facet>
+											<p:inputMask value="#{anexo.numFolios}" mask="9?99" size="3" />
+										</rich:column>
+
+									</rich:dataTable>
+								</h:panelGroup>
+								<h:panelGroup>
+									<h:outputLabel value="#{msg.corresObservaciones}" for="entObs"></h:outputLabel>
+									<h:inputTextarea cols="80" rows="10" value="#{entradasBean.entradaSeleccionada.entObs}" label="#{msg.labelObservaciones}" id="entObs" />
+
+								</h:panelGroup>
+							</h:panelGrid>
+							<rich:panel header="#{msg.corresInforDocOrigen}" id="panelInforDocOrigen">
+								<h:panelGrid columns="3" width="100%">
+
+									<h:outputLabel for="entNrf" value="#{msg.corresNumReferencia}"></h:outputLabel>
+									<h:outputLabel for="entFrf" value="#{msg.corresFechaRef}"></h:outputLabel>
+									<h:outputLabel for="entNrd" value="#{msg.corresAsuntoDocumento}"></h:outputLabel>
+
+									<h:inputText value="#{entradasBean.entradaSeleccionada.entNrf}" id="entNrf" disabled="#{not entradasBean.configuracionFormulario[cmpCorrespondencia.ORIGEN_REFERENCIA].disabled}"
+										required="#{entradasBean.configuracionFormulario[cmpCorrespondencia.ORIGEN_REFERENCIA].required}" />
+
+									<rich:calendar value="#{entradasBean.entradaSeleccionada.entFrf}" id="entFrf" required="true" inputSize="16" direction="topRight" datePattern="dd/MM/yyyy" />
+
+									<h:inputText value="#{entradasBean.entradaSeleccionada.entNrd}" id="entNrd" size="35" disabled="#{not entradasBean.configuracionFormulario[cmpCorrespondencia.ORIGEN_ASUNTO].disabled}"
+										required="#{entradasBean.configuracionFormulario[cmpCorrespondencia.ORIGEN_ASUNTO].required}" />
+
+								</h:panelGrid>
+
+							</rich:panel>
+
+						</rich:tab>
+						<rich:tab header="#{msg.corresCopiasEnlaces}">
+
+							<h:selectBooleanCheckbox value="#{entradasBean.respuestaSalida}">
+								<p:ajax update=":formActualizar:panelSalidasContainer" process="@this" partialSubmit="true"></p:ajax>
+							</h:selectBooleanCheckbox>
+							<h:outputText value="#{msg.corresRespuestaSalida}" />
+							<h:panelGroup id="panelSalidasContainer">
+								<h:panelGrid id="panelSalidas" columns="1" width="100%" styleClass="panelBorder" rendered="#{entradasBean.respuestaSalida}">
+									<h:outputLink onclick="modalSalida.show();" value="#">BUSCAR SALIDA</h:outputLink>
+									<rich:dataTable var="salidaSelect" value="#{entradasBean.salidasSeleccionadas}" style="width:100%;" id="tablaSalidas">
+										<f:facet name="header">
+											<rich:columnGroup>
+												<rich:column>
+													<h:outputText value="#{msg.corresNoRadicacion}"></h:outputText>
+												</rich:column>
+												<rich:column>
+													<h:outputText value="#{msg.corresFechaHora}"></h:outputText>
+												</rich:column>
+												<rich:column>
+													<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+												</rich:column>
+												<rich:column>
+													<h:outputText value="#{msg.corresPersonasNombres}"></h:outputText>
+												</rich:column>
+												<rich:column>
+													<h:outputText value="#{msg.corresPersonasPrimerApellido}"></h:outputText>
+												</rich:column>
+												<rich:column>
+													<h:outputText value="#{msg.corresPersonasSegundoApellido}"></h:outputText>
+												</rich:column>
+												<rich:column />
+											</rich:columnGroup>
+										</f:facet>
+										<rich:column>
+											<h:outputText value="#{salidaSelect.salNsa}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{salidaSelect.salFsa}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{salidaSelect.salAsu}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{salidaSelect.salNom}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{salidaSelect.salPap}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{salidaSelect.salSap}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<p:commandLink style="color: #FFFFFF;" action="#{entradasBean.quitarSalida(salidaSelect)}" update="tablaSalidas" execute="@this" immediate="true">
+												<h:graphicImage width="16" height="16" alt="#{msg.labelSeleccionar}" title="#{msg.labelSeleccionar}" url="/img/icons/control_remove.png"></h:graphicImage>
+
+											</p:commandLink>
+										</rich:column>
+
+									</rich:dataTable>
+
+								</h:panelGrid>
+							</h:panelGroup>
+						</rich:tab>
+					</rich:tabPanel>
+				</h:panelGroup>
+				<div align="center">
+					<h:panelGrid columns="1">
+						<h:commandButton value="#{msg.labelActualizar}" action="#{entradasBean.actualizar}" />
+					</h:panelGrid>
+				</div>
+			</rich:panel>
+		</h:form>
+
+		<ccom:modalPersonaNatural objetoSeleccionado="#{entradasBean.personaNaturalSeleccionada}" renderPanel=":formActualizar:panelSolicitante" resetInput=":formActualizar:panelSolicitante"></ccom:modalPersonaNatural>
+
+		<ccom:modalPersonaJuridica objetoSeleccionado="#{entradasBean.personaJuridicaSeleccionada}" renderPanel=":formActualizar:panelPersonaJuridica" resetInput=":formActualizar:panelPersonaJuridica"></ccom:modalPersonaJuridica>
+
+		<ccom:modalSalidas objetoSeleccionado="#{entradasBean.salidaSeleccionada}" renderPanel=":formActualizar:tablaSalidas" />
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formActualizar"
+			enctype="multipart/form-data">			
+			<f:metadata>
+				<f:event type="preRenderView"
+					listener="#{personaJuridicaBean.cargarRegistro}" />
+			</f:metadata>
+			
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelActualizar}"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="2" width="100%" styleClass="panelBorder">
+					<h:outputLabel for="entIde" value="#{msg.corresNoIdentificacion}"></h:outputLabel>
+					<h:outputLabel for="entNom" value="#{msg.corresPersonasNombre}"></h:outputLabel>
+
+					<h:inputText
+						value="#{personaJuridicaBean.juridicaSeleccionada.etdIde}"
+						id="entIde" delay="1000" 
+						required="#{personaJuridicaBean.muestrese}"  />
+
+					<h:inputText
+						value="#{personaJuridicaBean.juridicaSeleccionada.etdNom}"
+						id="entNom" required="true" styleClass="uppercase" />
+				</h:panelGrid>
+
+				<rich:panel header="#{msg.modalDatosPersonaJuridica}">
+					<h:panelGrid columns="2"
+						columnClasses="columnLabelsForm,columnDatosForm" width="100%">
+						<h:outputLabel for="entDir" value="#{msg.corresDireccion}"></h:outputLabel>
+						<h:inputText
+							value="#{personaJuridicaBean.juridicaSeleccionada.etdDir}"
+							id="entDir" styleClass="uppercase" />
+
+						<h:outputLabel for="entTel" value="#{msg.corresTelefono}"></h:outputLabel>
+						<h:inputText
+							value="#{personaJuridicaBean.juridicaSeleccionada.etdTl1}"
+							id="entTel" />
+
+						<h:outputLabel for="entFax" value="#{msg.corresFax}"></h:outputLabel>
+						<h:inputText
+							value="#{personaJuridicaBean.juridicaSeleccionada.etdFax}"
+							id="entFax" />
+
+						<h:outputLabel for="entCel" value="#{msg.corresCorreoElectronico}"></h:outputLabel>
+						<h:inputText
+							value="#{personaJuridicaBean.juridicaSeleccionada.etdCel}"
+							id="entCel" />
+
+						<h:outputLabel for="entWeb" value="#{msg.corresWeb}"></h:outputLabel>
+						<h:inputText
+							value="#{personaJuridicaBean.juridicaSeleccionada.etdWeb}"
+							id="entWeb" />
+					</h:panelGrid>
+					<h:panelGroup id="buttonGroup">
+						<div class="spacer15"></div>
+						<div align="center">
+							<h:commandButton value="#{msg.labelActualizar}"
+								action="#{personaJuridicaBean.actualizarJuridica}" ajax="false"
+								onclick="if (!confirm('#{msg.modalMensajeConfirmacionJuridica}')) return false">
+							</h:commandButton>
+						</div>
+					</h:panelGroup>
+					<div class="spacer15"></div>
+				</rich:panel>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

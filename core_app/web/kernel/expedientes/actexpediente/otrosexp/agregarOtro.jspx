@@ -1,0 +1,127 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="../detalleTemplate.jspx">
+	<ui:define name="content">
+
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+
+			<h:inputHidden value="#{expedienteBean.idExpedienteSeleccionado}" />
+			<h:panelGrid id="fireHiddens">
+				<h:inputHidden value="#{expedienteBean.personaSeleccionada.perId}" />
+				<h:inputHidden value="#{expedienteBean.entidadSeleccionada.etdId}" />
+				<h:inputHidden value="#{expedienteBean.idTiposPersonaSeleccionado}" />
+			</h:panelGrid>
+
+			<!-- Seccion de formulario para agregar -->
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText
+						value="#{ msg.labelAgregar}  #{msg.labelOtrasPersonas}"></h:outputText>
+				</f:facet>
+				<div align="center">
+					<h:panelGrid columns="2" width="100%"
+						columnClasses="columnLabelsForm,columnDatosForm">
+
+						<h:outputText value="#{msg.labelTipoPersona}:" />
+						<h:selectOneMenu required="false" label="#{msg.labelTipoPersona}"
+							value="#{expedienteBean.idTiposPersonaSeleccionado}">
+							<f:selectItem itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{expedienteBean.tiposPersonaItems}" />
+							<p:ajax
+								update=":formAgregar:panelTiposPersona,:formAgregar:panelPNatural, ,:formAgregar:panelDEmpresas"
+								process="@form" partialSubmit="true" event="valueChange"></p:ajax>
+						</h:selectOneMenu>
+					</h:panelGrid>
+
+					<h:panelGroup id="panelTiposPersona">
+						<h:panelGrid id="panelNatural"
+							columnClasses="columnLabelsForm,columnDatosForm" columns="2"
+							width="100%"
+							rendered="#{expedienteBean.idTiposPersonaSeleccionado == '1'}">
+							<h:outputLink onclick="modalPersonaNatural.show();" value="#">#{msg.labelBuscarPersona}</h:outputLink>
+							<h:outputText value="" />
+						</h:panelGrid>
+
+						<h:panelGrid id="panelEmpresas"
+							columnClasses="columnLabelsForm,columnDatosForm" columns="2"
+							width="100%"
+							rendered="#{expedienteBean.idTiposPersonaSeleccionado == '2'}">
+							<h:outputLink onclick="modalPersonaJuridica.show();" value="#">#{msg.labelBuscarEmpresa}</h:outputLink>
+							<h:outputText value="" />
+						</h:panelGrid>
+
+					</h:panelGroup>
+
+
+					<h:panelGroup id="panelDEmpresas">
+						<h:panelGrid columns="2" width="100%"
+							rendered="#{expedienteBean.idTiposPersonaSeleccionado == '2'}"
+							columnClasses="columnLabelsForm,columnDatosForm">
+							<h:outputText value="#{msg.labelNomEmpresa}" />
+							<h:outputText
+								value="#{expedienteBean.entidadSeleccionada.etdNom}"></h:outputText>
+						</h:panelGrid>
+					</h:panelGroup>
+
+					<h:panelGroup id="panelPNatural">
+						<h:panelGrid columns="2" width="100%"
+							rendered="#{expedienteBean.idTiposPersonaSeleccionado == '1'}"
+							columnClasses="columnLabelsForm,columnDatosForm">
+							<h:outputText value="#{msg.labelNomPersona}:" />
+							<h:outputText
+								value="#{expedienteBean.personaSeleccionada.perNom} #{expedienteBean.personaSeleccionada.perPap} #{expedienteBean.personaSeleccionada.perSap}" />
+						</h:panelGrid>
+					</h:panelGroup>
+
+					<h:panelGrid columns="2" width="100%"
+						columnClasses="columnLabelsForm,columnDatosForm">
+						<h:outputText value="#{msg.labelObservaciones}:" />
+						<h:inputTextarea value="#{expedienteBean.observacionGeneric}"
+							style="width: 402px;height: 82px" />
+
+					</h:panelGrid>
+					<div class="spacer15"></div>
+				</div>
+
+				<div align="center">
+					<h:panelGrid columns="2">
+						<h:commandButton action="#{expedienteBean.otrosExpAgregar}"
+							value="#{msg.labelGuardar}">
+						</h:commandButton>
+						<h:commandButton
+							action="#{expedienteBean.infoExpedienteNavegacion}"
+							value="#{msg.labelCancelar}">
+						</h:commandButton>
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+
+		</h:form>
+
+		<ccom:modalPersonaNatural
+			objetoSeleccionado="#{expedienteBean.personaSeleccionada}"
+			renderPanel=":formAgregar:panelPNatural,:formAgregar:fireHiddens"
+			resetInput=":formAgregar:panelPNatural"></ccom:modalPersonaNatural>
+
+		<ccom:modalPersonaJuridica
+			renderPanel=":formAgregar:fireHiddens,:formAgregar:panelDEmpresas"
+			objetoSeleccionado="#{expedienteBean.entidadSeleccionada}"
+			resetInput=":formAgregar:panelDEmpresas"></ccom:modalPersonaJuridica>
+
+		<t:saveState value="#{expedienteBean.idExpedienteSeleccionado}"></t:saveState>
+		<t:saveState value="#{expedienteBean.expedienteSeleccionado}" />
+		<t:saveState value="#{expedienteBean.entidadSeleccionada}"></t:saveState>
+		<t:saveState value="#{expedienteBean.idTiposPersonaSeleccionado}"></t:saveState>
+		<t:saveState value="#{expedienteBean.personaSeleccionada}"></t:saveState>
+
+	</ui:define>
+</ui:composition>

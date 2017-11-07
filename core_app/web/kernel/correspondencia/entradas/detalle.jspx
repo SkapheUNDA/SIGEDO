@@ -1,0 +1,377 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich" xmlns:ccom="http://customcomponents/jsf" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+
+
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{entradasBean.cargarRegistroDetalle}"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formDetalle">
+
+			<rich:panel>
+
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelDetalle}"></h:outputText>
+				</f:facet>
+
+
+
+				<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm" styleClass="panelBorder">
+
+					<h:outputText value="#{msg.corresNoRadicacion}" />
+					<h:outputText value="#{entradasBean.entradaSeleccionada.entNen}" />
+
+
+					<h:outputText value="#{msg.corresFechaHoraRad}" />
+					<h:outputText value="#{entradasBean.entradaSeleccionada.entFen}">
+						<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+					</h:outputText>
+
+				</h:panelGrid>
+
+				<div class="spacer15"></div>
+
+
+				<h:panelGrid columns="1" width="100%">
+
+
+					<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm">
+
+						<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+						<h:outputText value="#{entradasBean.entradaSeleccionada.dependencia.depNom}"></h:outputText>
+
+						<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+						<h:outputText value="#{entradasBean.entradaSeleccionada.clasificacion.claNom}"></h:outputText>
+
+						<h:outputText value="#{msg.corresRecibidaPor}"></h:outputText>
+						<h:outputText value="#{entradasBean.entradaSeleccionada.medio.medNom}"></h:outputText>
+
+						<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+						<h:outputText value="#{entradasBean.entradaSeleccionada.entAsu}" />
+					</h:panelGrid>
+
+					<div class="spacer15"></div>
+
+					<h:panelGroup id="panelContainerTabPanel">
+
+						<rich:tabPanel switchType="client" id="tabsDetailFormmModalEntrada">
+							<rich:tab header="#{msg.corresDatosSolicitanteRemitente}">
+								<h:panelGrid columns="2" width="100%" columnClasses="columnLeftTop,columnRigthTop">
+									<h:panelGrid columns="1" width="100%">
+										<h:panelGrid columns="2" width="100%" id="panelSolicitante" styleClass="panelBorder" columnClasses="columnLabelsForm,columnDatosForm">
+
+											<h:outputText value="#{msg.corresTipoDocumento}"></h:outputText>
+											<h:outputText value="#{entradasBean.entradaSeleccionada.tiposdocumento.tdoNom}"></h:outputText>
+
+											<h:outputText value="#{msg.corresNoIdentificacion}"></h:outputText>
+											<h:outputText value="#{entradasBean.entradaSeleccionada.entNdo}"></h:outputText>
+
+											<h:outputText value="#{msg.corresNacionalidad}"></h:outputText>
+											<h:outputText value="#{entradasBean.entradaSeleccionada.pais.paiNom}"></h:outputText>
+
+											<h:outputText value="#{msg.corresPersonasNombres}"></h:outputText>
+											<h:outputText value="#{entradasBean.entradaSeleccionada.entNom}"></h:outputText>
+
+											<h:outputText value="#{msg.corresPersonasPrimerApellido}"></h:outputText>
+											<h:outputText value="#{entradasBean.entradaSeleccionada.entPap}"></h:outputText>
+
+											<h:outputText value="#{msg.corresPersonasSegundoApellido}"></h:outputText>
+											<h:outputText value="#{entradasBean.entradaSeleccionada.entSap}"></h:outputText>
+
+										</h:panelGrid>
+
+										<rich:panel header="#{msg.corresDomicilioCorrespondencia}">
+											<h:panelGrid columns="2" columnClasses="columnLabelsForm,columnDatosForm" width="100%">
+												<h:outputText value="#{msg.corresDireccion}"></h:outputText>
+												<h:outputText value="#{entradasBean.entradaSeleccionada.entDir}"></h:outputText>
+
+												<h:outputText value="#{msg.corresCiudad}"></h:outputText>
+												<h:outputText value="#{entradasBean.entradaSeleccionada.lugar.lugCiu}"></h:outputText>
+
+												<h:outputText value="#{msg.corresTelefono}"></h:outputText>
+												<h:outputText value="#{entradasBean.entradaSeleccionada.entTel}"></h:outputText>
+
+												<h:outputText value="#{msg.corresFax}"></h:outputText>
+												<h:outputText value="#{entradasBean.entradaSeleccionada.entFax}"></h:outputText>
+
+												<h:outputText value="#{msg.corresCorreoElectronico}"></h:outputText>
+												<h:outputText value="#{entradasBean.entradaSeleccionada.entCel}"></h:outputText>
+
+											</h:panelGrid>
+										</rich:panel>
+
+									</h:panelGrid>
+									<h:panelGrid columns="1" width="100%">
+										<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm" styleClass="panelBorder">
+
+											<h:outputText value="#{msg.corresPersona}"></h:outputText>
+											<h:outputText value="#{entradasBean.entradaSeleccionada.tipoPersona.tpeNom}"></h:outputText>
+
+											<h:outputText value="#{msg.corresEnCalidadde}"></h:outputText>
+											<h:outputText value="#{entradasBean.entradaSeleccionada.calidadRepresentante.calNom}"></h:outputText>
+
+										</h:panelGrid>
+										<h:panelGroup id="panelGroupPersonaJuridicaModalEntrada">
+											<rich:panel header="#{msg.corresPersonaJuridica}" id="panelPersonaJuridicaModalEntrada" rendered="#{entradasBean.entradaSeleccionada.tipoPersona.tpeId == 2}">
+
+												<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm">
+													<h:outputText value="#{msg.corresNoIdentificacion}"></h:outputText>
+													<h:outputText value="#{entradasBean.entradaSeleccionada.entIde}"></h:outputText>
+
+													<h:outputText value="#{msg.corresPersonaJuridica}"></h:outputText>
+													<h:outputText value="#{entradasBean.entradaSeleccionada.entEnt}"></h:outputText>
+
+													<h:outputText value="#{msg.corresCargo}"></h:outputText>
+													<h:outputText value="#{entradasBean.entradaSeleccionada.entCar}"></h:outputText>
+												</h:panelGrid>
+											</rich:panel>
+										</h:panelGroup>
+									</h:panelGrid>
+								</h:panelGrid>
+							</rich:tab>
+							<rich:tab header="#{msg.corresAnexosOtros}">
+								<h:panelGrid columns="2" width="100%" columnClasses="columnLeftTop,columnRigthTop">
+									<h:panelGroup>
+										<h:outputText value="#{msg.corresListadoAnexos}"></h:outputText>
+										
+										<rich:dataTable var="descargable" value="#{entradasBean.descargables}" style="width:100%;">
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="Archivo descargable" />
+												</f:facet>
+												<p:commandButton value="#{descargable.nombre}" ajax="false" icon="ui-icon-arrowthick-1-s">
+											        <p:fileDownload value="#{descargable.dato}" />
+											    </p:commandButton>
+											</rich:column>
+										</rich:dataTable>
+										
+										<rich:dataTable var="anexo" value="#{entradasBean.anexosClasificacion}" style="width:100%;">
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="#{msg.labelAnexo}" />
+												</f:facet>
+												<h:outputText value="#{anexo.anxNom}" />
+											</rich:column>
+											<rich:column style="width: 5%;">
+												<f:facet name="header">
+													<h:outputText value="#{msg.labelFolios}" />
+												</f:facet>
+												<p:inputMask value="#{anexo.numFolios}" mask="9?99" size="3" />
+											</rich:column>
+										</rich:dataTable>
+									</h:panelGroup>
+									<h:panelGroup>
+										<h:outputText value="#{msg.gestDocConsulta}"></h:outputText>
+										<br/>
+										<h:outputText styleClass="observacionEntrada" value="#{entradasBean.entradaSeleccionada.entObs}"></h:outputText>
+
+									</h:panelGroup>
+								</h:panelGrid>
+								<rich:panel header="#{msg.corresInforDocOrigen}" id="panelInforDocOrigen">
+									<h:panelGrid columns="3" width="100%">
+
+										<h:outputText value="#{msg.corresNumReferencia}"></h:outputText>
+										<h:outputText value="#{msg.corresFechaRef}"></h:outputText>
+										<h:outputText value="#{msg.corresAsuntoDocumento}"></h:outputText>
+
+										<h:outputText value="#{entradasBean.entradaSeleccionada.entNrf}"></h:outputText>
+										<h:outputText value="#{entradasBean.entradaSeleccionada.entFrf}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+										<h:outputText value="#{entradasBean.entradaSeleccionada.entNrd}"></h:outputText>
+
+									</h:panelGrid>
+
+								</rich:panel>
+
+							</rich:tab>
+							<rich:tab header="#{msg.corresCopiasEnlaces}">
+
+								<h:selectBooleanCheckbox value="#{entradasBean.entradaSeleccionada.entLrsa}" disabled="true"></h:selectBooleanCheckbox>
+								<h:outputText value="#{msg.corresRespuestaSalida}" />
+								<h:panelGroup id="panelSalidasContainerModalEntrada">
+									<h:panelGrid id="panelSalidasModalEntrada" columns="1" width="100%" styleClass="panelBorder" rendered="#{entradasBean.entradaSeleccionada.entLrsa}">
+										<rich:dataTable var="salidaSelect" value="#{entradasBean.salidasSeleccionadas}" style="width:100%;" id="tablaSalidas">
+											<f:facet name="header">
+												<rich:columnGroup>
+													<rich:column>
+														<h:outputText value="#{msg.corresNoRadicacion}"></h:outputText>
+													</rich:column>
+													<rich:column>
+														<h:outputText value="#{msg.corresFechaHora}"></h:outputText>
+													</rich:column>
+													<rich:column>
+														<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+													</rich:column>
+													<rich:column>
+														<h:outputText value="#{msg.corresPersonasNombres}"></h:outputText>
+													</rich:column>
+													<rich:column>
+														<h:outputText value="#{msg.corresPersonasPrimerApellido}"></h:outputText>
+													</rich:column>
+													<rich:column>
+														<h:outputText value="#{msg.corresPersonasSegundoApellido}"></h:outputText>
+													</rich:column>
+												</rich:columnGroup>
+											</f:facet>
+											<rich:column>
+												<h:outputText value="#{salidaSelect.salNsa}"></h:outputText>
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{salidaSelect.salFsa}"></h:outputText>
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{salidaSelect.salAsu}"></h:outputText>
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{salidaSelect.salNom}"></h:outputText>
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{salidaSelect.salPap}"></h:outputText>
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{salidaSelect.salSap}"></h:outputText>
+											</rich:column>
+
+										</rich:dataTable>
+
+									</h:panelGrid>
+								</h:panelGroup>
+							</rich:tab>
+						</rich:tabPanel>
+						<div class="spacer15"></div>
+						<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm" styleClass="panelBorder">
+
+							<h:outputText value="#{msg.modalEntradaEtapaActual}" />
+							<h:outputText value="#{entradasBean.entradaSeleccionada.estado.estNom}" />
+
+							<h:outputText value="#{msg.modalEntradaResponsable}" />
+							<h:outputText value="#{entradasBean.entradaSeleccionada.usuario.usrNom} #{entradasBean.entradaSeleccionada.usuario.usrPap} #{entradasBean.entradaSeleccionada.usuario.usrSap}" />
+
+						</h:panelGrid>
+
+					</h:panelGroup>
+				</h:panelGrid>
+				<div class="spacer15"></div>
+				
+				<p:commandButton value="#{msg.gestDocGestionarDoc}" actionListener="#{treeBean.setup(entradasBean.entradaSeleccionada)}" oncomplete="dlg1.show();" update=":documentMainForm" />
+				
+				<rich:panel>
+					<f:facet name="header">
+						<h:outputText value="#{msg.corresSalidasRespuestaEntrada}"></h:outputText>
+					</f:facet>
+					<h:panelGroup >
+						<h:panelGrid id="panelSalidasEntradas" columns="1" width="100%" styleClass="panelBorder" >
+							<rich:dataTable var="salida" value="#{entradasBean.salidasEntradas}" style="width:100%;" id="tablaSalidasEntradas">
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column>
+											<h:outputText value="#{msg.corresNoRadicacion}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.corresFechaHora}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.corresPersonasNombres}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.corresPersonasPrimerApellido}"></h:outputText>
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msg.corresPersonasSegundoApellido}"></h:outputText>
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+								<rich:column>
+									<h:outputText value="#{salida.salNsa}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{salida.salFsa}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{salida.salAsu}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{salida.salNom}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{salida.salPap}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{salida.salSap}"></h:outputText>
+								</rich:column>
+
+							</rich:dataTable>
+
+						</h:panelGrid>
+					</h:panelGroup>
+				</rich:panel>
+				<div class="spacer15"></div>
+				<rich:panel>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelHistorial}"></h:outputText>
+					</f:facet>
+					<rich:dataTable value="#{entradasBean.seguimientoEntrada}" var="seguimiento" style="width: 100%;" rows="10" id="tablaSeguimiento">
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column>
+									<h:outputText value="#{msg.labelEtapa}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.labelFecha}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.labelDescripcion}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.labelUsuarioInicial}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.labelUsuarioFinal}"></h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msg.labelObservaciones}"></h:outputText>
+								</rich:column>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column>
+							<h:outputText value="#{seguimiento.estadoBySenEst.estNom}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{seguimiento.senFec}">
+								<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+							</h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{seguimiento.senDes}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{seguimiento.usuarioBySenUsrini.usrNom } #{seguimiento.usuarioBySenUsrini.usrPap} #{seguimiento.usuarioBySenUsrini.usrSap}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{seguimiento.usuarioBySenUsr.usrNom} #{seguimiento.usuarioBySenUsr.usrPap} #{seguimiento.usuarioBySenUsr.usrSap}"></h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{seguimiento.senObs}"></h:outputText>
+						</rich:column>
+						<f:facet name="footer">
+							<rich:dataScroller id="scrollerTablaSeguimiento" maxPages="5" for="tablaSeguimiento"></rich:dataScroller>
+						</f:facet>
+					</rich:dataTable>
+				</rich:panel>
+			</rich:panel>
+		</h:form>
+
+		<p:dialog header="#{msg.gestDocGestionarDoc}" widgetVar="dlg1" minHeight="40" modal="true">
+	    	<ccom:arbolArchivos id="idGestorDocumental" />
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>

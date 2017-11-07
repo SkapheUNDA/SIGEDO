@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{tipoProgramacionBean.cargarRegistro}" />
+		</f:metadata>
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formActualizarr">
+			<rich:panel>
+
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelActTipoDeProgramacion}"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="2" width="100%">
+
+						<h:outputLabel value="#{msg.conaudCodigoTipoProgramacion}:"></h:outputLabel>
+
+						<h:outputText id="codigoTipoProgramacion"
+							value="#{tipoProgramacionBean.tipoProgramacionSeleccionada.tprCodigo}"
+							styleClass="uppercase" />
+
+						<h:outputLabel value="#{msg.conaudNombre}:"></h:outputLabel>
+
+						<h:inputText
+							value="#{tipoProgramacionBean.tipoProgramacionSeleccionada.tprNombre}"
+							required="true" id="Nombre"
+							label="#{msg.conaudNombre}"></h:inputText>
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" width="30%" style="text-align: center;">
+						<h:commandButton value="#{msg.conaudGuardar}"
+							action="#{tipoProgramacionBean.actualizarTipoProgramacion}"
+							onclick="if (!confirm('#{msg.conaudConfirmacionTipoPro}')) return false">
+						</h:commandButton>
+
+						<h:commandButton value="#{msg.conaudCancelar}" immediate="true"
+							action="#{tipoProgramacionBean.navListado}">
+						</h:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

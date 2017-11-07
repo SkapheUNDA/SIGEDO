@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:liferay-ui="http://liferay.com/faces/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:cnet="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<div class="spacer15"></div>
+
+		<h:form style="padding-bottom: 3px;" id="formListado">
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.tmaesTituloBusqueda}"></h:outputText>
+				</f:facet>
+				<div align="center">
+					<h:panelGrid columns="3">
+						<h:outputText value="#{msg.tmaesLblCampoiListado}"
+							styleClass="tituloModulo" />
+
+						<h:selectOneMenu value="#{tMaestrasBean.idTMSeleccionada}">
+							<f:selectItem itemValue="-1" itemLabel="#{msg.labelSeleccione}" />
+							<f:selectItems value="#{tMaestrasBean.itemsTMaestras}"
+								id="itemsTMaestras" />
+						</h:selectOneMenu>
+
+						<a4j:commandButton execute="@form"
+							render="panelDatos , pnlCargaDato" value="#{msg.tmaesLblBuscar}"
+							action="#{tMaestrasBean.cargarPropiTablas}">
+						</a4j:commandButton>
+						<h:outputText value=" "></h:outputText>
+					</h:panelGrid>
+				</div>
+
+				<div class="spacer15"></div>
+
+			</rich:panel>
+
+			<div class="spacer15"></div>
+
+
+			<rich:panel id="panelDatos">
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelResultadosEncontrados}"></h:outputText>
+				</f:facet>
+
+				<cnet:tablaPpal listaColumnas="#{tMaestrasBean.propTMList}"
+					listaDataTable="#{tMaestrasBean.mapaValoresLista}"
+					nombreColumnaPK="#{tMaestrasBean.columnaPropPK}"></cnet:tablaPpal>
+
+				<div align="center">
+					<h:panelGrid columns="1" id="pnlCargaDato"
+						rendered="#{tMaestrasBean.idTMSeleccionada > '0'}">
+
+						<h:commandButton value="#{msg.tmaesLblNuevo}"
+							action="#{tMaestrasBean.guardaContexto}" style="width: 120px">
+							<f:param name="idTablaSeleccionada"
+								value="#{tMaestrasBean.idTMSeleccionada}" />
+							<f:setPropertyActionListener
+								target="#{tMaestrasBean.listaPropPersistida}"
+								value="#{tMaestrasBean.propTMList}" />
+						</h:commandButton>
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

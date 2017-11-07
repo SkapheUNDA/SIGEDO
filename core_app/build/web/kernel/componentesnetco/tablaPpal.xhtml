@@ -1,0 +1,74 @@
+<ui:composition xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"> 
+
+	<rich:dataTable style="width: 100%;" rows="50" var="valorObt"
+		id="dataTableCompo" value="#{listaDataTable}">
+
+		<!-- Columnas - Anidadas En Grupo -->
+
+
+		<c:forEach items="#{listaColumnas}" var="valColumna">
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{valColumna.prop_eti}" />
+				</f:facet>
+				<h:outputText style="width: 300px;display: block;overflow: scroll;height: 100%;" value="#{valorObt[valColumna.prop_cam]}" />
+			</rich:column>
+
+		</c:forEach>
+
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value="#{msg.labelOpciones}" />
+			</f:facet>
+
+			<h:panelGrid columns="2">
+				<h:commandLink style="color: #FFFFFF;"
+					action="#{tMaestrasBean.guardaContextoActualizar}">
+					<h:graphicImage alt="#{msg.labelActualizar}"
+						title="#{i18n['actualizar']}" url="/img/icons/actualizar.png"></h:graphicImage>
+					<f:param name="idRegSeleccionado"
+						value="#{valorObt[nombreColumnaPK]}" />
+					<f:param name="nameColumPK" value="#{nombreColumnaPK}" />
+					<f:param name="idTablaSeleccionada"
+						value="#{tMaestrasBean.idTMSeleccionada}" />
+					<f:setPropertyActionListener
+						target="#{tMaestrasBean.listaPropPersistida}"
+						value="#{tMaestrasBean.propTMList}" />
+					<f:setPropertyActionListener
+						target="#{tMaestrasBean.mapValoresPersistida}"
+						value="#{tMaestrasBean.mapaValoresLista}" />
+				</h:commandLink>
+
+				<h:commandLink style="color: #FFFFFF;" action="#{tMaestrasBean.guardaContextoEliminar}">
+					<h:graphicImage alt="#{msg.labelEliminar}"
+						title="#{msg.labelEliminar}" url="/img/icons/eliminar.png"></h:graphicImage>
+					<f:param name="idRegSeleccionado"
+						value="#{valorObt[nombreColumnaPK]}" />
+					<f:param name="nameColumPK" value="#{nombreColumnaPK}" />
+					<f:param name="idTablaSeleccionada"
+						value="#{tMaestrasBean.idTMSeleccionada}" />
+					<f:setPropertyActionListener
+						target="#{tMaestrasBean.listaPropPersistida}"
+						value="#{tMaestrasBean.propTMList}" />
+					<f:setPropertyActionListener
+						target="#{tMaestrasBean.mapValoresPersistida}"
+						value="#{tMaestrasBean.mapaValoresLista}" />
+				</h:commandLink>
+			</h:panelGrid>
+		</rich:column>
+
+
+
+		<!-- Pie de tabla -->
+		<f:facet name="footer">
+			<rich:dataScroller id="scrollPaginas" maxPages="5"
+				for="dataTableCompo"></rich:dataScroller>
+		</f:facet>
+
+	</rich:dataTable>
+</ui:composition>

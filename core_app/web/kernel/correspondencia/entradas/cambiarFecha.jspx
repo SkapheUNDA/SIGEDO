@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich" xmlns:ccom="http://customcomponents/jsf" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui" template="internalTemplate.jspx">
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{cambiarFechaBean.cargarRegistroDetalleResumen}"></f:event>
+		</f:metadata>
+
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formDetalle">
+
+			<rich:panel>
+
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelDetalle}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%" columnClasses="columnLabelsForm,columnDatosForm" styleClass="panelBorder">
+
+					<h:outputText value="#{msg.corresNoRadicacion}" />
+					<h:outputText value="#{cambiarFechaBean.entradaSeleccionada.entNen}" />
+
+					<h:outputText value="#{msg.corresFechaHoraRad}" />
+					<h:outputText value="#{cambiarFechaBean.entradaSeleccionada.entFen}">
+						<f:convertDateTime pattern="dd/MM/yyyy hh:mm a" timeZone="GMT-05:00" />
+					</h:outputText>
+
+				</h:panelGrid>
+
+				<div class="spacer15"></div>
+
+				<h:panelGrid columns="1" width="100%">
+
+					<h:panelGrid columns="2" width="90%" columnClasses="columnLabelsForm,columnDatosForm">
+
+						<h:outputText value="#{msg.corresDependencia}"></h:outputText>
+						<h:outputText value="#{cambiarFechaBean.entradaSeleccionada.dependencia.depNom}"></h:outputText>
+
+						<h:outputText value="#{msg.corresClasificacion}"></h:outputText>
+						<h:outputText value="#{cambiarFechaBean.entradaSeleccionada.clasificacion.claNom}"></h:outputText>
+
+						<h:outputText value="#{msg.corresRecibidaPor}"></h:outputText>
+						<h:outputText value="#{cambiarFechaBean.entradaSeleccionada.medio.medNom}"></h:outputText>
+
+						<h:outputText value="#{msg.corresAsunto}"></h:outputText>
+						<h:outputText value="#{cambiarFechaBean.entradaSeleccionada.entAsu}" />
+					</h:panelGrid>
+
+					<div class="spacer15"></div>
+				</h:panelGrid>
+			</rich:panel>
+			<div class="spacer15"></div>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.corresCambiarFecha}"></h:outputText>
+				</f:facet>
+				
+				<div align="center">
+					<h:panelGrid columns="1">
+						<h:outputLabel for="entFrf" value="#{msg.corresNuevaFecha}" ></h:outputLabel>
+						<rich:calendar  id="entFrf" value="#{cambiarFechaBean.nuevaFechaRadicacion}" defaultLabel="#{msg.corresNuevaFecha}" direction="topRight" datePattern="dd/MM/yyyy hh:mm a" showApplyButton="true" popup="false" required="true" ></rich:calendar>
+							
+					</h:panelGrid>
+				</div>
+				
+				
+				<div align="center">
+					<h:panelGrid columns="1">							
+						<h:commandButton value="#{msg.labelActualizar}" action="#{cambiarFechaBean.actualizar}" />
+					</h:panelGrid>
+				</div>
+
+			</rich:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

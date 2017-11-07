@@ -1,0 +1,108 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<ui:define name="content">
+		<style>
+.autoSizeRows .rf-edt-hdr-c {
+	border-right: none !important;
+	border-bottom: none !important;
+}
+
+.autoSizeRows .rf-edt-c {
+	height: 100% !important;
+	border-right: none !important;
+	border-bottom: none !important;
+}
+
+.autoSizeRows .rf-edt-cnt td {
+	border-bottom: 1px solid #9FC0E9;
+	border-right: 1px solid #9FC0E9;
+}
+</style>
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formListado">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.formatosTitulo} - Listado"></h:outputText>
+				</f:facet>
+
+				<rich:extendedDataTable value="#{formatosBean.arrFormatos}"
+					styleClass="autoSizeRows" var="item" style="width:100%"
+					selectionMode="none" id="tablaFormatos" rows="30">
+					<f:facet name="noData">
+						<h:outputText value="No se encontraron registros para mostrar" />
+					</f:facet>
+
+					<rich:column width="250px"
+						filterValue="#{formatosBean.filtroNombre}"
+						filterExpression="#{fn:containsIgnoreCase(item.forNombre, formatosBean.filtroNombreFormato)}">
+						<f:facet name="header">
+							<h:panelGroup>
+								<h:outputText value="#{msg.formatosNombreFormato}" />
+								<h:inputText value="#{formatosBean.filtroNombreFormato}"
+									label="Filtro Nombre Formato">
+									<a4j:ajax event="blur" render="tablaFormatos" execute="@this" />
+								</h:inputText>
+							</h:panelGroup>
+						</f:facet>
+						<h:outputText value="#{item.forNombre}" />
+					</rich:column>
+					<rich:column width="600px">
+						<f:facet name="header">#{msg.formatosDescFormato}</f:facet>
+						<h:outputText value="#{item.forDescripcion}" />
+					</rich:column>
+					<rich:column width="203px">
+						<f:facet name="header">#{msg.labelOpciones}</f:facet>
+						<center>
+							<h:panelGroup style="text-align:center">
+								<h:commandLink action="#{formatosBean.navListadoCampos}">
+									<h:graphicImage value="/img/icons/relacionar_recursos.png"
+										alt="Relacionar #{msg.formatosNumeroCampos}" width="25"
+										title="Relacionar #{msg.formatosNumeroCampos}" height="25" />
+									<f:setPropertyActionListener
+										target="#{formatosBean.formatoSeleccionado}" value="#{item}" />
+									<f:param name="idFormato" value="#{item.forCodigo}" />
+								</h:commandLink>
+
+								<h:commandLink styleClass="no-decor"
+									action="#{formatosBean.navModificar}">
+									<h:graphicImage value="/img/icons/actualizar.png"
+										alt="Modificar" title="Modificar" width="25" height="25" />
+									<f:setPropertyActionListener
+										target="#{formatosBean.formatoSeleccionado}" value="#{item}" />
+									<f:param name="idFormato" value="#{item.forCodigo}" />
+								</h:commandLink>
+
+								<h:commandLink
+									onclick="if (!confirm('#{msg.confirmacionFormsEliminar}')) return false"
+									action="#{formatosBean.accionEliminar}">
+									<h:graphicImage value="/img/icons/eliminar.png" alt="Eliminar"
+										title="Eliminar" width="25" height="25" />
+									<f:setPropertyActionListener
+										target="#{formatosBean.formatoSeleccionado}" value="#{item}" />
+									<f:param name="idFormato" value="#{item.forCodigo}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</center>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller id="ds" maxPages="5" ajaxSingle="false"
+							for="tablaFormatos"></rich:dataScroller>
+					</f:facet>
+				</rich:extendedDataTable>
+
+
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

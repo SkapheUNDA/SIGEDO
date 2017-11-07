@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:liferay-ui="http://liferay.com/faces/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:cnet="http://customcomponents/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+		<div class="spacer15"></div>
+		<h:form style="padding-bottom: 3px;" id="formListado">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.modalFormulario}"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="4" width="100%">
+					<h:outputText value="#{msg.modalPersonasIdentificacion}"></h:outputText>
+					<h:outputText value="#{msg.modalPersonasNombres}"></h:outputText>
+					<h:outputText value="#{msg.modalPersonasPrimerApellido}"></h:outputText>
+					<h:outputText value="#{msg.modalPersonasSegundoApellido}"></h:outputText>
+
+					<h:inputText value="#{personaNaturalBean.numIdentificacion}"></h:inputText>
+					<h:inputText value="#{personaNaturalBean.nombres}"></h:inputText>
+					<h:inputText value="#{personaNaturalBean.primerApellido}"></h:inputText>
+					<h:inputText value="#{personaNaturalBean.segundoApellido}"></h:inputText>
+
+				</h:panelGrid>
+				<div class="spacer15"></div>
+				<div align="center">
+					<h:panelGrid columns="3">
+
+						<p:commandButton value="#{msg.modalPersonasBuscar}"
+							update="dataTableModalPersonaNatural"
+							action="#{personaNaturalBean.buscar}" execute="@form"></p:commandButton>
+
+						<p:commandButton value="Crear"
+							oncomplete="modalCrearPersona.show();"
+							action="#{personaNaturalBean.inicializar()}" process="@this"
+							update="formListado"></p:commandButton>
+					</h:panelGrid>
+				</div>
+			</rich:panel>
+			<h:panelGroup id="dataTableModalPersonaNatural">
+				<p:dataTable var="usuario" paginator="true" rows="15"
+					paginatorPosition="bottom"
+					value="#{personaNaturalBean.listDatamodel}" lazy="true">
+
+					<p:column headerText="#{msg.modalPersonasIdentificacion}">
+						<h:outputText value="#{usuario.perDoc}" />
+					</p:column>
+					<p:column headerText="#{msg.modalPersonasNombres}">
+						<h:outputText
+							value="#{usuario.perNom} #{usuario.perPap} #{usuario.perSap}" />
+					</p:column>
+					<p:column>
+						<p:commandLink style="color: #FFFFFF;"
+							action="#{personaNaturalBean.actualizarNavigation}">
+							<h:graphicImage width="16" height="16"
+								alt="#{msg.labelActualizar}" title="#{msg.labelActualizar}"
+								url="/img/icons/actualizar.png"></h:graphicImage>
+							<f:param name="idPerSeleccionada" value="#{usuario.perId}" />
+
+						</p:commandLink>
+					</p:column>
+					<p:column>
+						<p:commandLink style="color: #FFFFFF;"
+							action="#{personaNaturalBean.eliminarNavigation}">
+
+							<h:graphicImage width="16" height="16" alt="#{msg.labelEliminar}"
+								title="#{msg.labelEliminar}" url="/img/icons/eliminar.png"></h:graphicImage>
+							<f:param name="idPerSeleccionada" value="#{usuario.perId}" />
+
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+		</h:form>
+		<h:form>
+			<ccom:modalPersonaNaturalCreacion>
+			</ccom:modalPersonaNaturalCreacion>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,149 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{perfilesBean.cargarObjetoRelacionarRecursos}" />
+		</f:metadata>
+
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+
+			<h:inputHidden value="#{perfilesBean.perfilSeleccionado.id}"
+				required="true" requiredMessage="#{msg.labelSeleccioneRole}"></h:inputHidden>
+
+
+			<rich:panel>
+				<h:outputText value="#{msg.labelRelacionarRecursosPerfil} : "></h:outputText>
+				<h:outputText
+					value="#{perfilesBean.perfilSeleccionado.nombreMostrar}"></h:outputText>
+			</rich:panel>
+
+			<div class="divContentPanel">
+
+				<div class="leftPanel">
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelModulos}"></h:outputText>
+						</f:facet>
+
+
+
+						<rich:tree
+							selectionChangeListener="#{perfilesBean.selectionChanged}"
+							toggleType="client" var="item" selectionType="ajax"
+							keepSaved="true" rowKeyVar="rowVar" render="panelRecursos">
+							<rich:treeModelRecursiveAdaptor
+								roots="#{perfilesBean.sourceModulesRoots}"
+								nodes="#{item.children}">
+								<rich:treeNode rendered="#{!item.leaf}">#{item.nombre}</rich:treeNode>
+								<rich:treeModelAdaptor nodes="#{item.children}">
+									<rich:treeNode rendered="#{item.leaf}">#{item.nombre}
+		                     </rich:treeNode>
+								</rich:treeModelAdaptor>
+							</rich:treeModelRecursiveAdaptor>
+						</rich:tree>
+
+
+					</rich:panel>
+
+				</div>
+
+				<div class="bodyPanel">
+					<rich:panel id="panelRecursos">
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelRecursosDisponibles}"></h:outputText>
+						</f:facet>
+						<rich:dataTable value="#{perfilesBean.recursosModulo}"
+							var="recurso" style="width: 80%;">
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.labelModulo}" />
+								</f:facet>
+								<h:outputText value="#{recurso.modulo.nombre}" />
+							</rich:column>
+							<rich:column >
+								<f:facet name="header">
+									<h:outputText value="#{msg.labelRecurso}" />
+								</f:facet>
+								<h:outputText value="#{recurso.nombre}" />
+							</rich:column>
+							<rich:column width="20px"  style="width: 20px;">
+								<f:facet name="header">
+									<h:outputText value="#{msg.labelOpciones}" />
+								</f:facet>
+								<a4j:commandLink style="color: #FFFFFF;"
+									action="#{perfilesBean.seleccionarRecurso(recurso)}"
+									render="panelRecursosSeleccionados">
+									<h:graphicImage width="16" height="16"
+										alt="#{msg.labelSeleccionar}" title="#{msg.labelSeleccionar}"
+										url="/img/icons/ok.png"></h:graphicImage>
+
+								</a4j:commandLink>
+							</rich:column>
+
+						</rich:dataTable>
+					</rich:panel>
+				</div>
+
+			</div>
+
+
+
+			<rich:panel id="panelRecursosSeleccionados">
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelRecursosRelacionados}"></h:outputText>
+				</f:facet>
+				<rich:dataTable value="#{perfilesBean.recursosSeleccionados}"
+					var="recurso" style="width: 80%;">
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelModulo}" />
+						</f:facet>
+						<h:outputText value="#{recurso.modulo.nombre}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelRecurso}" />
+						</f:facet>
+						<h:outputText value="#{recurso.nombre}" />
+					</rich:column>
+					<rich:column width="20px"  style="width: 20px;">
+						<f:facet name="header">
+							<h:outputText value="#{msg.labelOpciones}" />
+						</f:facet>
+						<a4j:commandLink style="color: #FFFFFF;"
+							action="#{perfilesBean.quitarRecurso(recurso)}"
+							render="panelRecursosSeleccionados">
+							<h:graphicImage width="16" height="16"
+								alt="#{msg.labelQuitarSeleccion}"
+								title="#{msg.labelQuitarSeleccion}"
+								url="/img/icons/control_remove.png"></h:graphicImage>
+
+						</a4j:commandLink>
+					</rich:column>
+
+				</rich:dataTable>
+
+
+				<div align="center">
+					<h:panelGrid columns="1">
+					
+						<h:commandButton value="#{msg.labelGuardar}"
+							action="#{perfilesBean.guardarPerfilRecursos}"></h:commandButton>
+
+					</h:panelGrid>
+				</div>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

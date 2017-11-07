@@ -1,0 +1,76 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" template="internalTemplate.jspx"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:cnet="http://customcomponents/jsf">
+	<ui:define name="content">
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.conaudTiposProgramacion}"></h:outputText>
+				</f:facet>
+				<div align="left">
+					<h:panelGrid columns="4">
+						<h:outputLabel value="#{msg.conaudNombre}" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:inputText value="#{tipoProgramacionBean.nombreTipoProgramacion}"
+							id="nombreTipoAuditoria" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+					</h:panelGrid>
+					<div class="spacer15"></div>
+					<div align="center">
+						<h:panelGrid columns="3">
+
+							<p:commandButton value="#{msg.modalPersonasBuscar}"
+								update="dataTablemodalTipoProgramacion "
+								action="#{tipoProgramacionBean.buscar}" execute="@form"></p:commandButton>
+
+							<h:commandButton value="#{msg.conconpucCrear}"
+								action="#{tipoProgramacionBean.crearNavigation}"></h:commandButton>
+
+						</h:panelGrid>
+					</div>
+
+				</div>
+			</rich:panel>
+			<h:panelGroup id="dataTablemodalTipoProgramacion">
+				<p:dataTable var="tipoProgramacion" paginator="true" rows="15"
+					paginatorPosition="bottom"
+					value="#{tipoProgramacionBean.listDatamodel}" lazy="true">
+
+					<p:column style="width:200px"
+						headerText="#{msg.conaudCodigoTipoProgramacion}">
+						<h:outputText value="#{tipoProgramacion.tprCodigo}">
+							<f:convertNumber />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="#{msg.conaudNombre}">
+						<h:outputText value="#{tipoProgramacion.tprNombre}" />
+					</p:column>
+
+					<p:column style="width:150px">
+						<h:commandLink style="color: #FFFFFF;"
+							action="#{tipoProgramacionBean.actualizarNavigation}">
+							<h:graphicImage width="16" height="16"
+								alt="#{msg.labelActualizar}" title="#{msg.labelActualizar}"
+								url="/img/icons/actualizar.png"></h:graphicImage>
+							<f:param name="idTipoProgramacionSeleccionada"
+								value="#{tipoProgramacion.tprCodigo}" />
+						</h:commandLink>
+					</p:column>
+					
+				</p:dataTable>
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+	
+<f:metadata>
+  <f:event type="preRenderView" listener="#{usuariosBean.cargarRegistro}"/>
+</f:metadata>
+	
+		<h:form style="padding-bottom: 3px;" id="formDetalle">
+
+			<h:inputHidden value="#{usuariosBean.usuarioSeleccionado.usrId}"></h:inputHidden>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelRelacionarGrupos}"></h:outputText>
+				</f:facet>
+
+
+				<h:panelGrid columns="2" width="50%"
+					columnClasses="columnLabelsDetalleSolicitud,columnDatosDetalleSolicitud">
+					<h:outputText value="#{msg.labelNombres}" />
+					<h:outputText value="#{usuariosBean.usuarioSeleccionado.usrNom}" />
+					<h:outputText value="#{msg.labelApellidos}" />
+					<h:outputText value="#{usuariosBean.usuarioSeleccionado.usrPap} #{usuariosBean.usuarioSeleccionado.usrSap}" />
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2" width="100%">
+					<t:selectManyPicklist  value="#{usuariosBean.gruposUsuario}">
+						<f:selectItems value="#{usuariosBean.gruposItems}" />
+					</t:selectManyPicklist>
+				</h:panelGrid>
+				
+				<div align="center">
+					<h:commandButton action="#{usuariosBean.relacionarGrupos}"
+						value="#{msg.labelRelacionarGrupos}"
+						onclick="if (!confirm('#{msg.confirmacionRelacionarGrupoUsuario}')) return false">
+					</h:commandButton>
+				</div>
+
+
+
+			</rich:panel>
+		</h:form>
+
+		<t:saveState value="#{usuariosBean.usuarioSeleccionado}"></t:saveState>
+		<t:saveState value="#{usuariosBean.gruposItems}"></t:saveState>
+
+	</ui:define>
+</ui:composition>
+

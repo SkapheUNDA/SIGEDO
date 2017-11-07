@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fiji="http://exadel.com/fiji"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ccom="http://customcomponents/jsf"
+	template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		
+		<h:form style="padding-bottom: 3px;" id="formListado">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.conconTiposInforme} "></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="3" width="100%">
+					<h:outputLabel value="#{msg.concontiposdeinformeCodigoInforme}"
+						for="codInforme" style="text-align:right" />
+					<h:outputText value="*" style="color : red" />
+					<h:inputText value="#{tipoInformeBean.codInforme}"
+						required="true" id="codInforme"></h:inputText>
+
+					<h:outputLabel value="#{msg.concontiposdeinformeDescripcion}"
+						for="descripcion" style="text-align:right" />
+					<h:outputText value="*" style="color : red" />
+					<h:inputText value="#{tipoInformeBean.descripcion}"
+						required="true" id="descripcion" />
+					<h:outputLabel value="#{msg.concontiposdeinformePeriodicidad}"
+						for="personeria" style="text-align:right" />
+					<h:outputText value="*" style="color : red" />
+					<h:selectOneMenu value="#{tipoInformeBean.periocidad}"
+						label="#{msg.corresFiltroEntregada}">
+						<f:selectItem itemLabel="#{msg.labelSeleccione}"
+							itemValue="#{null}" />
+						<f:selectItem itemLabel="#{msg.concontiposdeinformeMensual}"
+							itemValue="1" />
+						<f:selectItem itemLabel="#{msg.concontiposdeinformeBimestral}"
+							itemValue="2" />
+						<f:selectItem itemLabel="#{msg.concontiposdeinformeTrimestral}"
+							itemValue="3" />
+						<f:selectItem itemLabel="#{msg.concontiposdeinformeSemestral}"
+							itemValue="4" />
+						<f:selectItem itemLabel="#{msg.concontriposdeinformeAnual}"
+							itemValue="5" />
+					</h:selectOneMenu>
+				</h:panelGrid>
+			</rich:panel>
+
+
+
+			<div align="left">
+					<h:panelGrid columns="3">
+						<h:commandButton 
+							value="#{msg.conconpucCrear}"
+							action="#{pucBean.accionGuardar}"
+							onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+						</h:commandButton>
+							
+						<h:commandButton value="#{msg.conconpucModificar}"
+							action="transaccionExitosa"></h:commandButton>				
+					</h:panelGrid>		
+					</div>			
+
+							
+				
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

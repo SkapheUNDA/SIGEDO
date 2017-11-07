@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+	<!-- INICIO NAVEGACION MOD PARAMETRIZACION FIN NAVEGACION MOD PARAMETRIZACION 
+		INICIO NAVEGACION MOD SEGURIDAD -->           
+                
+	<navigation-rule>
+		<from-view-id>/kernel/seguridad/*</from-view-id>
+		<navigation-case>
+			<from-outcome>gestionRoles</from-outcome>
+			<to-view-id>/kernel/seguridad/roles/listado.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>gestionGrupos</from-outcome>
+			<to-view-id>/kernel/seguridad/grupos/listado.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>gestionUsuarios</from-outcome>
+			<to-view-id>/kernel/seguridad/usuarios/listado.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>agregarUsuario</from-outcome>
+			<to-view-id>/kernel/seguridad/usuarios/agregar.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>consultarAuditorias</from-outcome>
+			<to-view-id>/kernel/seguridad/auditoria/listado.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sessionControl</from-outcome>
+			<to-view-id>/kernel/seguridad/sessionControl/listado.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/kernel/seguridad/auditoria/listado.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>detalle</from-outcome>
+			<to-view-id>/kernel/seguridad/auditoria/detalle.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>transaccionExitosa</from-outcome>
+			<to-view-id>/kernel/seguridad/auditoria/listado.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/kernel/seguridad/roles/*</from-view-id>
+		<navigation-case>
+			<from-outcome>agregar</from-outcome>
+			<to-view-id>/kernel/seguridad/roles/agregar.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>relacionarUsuarios</from-outcome>
+			<to-view-id>/kernel/seguridad/roles/relacionarUsuarios.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>verUsuariosRelacionados</from-outcome>
+			<to-view-id>/kernel/seguridad/roles/detalle.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>relacionarrecursos</from-outcome>
+			<to-view-id>/kernel/seguridad/roles/relacionarRecursos.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>transaccionExitosa</from-outcome>
+			<to-view-id>/kernel/seguridad/roles/listado.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/kernel/seguridad/grupos/*</from-view-id>
+		<navigation-case>
+			<from-outcome>relacionarUsuarios</from-outcome>
+			<to-view-id>/kernel/seguridad/grupos/relacionarUsuarios.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>verUsuariosRelacionados</from-outcome>
+			<to-view-id>/kernel/seguridad/grupos/detalle.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>transaccionExitosa</from-outcome>
+			<to-view-id>/kernel/seguridad/grupos/listado.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/kernel/seguridad/usuarios/*</from-view-id>
+		<navigation-case>
+			<from-outcome>agregar</from-outcome>
+			<to-view-id>/kernel/seguridad/usuarios/agregar.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>actualizar</from-outcome>
+			<to-view-id>/kernel/seguridad/usuarios/actualizar.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>eliminar</from-outcome>
+			<to-view-id>/kernel/seguridad/usuarios/eliminar.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>detalle</from-outcome>
+			<to-view-id>/kernel/seguridad/usuarios/detalle.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>relacionarperfiles</from-outcome>
+			<to-view-id>/kernel/seguridad/usuarios/relacionarPerfiles.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>relacionargrupos</from-outcome>
+			<to-view-id>/kernel/seguridad/usuarios/relacionarGrupos.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>transaccionExitosa</from-outcome>
+			<to-view-id>/kernel/seguridad/usuarios/listado.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/kernel/*</from-view-id>
+		<navigation-case>
+			<from-outcome>gestionUsuarioRoles</from-outcome>
+			<to-view-id>/kernel/seguridad/index.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>maestras</from-outcome>
+			<to-view-id>/kernel/maestras/index.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>correspondencia</from-outcome>
+			<to-view-id>/kernel/correspondencia/index.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>expedientesprogramacion</from-outcome>
+			<to-view-id>/kernel/expedientes/index.jspx</to-view-id>
+			<redirect />
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>modsgc</from-outcome>
+			<to-view-id>/kernel/sgc/index.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>generales</from-outcome>
+			<to-view-id>/kernel/sgc/index.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>expedienteRegistro</from-outcome>
+			<to-view-id>/kernel/expedienteRegistro/index.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+<!--                <navigation-case>
+			<from-outcome>index2</from-outcome>
+			<to-view-id>/kernel/expedienteRegistro/index2.jspx</to-view-id>
+			<redirect />
+		</navigation-case>-->
+		<navigation-case>
+			<from-outcome>modreportes</from-outcome>
+			<to-view-id>/kernel/reportes/index.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/login.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/kernel/index.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+</faces-config>

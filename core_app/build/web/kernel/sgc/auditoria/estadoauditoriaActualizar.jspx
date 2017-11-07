@@ -1,0 +1,68 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" template="internalTemplate.jspx"
+	xmlns:ccom="http://customcomponents/jsf"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:cnet="http://customcomponents/jsf">
+	<ui:define name="content">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{estadoAuditoriaBean.cargarRegistro}" />
+		</f:metadata>
+		<h:form style="padding-bottom: 3px;" id="formActualizar">
+
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.conaudEstadoAuditoria}"></h:outputText>
+				</f:facet>
+
+				<div align="left">
+
+
+					<h:panelGrid columns="3">
+
+
+						<h:outputLabel value="#{msg.conaudCodigoEstado}"
+							style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText
+							value="#{estadoAuditoriaBean.estadoAuditoriaSeleccionada.codigoEstadoAuditoria}"
+							disabled="true" id="codigoEstadoAuditoria"></h:inputText>
+
+
+						<h:outputLabel value="#{msg.conaudDescripcion}"
+							style="text-align:right" />
+						<h:outputText value="*" style="color : red" />
+						<h:inputText
+							value="#{estadoAuditoriaBean.estadoAuditoriaSeleccionada.descripcionEstadoAuditoria}"
+							required="true" id="descripcionEstadoAuditoria" />
+
+
+
+
+					</h:panelGrid>
+
+					<br> </br>
+
+					<div align="center">
+						<h:panelGrid columns="3">
+							<p:commandButton value="#{msg.conconpucModificar}"
+								action="#{estadoAuditoriaBean.actualizarEstadoAuditoria}"
+								onclick="if (!confirm('#{msg.confirmacionFormsGuardar}')) return false">
+							</p:commandButton>
+
+
+						</h:panelGrid>
+					</div>
+
+				</div>
+			</rich:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

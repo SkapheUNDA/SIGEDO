@@ -1,0 +1,120 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core" xmlns:t="http://myfaces.apache.org/tomahawk" template="internalTemplate.jspx">
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{gruposBean.cargarObjeto}" />
+		</f:metadata>
+
+		<h:form style="padding-bottom: 3px;" id="formAgregar">
+
+
+
+			<h:inputHidden value="#{gruposBean.grupoSeleccionado.id}" required="true"></h:inputHidden>
+			<h:inputHidden value="#{gruposBean.grupoSeleccionado.nombre}"></h:inputHidden>
+			<h:inputHidden value="#{gruposBean.grupoSeleccionado.nombreMostrar}"></h:inputHidden>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelGrupoSeleccionado}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="2" columnClasses="columnLabelsDetalleSolicitud,columnDatosDetalleSolicitud ">
+					<h:outputText value="#{msg.labelId}"></h:outputText>
+					<h:outputText value="#{gruposBean.grupoSeleccionado.id}"></h:outputText>
+					<h:outputText value="#{msg.labelNombreGrupo}"></h:outputText>
+					<h:outputText value="#{gruposBean.grupoSeleccionado.nombreMostrar}"></h:outputText>
+					<h:outputText value="#{msg.labelNombreGrupoSistema}"></h:outputText>
+					<h:outputText value="#{gruposBean.grupoSeleccionado.nombre}"></h:outputText>
+				</h:panelGrid>
+
+
+
+			</rich:panel>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelRelacionarUsuarios}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid columns="4" width="100%">
+
+					<h:outputText value="#{msg.labelNombres}"></h:outputText>
+					<h:outputText value="#{msg.labelPrimerApellido}"></h:outputText>
+					<h:outputText value="#{msg.labelSegundoApellido}"></h:outputText>
+					<h:outputText value="#{msg.labelNombreUsuario}"></h:outputText>
+
+					<h:inputText value="#{gruposBean.nombres}"></h:inputText>
+					<h:inputText value="#{gruposBean.primerApellido}"></h:inputText>
+					<h:inputText value="#{gruposBean.segundoApellido}"></h:inputText>
+					<h:inputText value="#{gruposBean.nombreUsuario}">
+					</h:inputText>
+
+				</h:panelGrid>
+				<div align="center">
+					<h:panelGrid columns="3">
+						<h:commandButton value="#{msg.labelBuscarUsuario}" action="#{gruposBean.cargaFiltrosDataModel}"></h:commandButton>
+
+						<h:commandButton value="#{msg.labelRelacionarUsuarios}" action="#{gruposBean.relacionarUsuarios}"></h:commandButton>
+
+						<h:commandButton value="#{msg.labelLimpiar}" action="#{gruposBean.limpiarForm}">
+						</h:commandButton>
+
+					</h:panelGrid>
+				</div>
+			</rich:panel>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msg.labelResultadosEncontrados}"></h:outputText>
+				</f:facet>
+				<rich:dataTable style="width: 100%;" rows="10" var="usuario" binding="#{gruposBean.usuariosDataTable}" id="tablaUsuarios" value="#{gruposBean.usuariosDataModel}">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column />
+							<rich:column width="5%">
+								<h:outputText value="#{msg.labelId}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelNombres}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelPrimerApellido}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelSegundoApellido}"></h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{msg.labelNombreUsuario}"></h:outputText>
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+
+					<rich:column style="width: 5px;">
+						<h:selectBooleanCheckbox id="chk" disabled="#{gruposBean.isTieneGrupo(usuario)}" value="#{gruposBean.idsUsuariosSeleccionados[usuario.usrId]}" />
+					</rich:column>
+
+					<rich:column>
+						<h:outputText value="#{usuario.usrId}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{usuario.usrNom}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{usuario.usrPap}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{usuario.usrSap}"></h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{usuario.usrLog}"></h:outputText>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller id="ds" maxPages="5" ajaxSingle="false" for="tablaUsuarios"></rich:dataScroller>
+					</f:facet>
+				</rich:dataTable>
+			</rich:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+

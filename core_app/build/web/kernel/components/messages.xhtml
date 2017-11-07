@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"> 
+
+	<rich:panel rendered="#{rendered}">
+		<h:panelGrid columns="2">
+			<h:graphicImage rendered="#{passed}" value="/img/icons/ready.png"
+				width="16" height="16" style="margin-right:3px; padding-right:3px;" />
+			<h:graphicImage rendered="#{error}" value="/img/icons/error.png"
+				width="16" height="16" style="margin-right:3px; padding-right:3px;" />
+			<h:outputText value="#{value}" />
+		</h:panelGrid>
+	</rich:panel>
+
+</ui:composition>
+

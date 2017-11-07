@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dnda-trimestral" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_TRIMESTRE_INICIAL" class="java.lang.String"/>
+	<parameter name="P_TRIMESTRE_FINAL" class="java.lang.String"/>
+	<parameter name="P_FORMATO_TIPO_DATO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT RTR_Id_Registro
+      ,RTR_Cuenta
+      ,RTR_Concepto
+      ,RTR_Valor_Recaudo_A
+      ,RTR_Valor_Recaudo_B
+      ,RTR_Variacion
+      ,RTR_Incremento
+  FROM SGC.Reporte_Trimestral]]>
+	</queryString>
+	<field name="RTR_Id_Registro" class="java.lang.Integer"/>
+	<field name="RTR_Cuenta" class="java.lang.String"/>
+	<field name="RTR_Concepto" class="java.lang.String"/>
+	<field name="RTR_Valor_Recaudo_A" class="java.lang.String"/>
+	<field name="RTR_Valor_Recaudo_B" class="java.lang.String"/>
+	<field name="RTR_Variacion" class="java.lang.String"/>
+	<field name="RTR_Incremento" class="java.lang.String"/>
+	<variable name="V_SUM_A" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[new DecimalFormat($P{P_FORMATO_TIPO_DATO}).parse($F{RTR_Valor_Recaudo_A}).doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="V_SUM_B" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[new DecimalFormat($P{P_FORMATO_TIPO_DATO}).parse($F{RTR_Valor_Recaudo_B}).doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="V_SUM_V" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[new DecimalFormat($P{P_FORMATO_TIPO_DATO}).parse($F{RTR_Variacion}).doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="V_SUM_I" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[new DecimalFormat($P{P_FORMATO_TIPO_DATO}).parse($F{RTR_Incremento}).doubleValue()]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="21" width="555" height="30"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE TRIMESTRAL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="57" splitType="Stretch">
+			<textField>
+				<reportElement x="6" y="0" width="543" height="21"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["SOCIEDAD DE AUTORES Y COMPOSITORES DE COLOMBIA - SAYCO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="24" width="543" height="22"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["RECAUDOS " + $P{P_TRIMESTRE_INICIAL} + " Y " + $P{P_TRIMESTRE_FINAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="-1" width="555" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="1" y="1" width="66" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["CUENTA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="1" width="111" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["CONCEPTO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="100" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["RECAUDO TRIMESTRE - " + $P{P_TRIMESTRE_INICIAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="381" y="0" width="99" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["VARIACION"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["RECAUDO TRIMESTRE - " + $P{P_TRIMESTRE_FINAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="75" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["% INCREMENTO"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="-1" width="1" height="29"/>
+			</line>
+			<line>
+				<reportElement x="67" y="1" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="179" y="1" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="279" y="1" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="380" y="0" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="480" y="1" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="555" y="1" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="1" y="28" width="555" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="381" y="1" width="99" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RTR_Variacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="1" width="111" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RTR_Concepto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="1" width="66" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RTR_Cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="1" width="99" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RTR_Valor_Recaudo_A}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="1" width="99" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RTR_Valor_Recaudo_B}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="481" y="1" width="74" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RTR_Incremento}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="16" width="555" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="67" splitType="Stretch">
+			<textField>
+				<reportElement x="379" y="45" width="136" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="45" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="45" width="205" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,###.###">
+				<reportElement x="179" y="2" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{V_SUM_A}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,###.###">
+				<reportElement x="281" y="2" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{V_SUM_B}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,###.###">
+				<reportElement x="382" y="2" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{V_SUM_V}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,###.###">
+				<reportElement x="482" y="2" width="73" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{V_SUM_I}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="3" width="163" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["TOTALES"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
